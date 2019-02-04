@@ -25,4 +25,8 @@ public class Scoreboard {
 		public void setScore(int score) {
 			this.score = score;
 		}
+		
+		public String toString() {
+			return " Votre score est : " + getScore() ;
+		}
 }
