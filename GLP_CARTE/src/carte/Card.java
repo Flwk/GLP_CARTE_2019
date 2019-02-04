@@ -2,6 +2,7 @@ package carte;
 /**
  * 
  * @author bsadiki
+ * 
  */
 public class Card {
 
