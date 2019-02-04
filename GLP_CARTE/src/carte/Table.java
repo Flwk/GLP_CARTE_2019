@@ -1,7 +1,10 @@
 package carte;
 
 import java.util.ArrayList;
-
+/**
+ * 
+ * @author cvericel
+ */
 public class Table {
 		private ArrayList<Player> players;
 		private Stock stock;

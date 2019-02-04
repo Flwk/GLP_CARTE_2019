@@ -1,6 +1,11 @@
 package carte;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author cvericel
+ */
+
 public class Hand {
 		private ArrayList<Card> cards;
 		

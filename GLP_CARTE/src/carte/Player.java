@@ -1,5 +1,8 @@
 package carte;
-
+/**
+ * 
+ * @author cvericel
+ */
 public class Player {
 		
 	private String username;
