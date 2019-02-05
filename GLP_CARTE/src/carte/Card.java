@@ -40,8 +40,7 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return "Card [name=" + name + ", key=" + key + ", picturePath=" + picturePath + ", getName()=" + getName()
-				+ ", getKey()=" + getKey() + ", getPicturePath()=" + getPicturePath() + "]";
+		return "Card [name=" + name + ", key=" + key + ", picturePath=" + picturePath + "]";
 	}
 
 }
