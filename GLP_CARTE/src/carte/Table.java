@@ -9,6 +9,7 @@ public class Table {
 		private ArrayList<Player> players;
 		private Stock stock;
 		private Discard discard;
+		private int type;
 		
 		public Table(Stock stock, Discard discard){
 			this.stock=stock;
@@ -42,6 +43,14 @@ public class Table {
 		
 		public int playersCount() {
 			return players.size();
+		}
+
+		public ArrayList<Player> getPlayers() {
+			return players;
+		}
+
+		public int getType() {
+			return type;
 		}
 		
 }

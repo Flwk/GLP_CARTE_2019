@@ -21,4 +21,10 @@ public class Discard {
 	public int cardCount() {
 		return cards.size();
 	}
+
+	public ArrayList<Card> getCards() {
+		return cards;
+	}
+	
+	
 }
