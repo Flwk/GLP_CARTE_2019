@@ -11,9 +11,10 @@ public class Table {
 		private Discard discard;
 		private int type;
 		
-		public Table(Stock stock, Discard discard){
+		public Table(Stock stock, Discard discard, ArrayList<Player> players){
 			this.stock=stock;
 			this.discard=discard;
+			this.players=players;
 		}
 		
 		public Stock getStock() {
