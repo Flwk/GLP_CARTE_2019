@@ -7,7 +7,7 @@ import carte.Stock;
 
 public class Management {
 		
-		private Stock stock=new Stock();
+		private Stock stock=new Stock() ;
 		
 		public void stockManagement(Hand hand) {
 			Card card= getRamdomCard();
