@@ -1,4 +1,4 @@
-package management;
+package traitement;
 
 import carte.Card;
 import carte.Hand;
@@ -16,7 +16,7 @@ public class Management {
 		}
 		
 		public Card getRamdomCard() {
-			double index= Math.random()*(stock.getSize()-0);
+			double index= Math.random()*(stock.cardCount()-0);
 			return stock.get((int) index);
 		}
 		

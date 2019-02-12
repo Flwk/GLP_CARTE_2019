@@ -16,4 +16,9 @@ public class Stock {
 	public int cardCount() {
 		return cards.size();
 	}
+
+	public Card get(int index) {
+		return cards.get(index);
+	}
+
 }
