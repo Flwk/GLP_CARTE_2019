@@ -10,12 +10,12 @@ public class Management {
 		private Stock stock=new Stock() ;
 		
 		public void stockManagement(Hand hand) {
-			Card card= getRamdomCard();
+			Card card= getRandomCard();
 			hand.add(card);
 			deleteDiscardCard(card);
 		}
 		
-		public Card getRamdomCard() {
+		public Card getRandomCard() {
 			double index= Math.random()*(stock.cardCount()-0);
 			return stock.get((int) index);
 		}
