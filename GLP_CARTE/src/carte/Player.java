@@ -7,7 +7,7 @@ public class Player {
 		
 	private String username;
 	private Scoreboard score;
-	private Hand hand;
+	private Hand hand= new Hand();
 	private String type;
 	
 	public Player(String username, Scoreboard score, Hand hand, String type) {
@@ -47,5 +47,11 @@ public class Player {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public String toString() {
+		String str="\n";
+		str= getUsername() + " nombre de carte:" + hand.cardCount() + getHand()  +"\n";
+		return str;
 	}
 }

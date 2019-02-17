@@ -6,12 +6,10 @@ public class Card {
 
 	private String name;
 	private Integer key;
-	private String picturePath;
 	
-	public Card(String name, Integer key, String picturePath) {
+	public Card(String name, Integer key) {
 		this.name = name;
 		this.key = key;
-		this.picturePath = picturePath;
 	}
 
 	public String getName() {
@@ -29,18 +27,9 @@ public class Card {
 	public void setKey(Integer key) {
 		this.key = key;
 	}
-
-	public String getPicturePath() {
-		return picturePath;
-	}
-
-	public void setPicturePath(String picturePath) {
-		this.picturePath = picturePath;
-	}
-
 	@Override
 	public String toString() {
-		return "Card [name=" + name + ", key=" + key + ", picturePath=" + picturePath + "]";
+		return "Card [name=" + name + ", key=" + key + "]";
 	}
 
 }

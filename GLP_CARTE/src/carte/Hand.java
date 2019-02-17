@@ -24,4 +24,10 @@ public class Hand {
 		public int cardCount() {
 			return cards.size();
 		}
+		
+		public String toString() {
+			String str="";
+			str=cards.toString();
+			return str;
+		}
 }

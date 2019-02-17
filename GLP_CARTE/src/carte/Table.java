@@ -54,4 +54,10 @@ public class Table {
 			return type;
 		}
 		
+		public String toString() {
+			String str="";
+			str=players.toString();
+			return str;
+		}
+		
 }
