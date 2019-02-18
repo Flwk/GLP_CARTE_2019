@@ -51,7 +51,7 @@ public class Player {
 	
 	public String toString() {
 		String str="\n";
-		str= getUsername() + " nombre de carte:" + hand.cardCount() + getHand()  +"\n";
+		str= getUsername() + "\n "+" nombre de carte: " + hand.cardCount()+ "\n" + getHand()  +"\n\n";
 		return str;
 	}
 }

@@ -26,7 +26,6 @@ public class Stock {
 	}
 
 	public int size() {
-		// TODO Auto-generated method stub
 		return cards.size();
 	}
 

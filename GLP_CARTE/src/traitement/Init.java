@@ -20,6 +20,11 @@ public class Init{
 	static Management management=new Management();;
 	static Stock stock=new Stock();
 	static Discard discard=new Discard();
+	
+	public Init() {
+		
+	}
+	
 	public static Table initTable() {
 		initStock();
 		for(int i=0; i<5; i++) {
@@ -184,10 +189,10 @@ public class Init{
 		stock.add(joker_b);
 	}
 	
-	public static void main(String[] args) {
+	public void test() {
 		Table table=initTable();
 		System.out.println("Taille de la pioche après distribution:" + stock.size());
-		System.out.println("Nombre de joueur: \n" + table.getPlayers());
+		System.out.println("Nombre de joueur: \n" + table.getPlayers().toString());
 		System.out.println("");
 	}
 }

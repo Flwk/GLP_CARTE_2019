@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 
+import traitement.Init;
+
 public class Menu extends JFrame{
 	
 	
@@ -140,7 +142,9 @@ public class Menu extends JFrame{
 	
 	class playListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			//a faire
+			System.out.println("test");
+			Init launchTable= new Init();
+			launchTable.test();
 		}
 	}
 	
