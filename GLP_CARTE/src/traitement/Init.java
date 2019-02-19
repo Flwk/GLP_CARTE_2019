@@ -16,17 +16,21 @@ import carte.Table;
  */
 public class Init{
 	
-	private static ArrayList<Player> players=new ArrayList<Player>();
-	static Management management=new Management();;
-	static Stock stock=new Stock();
-	static Discard discard=new Discard();
+	private  ArrayList<Player> players=new ArrayList<Player>();
+	private Management management=new Management();;
+	private  Stock stock=new Stock();
+	private Discard discard=new Discard();
+	private Table table ;
 	
 	public Init() {
-		
+		ArrayList<Player> players=new ArrayList<Player>();
+		Discard discard=new Discard();
+		Stock stock=new Stock();
+		initStock();
 	}
 	
-	public static Table initTable() {
-		initStock();
+	public Table initTable() {
+		
 		for(int i=0; i<5; i++) {
 			players.add(initPlayer(i, stock));
 		}
@@ -34,7 +38,7 @@ public class Init{
 		return table;
 	}
 	
-	public static Player initPlayer(int i, Stock stock) {
+	public Player initPlayer(int i, Stock stock) {
 		Player p=new Player("Player"+i, null, null, null);
 		Hand h= new Hand();
 		Scoreboard score=new Scoreboard(100);
@@ -44,13 +48,13 @@ public class Init{
 		return p;
 	}
 	
-	public static void initHand(Player player, Stock stock) {
+	public void initHand(Player player, Stock stock) {
 		for(int i=0; i<5; i++) {
 			management.stockManagement(player.getHand(), stock);
 		}
 	}
 	
-	public static void initStock() {
+	public void initStock() {
 
 		Card as_trefle=new Card("as de trefle", 11);
 		Card as_coeur=new Card("as de coeur", 12);
@@ -119,7 +123,8 @@ public class Init{
 		
 		Card joker_a=new Card("joker rouge", 141);
 		Card joker_b=new Card("joker noir", 142);
-
+		
+		
 		stock.add(as_trefle);
 		stock.add(as_coeur);
 		stock.add(as_pic);
@@ -187,12 +192,17 @@ public class Init{
 		
 		stock.add(joker_a);
 		stock.add(joker_b);
+		
 	}
 	
 	public void test() {
-		Table table=initTable();
+		table=initTable();
 		System.out.println("Taille de la pioche après distribution:" + stock.size());
-		System.out.println("Nombre de joueur: \n" + table.getPlayers().toString());
+		//System.out.println("Nombre de joueur: \n" + table.getPlayers().toString());
 		System.out.println("");
+	}
+	
+	public Table getTable() {
+		return table;
 	}
 }

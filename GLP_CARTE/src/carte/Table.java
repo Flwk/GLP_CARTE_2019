@@ -59,5 +59,9 @@ public class Table {
 			str=players.toString();
 			return str;
 		}
+
+		public void setPlayers(ArrayList<Player> players) {
+			this.players = players;
+		}
 		
 }

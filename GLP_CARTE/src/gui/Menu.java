@@ -31,27 +31,22 @@ public class Menu extends JFrame{
 	JTextField txt = new JTextField();
 	JButton buttonMore = new JButton("+");
 	JButton buttonLess = new JButton("-");
+	Init launchTable;
+	MainGUI main = new MainGUI();
 	
-	
-	
-	public static void main(String[] args) {
-		
-		Menu frame= new Menu();
-		frame.setVisible(true);
-		
-	}
+
 	
 	public Menu() {
-		
 		setTitle("Tu n'y peux rien ! MENU");
 		setFont(new Font("Dialog", Font.PLAIN, 20));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 780, 515);
-		
+		this.setVisible(true);
 		
 		//construction de la fenetre
 		build();
 		panel();
+		
 	}
 	
 	public void build() {
@@ -128,6 +123,15 @@ public class Menu extends JFrame{
 		
 	}
 	
+	public void quit() {
+		this.dispose();
+	}
+	
+	public Init getInit() {
+		return launchTable;
+		
+	}
+	
 	class modeEntrainementListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			//a faire
@@ -142,9 +146,13 @@ public class Menu extends JFrame{
 	
 	class playListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("test");
-			Init launchTable= new Init();
-			launchTable.test();
+			//Init launchTable = new Init();
+			//launchTable.test();
+			quit();
+			MainGUI main = new MainGUI();
+			main.show();
+			
+			
 		}
 	}
 	

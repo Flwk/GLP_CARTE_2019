@@ -22,12 +22,14 @@ public class EndGame {
 			if ((players.getScore(i))==0) {
 			winner= Table.players.get(i);
 			}
-			return winner; 
 		
 			else {
 			Table.getMethod(initTable();
-			}
+			} 
 		}
+		return winner;
+	}
+}
 		
 		
 		
