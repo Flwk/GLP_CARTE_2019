@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
@@ -33,27 +34,26 @@ public class Menu extends JFrame{
 	JButton buttonLess = new JButton("-");
 	Init launchTable;
 	MainGUI main = new MainGUI();
-	
-
+	int nbPlayer=1;
+	int rulesTypes=0;
 	
 	public Menu() {
 		setTitle("Tu n'y peux rien ! MENU");
 		setFont(new Font("Dialog", Font.PLAIN, 20));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 780, 515);
-		this.setVisible(true);
-		
-		//construction de la fenetre
 		build();
 		panel();
 		
+		this.setVisible(true);
+		
+		//construction de la fenetre
+				
 	}
 	
 	public void build() {
 		
-		
-		
-		
+
 		buttonEntrainement.setForeground(Color.WHITE);
 		buttonEntrainement.setBackground(Color.DARK_GRAY);
 		buttonEntrainement.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -62,7 +62,7 @@ public class Menu extends JFrame{
 		
 		
 		buttonNormal.setForeground(Color.WHITE);
-		buttonNormal.setBackground(Color.DARK_GRAY);
+		buttonNormal.setBackground(Color.LIGHT_GRAY);
 		buttonNormal.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		buttonNormal.setBounds(313, 42, 340, 136);
 		buttonNormal.addActionListener(new modeNormalListener());
@@ -85,9 +85,9 @@ public class Menu extends JFrame{
 		txt.setForeground(Color.WHITE);
 		txt.setBackground(Color.DARK_GRAY);
 		txt.setBounds(306, 371, 206, 71);
-		panel.add(txt);
-		
-		
+		txt.setText("Nombre de Joueur: " + nbPlayer);
+	
+
 		buttonMore.setForeground(Color.WHITE);
 		buttonMore.setBackground(Color.DARK_GRAY);
 		buttonMore.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -99,7 +99,7 @@ public class Menu extends JFrame{
 		buttonLess.setBackground(Color.DARK_GRAY);
 		buttonLess.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		buttonLess.setBounds(524, 371, 97, 71);
-		buttonMore.addActionListener(new decrementListener());
+		buttonLess.addActionListener(new decrementListener());
 		
 	}
 	
@@ -118,7 +118,7 @@ public class Menu extends JFrame{
 		panel.add(buttonPlay);
 		panel.add(buttonMore);
 		panel.add(buttonLess);
-		
+		panel.add(txt);
 		
 		
 	}
@@ -134,13 +134,22 @@ public class Menu extends JFrame{
 	
 	class modeEntrainementListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			//a faire
+			if(rulesTypes == 0) {
+				rulesTypes=1;
+				buttonEntrainement.setBackground(Color.LIGHT_GRAY);
+				buttonNormal.setBackground(Color.DARK_GRAY);
+			}
+			
 		}
 	}
 	
 	class modeNormalListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			//a faire
+			if(rulesTypes == 1) {
+				rulesTypes=0;
+				buttonEntrainement.setBackground(Color.DARK_GRAY);
+				buttonNormal.setBackground(Color.LIGHT_GRAY);
+			}
 		}
 	}
 	
@@ -151,20 +160,30 @@ public class Menu extends JFrame{
 			quit();
 			MainGUI main = new MainGUI();
 			main.show();
-			
-			
 		}
 	}
 	
 	class incrementListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			//a faire
+			if(nbPlayer<5) {
+				nbPlayer++;
+			}
+			else {
+				JOptionPane.showMessageDialog( null, "MAXIMUM 5 JOUEUR!!", "ERREUR NOMBRE DE JOUEUR", JOptionPane.ERROR_MESSAGE);
+			}
+			txt.setText("Nombre de Joueur: " + nbPlayer);
 		}
 	}
 	
 	class decrementListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			//a faire
+			if(nbPlayer>1) {
+				nbPlayer--;
+			}
+			else {
+				JOptionPane.showMessageDialog( null, "MINIMUM 1 JOUEUR!!", "ERREUR NOMBRE DE JOUEUR", JOptionPane.ERROR_MESSAGE);
+			}
+			txt.setText("Nombre de Joueur: " + nbPlayer);
 		}
 	}
 }
