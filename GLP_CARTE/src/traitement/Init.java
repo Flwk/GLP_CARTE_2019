@@ -21,17 +21,21 @@ public class Init{
 	private  Stock stock=new Stock();
 	private Discard discard=new Discard();
 	private Table table ;
+	private int nbPlayer=5;
 	
 	public Init() {
 		ArrayList<Player> players=new ArrayList<Player>();
 		Discard discard=new Discard();
-		Stock stock=new Stock();
+		Stock stock=new Stock();		
+	}
+	
+	public void launch() {
 		initStock();
 	}
 	
 	public Table initTable() {
 		
-		for(int i=0; i<5; i++) {
+		for(int i=0; i<nbPlayer; i++) {
 			players.add(initPlayer(i, stock));
 		}
 		Table table=new Table(stock, discard, players);
@@ -204,5 +208,9 @@ public class Init{
 	
 	public Table getTable() {
 		return table;
+	}
+
+	public void setNbPlayer(int nbPlayer) {
+		this.nbPlayer = nbPlayer;
 	}
 }

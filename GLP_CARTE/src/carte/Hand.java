@@ -30,4 +30,8 @@ public class Hand {
 			str=cards.toString();
 			return str;
 		}
+		
+		public int getCardKey (int index) {
+			return cards.get(index).getKey();
+		}
 }

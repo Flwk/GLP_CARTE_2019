@@ -159,6 +159,7 @@ public class Menu extends JFrame{
 			//launchTable.test();
 			quit();
 			MainGUI main = new MainGUI();
+			main.setNbPlayer(nbPlayer);
 			main.show();
 		}
 	}

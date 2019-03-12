@@ -5,9 +5,9 @@ package carte;
 public class Card {
 
 	private String name;
-	private Integer key;
+	private int key;
 	
-	public Card(String name, Integer key) {
+	public Card(String name, int key) {
 		this.name = name;
 		this.key = key;
 	}
@@ -20,11 +20,11 @@ public class Card {
 		this.name = name;
 	}
 
-	public Integer getKey() {
+	public int getKey() {
 		return key;
 	}
 
-	public void setKey(Integer key) {
+	public void setKey(int key) {
 		this.key = key;
 	}
 	@Override
