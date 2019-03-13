@@ -17,6 +17,7 @@ import traitement.Init;
 import traitement.Management;
 import carte.picturePath;
 
+
 public class MainGUI {
 	private JFrame frame;
 	private JTextField textField;
@@ -63,7 +64,7 @@ public class MainGUI {
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
-		JButton btnNewButton_1 = new JButton(new ImageIcon("C:\\Users\\cleme\\OneDrive\\Documents\\GLP\\GLP-Cartes-master\\resources\\images\\cover.gif"));
+		JButton btnNewButton_1 = new JButton(new ImageIcon("resources\\images\\cover.gif"));
 		btnNewButton_1.setBounds(538, 215, 97, 143);
 		frame.getContentPane().add(btnNewButton_1);
 		
@@ -72,15 +73,15 @@ public class MainGUI {
 		frame.getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 		
-		button = new JButton(new ImageIcon("C:\\Users\\cleme\\OneDrive\\Documents\\GLP\\GLP-Cartes-master\\resources\\images\\cover.gif"));
+		button = new JButton(new ImageIcon("resources\\images\\cover.gif"));
 		button.setBounds(151, 0, 97, 143);
 		frame.getContentPane().add(button);
 		
-		button_1 = new JButton(new ImageIcon("C:\\Users\\cleme\\OneDrive\\Documents\\GLP\\GLP-Cartes-master\\resources\\images\\cover.gif"));
+		button_1 = new JButton(new ImageIcon("resources\\images\\cover.gif"));
 		button_1.setBounds(245, 0, 97, 143);
 		frame.getContentPane().add(button_1);
 		
-		button_2 = new JButton(new ImageIcon("C:\\Users\\cleme\\OneDrive\\Documents\\GLP\\GLP-Cartes-master\\resources\\images\\cover.gif"));
+		button_2 = new JButton(new ImageIcon("resources\\images\\cover.gif"));
 		button_2.setBounds(341, 0, 97, 143);
 		frame.getContentPane().add(button_2);
 	}

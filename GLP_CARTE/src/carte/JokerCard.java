@@ -2,11 +2,12 @@ package carte;
 
 public class JokerCard extends Card {
 
+	
 	private String name;
 	private Integer key;
 	private String picturePath;
 	public JokerCard(String name, Integer key, String picturePath) {
-		super(name, key, picturePath);
+		super(name, key);
 		// TODO Auto-generated constructor stub
 	}
 	public String getName() {
@@ -15,7 +16,7 @@ public class JokerCard extends Card {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getKey() {
+	public int getKey() {
 		return key;
 	}
 	public void setKey(Integer key) {
