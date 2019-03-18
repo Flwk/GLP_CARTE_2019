@@ -27,6 +27,7 @@ public class Menu extends JFrame{
 	JPanel panel = new JPanel();
 	JButton buttonEntrainement = new JButton("Mode Entrainement");
 	JButton buttonNormal = new JButton("Mode Normal");
+	JButton info = new JButton("i");
 	JList list = new JList();
 	JButton buttonPlay = new JButton("Jouer");
 	JTextField txt = new JTextField();
@@ -101,6 +102,12 @@ public class Menu extends JFrame{
 		buttonLess.setBounds(524, 371, 97, 71);
 		buttonLess.addActionListener(new decrementListener());
 		
+		
+
+		info.setBackground(Color.white);
+		info.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		info.setBounds(0, 0, 30, 30);
+		info.addActionListener(new infoListener());
 	}
 	
 	
@@ -112,6 +119,7 @@ public class Menu extends JFrame{
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
+		panel.add(info);
 		panel.add(buttonEntrainement);
 		panel.add(buttonNormal);
 		panel.add(list);
@@ -185,6 +193,12 @@ public class Menu extends JFrame{
 				JOptionPane.showMessageDialog( null, "MINIMUM 1 JOUEUR!!", "ERREUR NOMBRE DE JOUEUR", JOptionPane.ERROR_MESSAGE);
 			}
 			txt.setText("Nombre de Joueur: " + nbPlayer);
+		}
+	}
+	
+	class infoListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			rulesGui frame= new rulesGui();
 		}
 	}
 }
