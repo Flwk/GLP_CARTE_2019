@@ -50,13 +50,13 @@ public class MainGUI {
 	private void initialize() {
 		ArrayList<JButton> listButton = new ArrayList<JButton>();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 716, 551);
+		frame.setBounds(100, 100, 1000, 551);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		JScrollPane scrollPane = new JScrollPane(p,
                 JScrollPane.VERTICAL_SCROLLBAR_NEVER,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(64,330, 500, 143);
+		scrollPane.setBounds(64,330, 500, 170);
 		frame.getContentPane().add(scrollPane);
 		
 		textField = new JTextField();
@@ -65,7 +65,7 @@ public class MainGUI {
 		//textField.setColumns(10);
 		
 		JButton passerButton = new JButton("Passer");
-		passerButton.setBounds(550, 449, 97, 25);
+		passerButton.setBounds(580, 449, 180, 50);
 		frame.getContentPane().add(passerButton);
 		passerButton.addActionListener(new PasserListener());
 		
@@ -75,11 +75,11 @@ public class MainGUI {
 		textField_1.setColumns(10);
 		
 		JButton btnNewButton_1 = new JButton(new ImageIcon("resources\\images\\cover.gif"));
-		btnNewButton_1.setBounds(538, 215, 97, 143);
+		btnNewButton_1.setBounds(600, 215, 97, 143);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(538, 191, 97, 22);
+		textField_2.setBounds(600, 191, 97, 22);
 		frame.getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 		
@@ -115,16 +115,15 @@ public class MainGUI {
 		for(int k=0; k<launchTable.getTable().getPlayers().get(i).getHand().cardCount(); k++) {
 			int key=launchTable.getTable().getPlayers().get(i).getHand().getCardKey(k);
 			
-			//System.out.println(picturePath.getPicturePath(key));
 			JButton cartButton = new JButton(new ImageIcon(picturePath.getPicturePath(key)));
-			//cartButton.setBounds(x, 330, 97, 143);
+			cartButton.setPreferredSize(new Dimension(97, 143));
 			listButton.add(cartButton);
 			p.add(cartButton);
 			p.repaint();
 			//frame.repaint();
 			
 		}
-		System.out.println("---------------------");
+		
 	}
 	
 	
@@ -132,7 +131,6 @@ public class MainGUI {
 		int j=listButton.size() - 1;
 		while(j>=0) {
 			p.remove(listButton.get(j));
-			System.out.println(listButton.size());
 			listButton.remove(j);
 			j=j-1;
 		}
@@ -151,7 +149,6 @@ public class MainGUI {
 	public  void show() {
 		this.frame.setVisible(true);
 		Init();
-		System.out.println(launchTable.getTable().getPlayers().toString());
 
 		tempor();
 
