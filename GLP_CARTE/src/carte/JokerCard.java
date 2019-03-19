@@ -2,7 +2,6 @@ package carte;
 
 public class JokerCard extends Card {
 
-	
 	private String name;
 	private Integer key;
 	private String picturePath;

@@ -1,14 +1,17 @@
 package gui;
 
-import java.awt.EventQueue;
+import java.awt.*;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.Icon;
+import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import carte.Player;
@@ -32,6 +35,8 @@ public class MainGUI {
 	private Management management=new Management();
 	private ArrayList<JButton> listButton = new ArrayList<JButton>();
 	private int nbPlayer;
+	private JScrollPane scrollPane ;
+	private JPanel p = new JPanel();
 	/**
 	 * Create the application.
 	 */
@@ -48,9 +53,14 @@ public class MainGUI {
 		frame.setBounds(100, 100, 716, 551);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		JScrollPane scrollPane = new JScrollPane(p,
+                JScrollPane.VERTICAL_SCROLLBAR_NEVER,
+                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(64,330, 500, 143);
+		frame.getContentPane().add(scrollPane);
 		
 		textField = new JTextField();
-		textField.setBounds(64, 432, 454, 59);
+		textField.setBounds(64, 432, 94, 59);
 		//frame.getContentPane().add(textField);
 		//textField.setColumns(10);
 		
@@ -86,6 +96,9 @@ public class MainGUI {
 		frame.getContentPane().add(button_2);
 	}
 	
+	public JPanel getPanel() {
+		return p;
+	}
 	public void settextField(Player player) {
 		textField.setText(player.getHand().toString());
 		String count ;
@@ -104,24 +117,27 @@ public class MainGUI {
 			
 			//System.out.println(picturePath.getPicturePath(key));
 			JButton cartButton = new JButton(new ImageIcon(picturePath.getPicturePath(key)));
-			cartButton.setBounds(x, 330, 97, 143);
+			//cartButton.setBounds(x, 330, 97, 143);
 			listButton.add(cartButton);
-			frame.getContentPane().add(cartButton);
-			x=x+98;
+			p.add(cartButton);
+			p.repaint();
+			//frame.repaint();
 			
 		}
 		System.out.println("---------------------");
 	}
 	
+	
 	public void tempor2() {
 		int j=listButton.size() - 1;
 		while(j>=0) {
-			frame.getContentPane().remove(listButton.get(j));
+			p.remove(listButton.get(j));
 			System.out.println(listButton.size());
 			listButton.remove(j);
 			j=j-1;
 		}
-		frame.repaint();
+		//frame.repaint();
+		p.repaint();
 		tempor();
 	}
 	
