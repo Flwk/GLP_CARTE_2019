@@ -37,6 +37,7 @@ public class MainGUI {
 	private int nbPlayer;
 	private JScrollPane scrollPane ;
 	private JPanel p = new JPanel();
+	private ArrayList<String> cards = new ArrayList<String>();
 	/**
 	 * Create the application.
 	 */
@@ -68,6 +69,11 @@ public class MainGUI {
 		passerButton.setBounds(580, 449, 180, 50);
 		frame.getContentPane().add(passerButton);
 		passerButton.addActionListener(new PasserListener());
+		
+		JButton jouerButton = new JButton("jouer");
+		jouerButton.setBounds(580, 400, 180, 50);
+		jouerButton.addActionListener(new jouerListener());
+		frame.getContentPane().add(jouerButton);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(64, 305, 116, 22);
@@ -118,9 +124,13 @@ public class MainGUI {
 			JButton cartButton = new JButton(new ImageIcon(picturePath.getPicturePath(key)));
 			cartButton.setPreferredSize(new Dimension(97, 143));
 			listButton.add(cartButton);
+			cartButton.setActionCommand(String.valueOf(key));
+			cartButton.addActionListener(new SelectionListener());
 			p.add(cartButton);
 			p.repaint();
-			//frame.repaint();
+			p.revalidate();
+			frame.repaint();
+			frame.revalidate();
 			
 		}
 		
@@ -136,6 +146,9 @@ public class MainGUI {
 		}
 		//frame.repaint();
 		p.repaint();
+		p.revalidate();
+		frame.repaint();
+		frame.revalidate();
 		tempor();
 	}
 	
@@ -171,6 +184,46 @@ public class MainGUI {
 	public void setNbPlayer(int nbPlayer) {
 		this.nbPlayer = nbPlayer;
 	}
+	class SelectionListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			int i;
+			int test=0;
+			for(i=0;i<cards.size();i++) {
+				if(String.valueOf(cards.get(i))==String.valueOf(e.getActionCommand())) {
+					cards.remove(i);
+					test=1;
+				}
+			}
+			if(test==0) {
+				cards.add(e.getActionCommand());
+				System.out.println(e.getActionCommand());
+			}
+			
+			
+		}
+	}
+	
+	class jouerListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			if(!cards.isEmpty()) {
+				int a;
+				
+				for(a=0;a<cards.size();a++) {
+					Integer inter = Integer.valueOf(cards.get(a));
+					launchTable.getTable().getPlayers().get(i).getHand().remove(inter);
+				}
+			}
+			if (i<nbPlayer - 1) {
+				i = i + 1;
+			}
+			else {
+			i=0;
+			}
+			tempor2();
+		}
+	}
 }
+
+
 
 

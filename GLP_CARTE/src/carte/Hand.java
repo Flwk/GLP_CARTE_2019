@@ -17,8 +17,13 @@ public class Hand {
 			cards.add(card);
 		}
 		
-		public void remove(Card card) {
-			cards.remove(card);
+		public void remove(int key) {
+			int i;
+			for(i=0;i<cards.size();i++) {
+				if(cards.get(i).getKey()==key) {
+					cards.remove(i);
+				}
+			}
 		}
 		
 		public int cardCount() {
