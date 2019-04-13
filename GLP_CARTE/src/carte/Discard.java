@@ -3,7 +3,11 @@ package carte;
 import java.util.ArrayList;
 
 public class Discard {
-
+	//type 1 == 1 cartes jouées
+	//.... 2 == 2 ....
+	//.... 3 == 3 ....
+	//....
+	private int type;
 	private ArrayList<Card> cards;
 	
 	public Discard() {
@@ -26,5 +30,11 @@ public class Discard {
 		return cards;
 	}
 	
+	public int getType() {
+		return type;
+	}
+	public void setType(int typePlayed) {
+		type=typePlayed;
+	}
 	
 }

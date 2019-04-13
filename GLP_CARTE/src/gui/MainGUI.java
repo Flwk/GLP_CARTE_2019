@@ -7,17 +7,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 import carte.Player;
 import carte.Table;
 import traitement.Init;
 import traitement.Management;
+import traitement.PlayerAction;
 import carte.picturePath;
 
 
@@ -35,9 +30,10 @@ public class MainGUI {
 	private Management management=new Management();
 	private ArrayList<JButton> listButton = new ArrayList<JButton>();
 	private int nbPlayer;
-	private JScrollPane scrollPane ;
+	private JScrollPane scrollPane;
 	private JPanel p = new JPanel();
 	private ArrayList<String> cards = new ArrayList<String>();
+	PlayerAction pa=new PlayerAction();
 	/**
 	 * Create the application.
 	 */
@@ -184,6 +180,7 @@ public class MainGUI {
 	public void setNbPlayer(int nbPlayer) {
 		this.nbPlayer = nbPlayer;
 	}
+	
 	class SelectionListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			int i;
@@ -199,19 +196,28 @@ public class MainGUI {
 				System.out.println(e.getActionCommand());
 			}
 			
-			
 		}
 	}
 	
 	class jouerListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			if(!cards.isEmpty()) {
-				int a;
 				
-				for(a=0;a<cards.size();a++) {
-					Integer inter = Integer.valueOf(cards.get(a));
-					launchTable.getTable().getPlayers().get(i).getHand().remove(inter);
+				
+				if(pa.verify(cards, launchTable.getTable().getDiscard())) {
+					launchTable.getTable().getDiscard().setType(cards.size());
+					System.out.println(launchTable.getTable().getDiscard().getType());
+					for(int a=0;a<cards.size();a++) {
+						Integer inter = Integer.valueOf(cards.get(a));
+						launchTable.getTable().getDiscard().add(cards);// A faire des modif
+						launchTable.getTable().getPlayers().get(i).getHand().remove(inter);
+					}
 				}
+				else {
+					JOptionPane.showMessageDialog( null, "mauvaise carte", "mauvaise carte jouée", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				
 			}
 			if (i<nbPlayer - 1) {
 				i = i + 1;
@@ -220,6 +226,7 @@ public class MainGUI {
 			i=0;
 			}
 			tempor2();
+			cards.clear();
 		}
 	}
 }

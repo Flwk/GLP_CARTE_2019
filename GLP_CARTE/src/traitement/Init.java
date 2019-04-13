@@ -26,6 +26,7 @@ public class Init{
 	public Init() {
 		ArrayList<Player> players=new ArrayList<Player>();
 		Discard discard=new Discard();
+		discard.setType(0);
 		Stock stock=new Stock();		
 	}
 	
