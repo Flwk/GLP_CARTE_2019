@@ -37,4 +37,8 @@ public class Discard {
 		type=typePlayed;
 	}
 	
+	public int getLastCardPlay() {
+		int nbr=cardCount();
+		return cards.get(nbr-1).getKey();
+	}
 }

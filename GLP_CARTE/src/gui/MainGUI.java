@@ -5,9 +5,9 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.*;
-
 import carte.Player;
 import carte.Table;
 import traitement.Init;
@@ -17,7 +17,7 @@ import carte.picturePath;
 import carte.Card;
 
 public class MainGUI {
-	
+	int turn=0;
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -28,6 +28,7 @@ public class MainGUI {
 	private JButton button;
 	private JButton button_1;
 	private JButton button_2;
+	private JButton discardButton;
 	private Management management=new Management();
 	private ArrayList<JButton> listButton = new ArrayList<JButton>();
 	private int nbPlayer;
@@ -78,25 +79,21 @@ public class MainGUI {
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
-		JButton btnNewButton_1 = new JButton(new ImageIcon("resources\\images\\cover.gif"));
-		btnNewButton_1.setBounds(600, 215, 97, 143);
-		frame.getContentPane().add(btnNewButton_1);
+		
+		discardButton=new JButton(new ImageIcon("resources\\images\\cover.gif"));
+		discardButton.setBounds(341, 0, 97, 143);
+		frame.getContentPane().add(discardButton);
 		
 		textField_2 = new JTextField();
 		textField_2.setBounds(600, 191, 97, 22);
 		frame.getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 		
-		button = new JButton(new ImageIcon("resources\\images\\cover.gif"));
-		button.setBounds(151, 0, 97, 143);
-		frame.getContentPane().add(button);
 		
-		button_1 = new JButton(new ImageIcon("resources\\images\\cover.gif"));
-		button_1.setBounds(245, 0, 97, 143);
-		frame.getContentPane().add(button_1);
+		
 		
 		button_2 = new JButton(new ImageIcon("resources\\images\\cover.gif"));
-		button_2.setBounds(341, 0, 97, 143);
+		button_2.setBounds(600, 215, 97, 143);
 		frame.getContentPane().add(button_2);
 	}
 	
@@ -124,6 +121,11 @@ public class MainGUI {
 			listButton.add(cartButton);
 			cartButton.setActionCommand(String.valueOf(key));
 			cartButton.addActionListener(new SelectionListener());
+			
+			if(turn != 0) {
+				discardButton.setIcon((new ImageIcon(picturePath.getPicturePath(launchTable.getTable().getDiscard().getLastCardPlay()))));
+			}
+			
 			p.add(cartButton);
 			p.repaint();
 			p.revalidate();
@@ -142,7 +144,6 @@ public class MainGUI {
 			listButton.remove(j);
 			j=j-1;
 		}
-		//frame.repaint();
 		p.repaint();
 		p.revalidate();
 		frame.repaint();
@@ -195,7 +196,6 @@ public class MainGUI {
 			}
 			if(test==0) {
 				cards.add(e.getActionCommand());
-				System.out.println(e.getActionCommand());
 			}
 			
 		}
@@ -204,36 +204,46 @@ public class MainGUI {
 	class jouerListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			if(!cards.isEmpty()) {
+				
 				for(int a=0; a<cards.size(); a++) {
 					Integer inter = Integer.valueOf(cards.get(a));
 					card.add(Card.getCardWithKey(inter));
 				}
-				if(pa.verify(card, launchTable.getTable().getDiscard())) {
+				//test si la (les) carte(s) jouée(s) son(t) valide(nt)
+				int isValid=pa.verify(card, launchTable.getTable().getDiscard());
+				
+				if(isValid == 1 || isValid == 2) {
 					launchTable.getTable().getDiscard().setType(cards.size());
 					for(int a=0; a<cards.size(); a++) {
 						Integer inter = Integer.valueOf(cards.get(a));
 						launchTable.getTable().getDiscard().add(Card.getCardWithKey(inter));
 						launchTable.getTable().getPlayers().get(i).getHand().remove(inter);
-						card.remove(Card.getCardWithKey(inter));
 					}
+					turn++;
 				}
-				else {
+				else{
 					JOptionPane.showMessageDialog( null, "mauvaise carte", "mauvaise carte jouée", JOptionPane.ERROR_MESSAGE);
 				}
-				
-				
+
+			if(isValid == 2) {
+				launchTable.getTable().getDiscard().setType(0);
 			}
-			if (i<nbPlayer - 1) {
-				i = i + 1;
-			}
-			else {
-			i=0;
+			else if (isValid == 1) {
+				if(i<nbPlayer - 1) {
+					i = i + 1;
+				}
+				else {
+				i=0;
+				}
 			}
 			tempor2();
 			cards.clear();
+			card.clear();
 		}
 	}
 }
+}
+
 
 
 

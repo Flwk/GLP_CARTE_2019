@@ -11,78 +11,129 @@ import carte.*;
 public class PlayerAction {
 	private ArrayList<String> listC= new ArrayList<String>();
 	private static PlayerAction instance = new PlayerAction();
-	private Discard lastPlay=new Discard();
 	public PlayerAction(){
 
 }
 	
-	public boolean verify(ArrayList<Card> cards, Discard discard) {
-		Discard lastPlay=discard;
+	public int verify(ArrayList<Card> cards, Discard discard) {
+		
 		switch(cards.size()) {
 		case 1:
-			if(isLegit(cards.get(0))) {
-				System.out.println("test");
-				return true;
+			if(isLegit(cards.get(0), discard) == 1) {
+				return 1;
 			}
-			
+			else if(isLegit(cards.get(0), discard) == 0) {
+				return 0;
+			}
 			break;
 		case 2:
-				return true;
+			if(isLegit(cards.get(0), cards.get(1), discard) == 1) {
+				return 1;
+			}
+			return 0;
 		
 		case 3:
+			return 0;
 			
-			break;
 		default:
+			return 0;
 		}
-		return false;
+		
+		return 2;
 	}
 
-Boolean isLegit(Card card) {
-	System.out.println(lastPlay.getType());
+public int isLegit(Card card, Discard lastPlay) {
 	if(lastPlay.getType()==0) {
-		System.out.println("test5");
 		lastPlay.setType(1);
-		return true;
+		return 1;
 	}
 	else if(lastPlay.getType() == 1) { // Si c'est la premiere carte joué toute carte est accepté
-			System.out.println("test5bis");
 			int nbr=lastPlay.cardCount();
-			int lastKey=lastPlay.getCards().get(nbr).getKey();
+			int lastKey=lastPlay.getCards().get(nbr-1).getKey();
 			if(isJoker(lastKey)) {
-				lastKey=lastPlay.getCards().get(nbr).getKey()+10;
+				lastKey=lastPlay.getCards().get(nbr-2).getKey()+10;
 			}
 			int cardPlayKey= card.getKey();
-			if(isJoker(cardPlayKey) || cardPlayKey == 21 || cardPlayKey == 22 || cardPlayKey == 23 || cardPlayKey == 24) {
+			if(isJoker(cardPlayKey)) {
 				lastPlay.setType(1);
-				System.out.println("testbeta");
-				return true; //Si la carte est un joker ou un 2on accepte la carte
+				return 1; //Si la carte est un joker ou un 2 on accepte la carte
+			}
+			else if(cardPlayKey == 21 || cardPlayKey == 22 || cardPlayKey == 23 || cardPlayKey == 24){
+				return 2;
 			}
 			else {
-				if(cardPlayKey - lastKey > 14) { // Si la carte ne suit pas on refuse
-					System.out.println("test6");
-					return false;
+				int a=cardPlayKey - lastKey;
+				if(Math.abs(a) > 14 || cardPlayKey - lastKey < 4) { // Si la carte ne suit pas on refuse
+					return 0;
 				}
 				else {
 					lastPlay.setType(1);
-					System.out.println("testal");
-					return true;
+					return 1;
 					
 				}
 			}
 	}
 	else{
-		System.out.println("test5c");
-		return false;
+		return 0;
 	}
 	
 }
 	
-Boolean isLegit(String card1, String card2) {
-	return true;
-	
+int isLegit(Card c1, Card c2, Discard lastPlay) {
+	if(lastPlay.getType()==0) {
+		if(isDouble(c1, c2)){
+				lastPlay.setType(2);
+				return 1;
+		}
+		return 0;
+	}
+	else if(lastPlay.getType()==2) {
+		
+		int nbr=lastPlay.cardCount();
+		int lastKey=lastPlay.getCards().get(nbr-1).getKey();
+		if(isJoker(lastKey)) {
+			lastKey=lastPlay.getCards().get(nbr-2).getKey()+10;
+		}
+		
+		if(c1.getKey()-20 < 5 && isDouble(c1, c2, lastKey)){
+			return 2;
+		}
+		else {
+			if(c1.getKey() == lastKey) {
+				return 0;
+			}
+			else if(c1.getKey() - lastKey < 14 && isDouble(c1, c2, lastKey)) {
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+	}
+	else {
+		return 0;
+	}
 }
-	
-	
+//isDouble pour les debuts de partie
+Boolean isDouble(Card c1, Card c2) {
+	int val=c1.getKey() - c2.getKey();
+	if(Math.abs(val) < 4 || (isJoker(c1.getKey()) || (isJoker(c2.getKey())))){
+		return true;
+	}
+	else {
+		return false;
+	}
+}	
+//Test si les cartes sont bien des doubles
+Boolean isDouble(Card c1, Card c2, int lastKey) {
+	int val=c1.getKey() - c2.getKey();
+	if(Math.abs(val) < 4 || (isJoker(c1.getKey()) && (c2.getKey() - lastKey < 14) || (isJoker(c2.getKey()) && (c1.getKey() - lastKey < 14)))){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 	
 Boolean isBomb(ArrayList<String> listC) {
 	int i;
@@ -113,20 +164,6 @@ Boolean isSuit(ArrayList<String> listC) {
 		}
 		return true;
 	}
-}
-
-Boolean isDouble(ArrayList<String> ListC) {
-	int i=0;
-	while(i<ListC.size()) {
-		if (ListC.size()<2) {
-			return false;
-		}
-		else if (ListC.get(i) == ListC.get(i+1)) {
-			return true;
-		}
-		i++;
-	}
-	return null;
 }
 
 Boolean isLegal(ArrayList<String> listC, Table table) {
