@@ -16,24 +16,19 @@ public class PlayerAction {
 
 }
 	
-	public boolean verify(ArrayList<String> listKey, Discard discard) {
-		System.out.println("test");
+	public boolean verify(ArrayList<Card> cards, Discard discard) {
 		Discard lastPlay=discard;
-		System.out.println("test1");
-		switch(listKey.size()) {
+		switch(cards.size()) {
 		case 1:
-			System.out.println("test3");
-			if(isLegit(listKey.get(0))) {
-				System.out.println("test3bis");
+			if(isLegit(cards.get(0))) {
+				System.out.println("test");
 				return true;
 			}
 			
 			break;
 		case 2:
-			if(isLegit(listKey.get(0), listKey.get(1))) {
 				return true;
-			}
-			break;
+		
 		case 3:
 			
 			break;
@@ -42,7 +37,7 @@ public class PlayerAction {
 		return false;
 	}
 
-Boolean isLegit(String keyCard1) {
+Boolean isLegit(Card card) {
 	System.out.println(lastPlay.getType());
 	if(lastPlay.getType()==0) {
 		System.out.println("test5");
@@ -56,7 +51,7 @@ Boolean isLegit(String keyCard1) {
 			if(isJoker(lastKey)) {
 				lastKey=lastPlay.getCards().get(nbr).getKey()+10;
 			}
-			int cardPlayKey= Integer.valueOf(keyCard1);
+			int cardPlayKey= card.getKey();
 			if(isJoker(cardPlayKey) || cardPlayKey == 21 || cardPlayKey == 22 || cardPlayKey == 23 || cardPlayKey == 24) {
 				lastPlay.setType(1);
 				System.out.println("testbeta");
@@ -64,6 +59,7 @@ Boolean isLegit(String keyCard1) {
 			}
 			else {
 				if(cardPlayKey - lastKey > 14) { // Si la carte ne suit pas on refuse
+					System.out.println("test6");
 					return false;
 				}
 				else {

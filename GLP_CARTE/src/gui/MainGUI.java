@@ -14,9 +14,10 @@ import traitement.Init;
 import traitement.Management;
 import traitement.PlayerAction;
 import carte.picturePath;
-
+import carte.Card;
 
 public class MainGUI {
+	
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -33,6 +34,7 @@ public class MainGUI {
 	private JScrollPane scrollPane;
 	private JPanel p = new JPanel();
 	private ArrayList<String> cards = new ArrayList<String>();
+	private ArrayList<Card> card = new ArrayList<Card>();
 	PlayerAction pa=new PlayerAction();
 	/**
 	 * Create the application.
@@ -202,15 +204,17 @@ public class MainGUI {
 	class jouerListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			if(!cards.isEmpty()) {
-				
-				
-				if(pa.verify(cards, launchTable.getTable().getDiscard())) {
+				for(int a=0; a<cards.size(); a++) {
+					Integer inter = Integer.valueOf(cards.get(a));
+					card.add(Card.getCardWithKey(inter));
+				}
+				if(pa.verify(card, launchTable.getTable().getDiscard())) {
 					launchTable.getTable().getDiscard().setType(cards.size());
-					System.out.println(launchTable.getTable().getDiscard().getType());
-					for(int a=0;a<cards.size();a++) {
+					for(int a=0; a<cards.size(); a++) {
 						Integer inter = Integer.valueOf(cards.get(a));
-						launchTable.getTable().getDiscard().add(cards);// A faire des modif
+						launchTable.getTable().getDiscard().add(Card.getCardWithKey(inter));
 						launchTable.getTable().getPlayers().get(i).getHand().remove(inter);
+						card.remove(Card.getCardWithKey(inter));
 					}
 				}
 				else {
