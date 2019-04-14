@@ -50,7 +50,16 @@ public static int verify(ArrayList<Card> cards, Discard discard) {
 			else {
 				return -1;
 			}
-			
+		case 4:
+			if(isLegit(cards, discard) == 2) {
+				return 2;
+			}
+			if(isLegit(cards, discard) != 0) {
+				return cards.size();
+			}
+			else {
+				return -1;
+			}
 		default:
 			return -1;
 	}
@@ -179,17 +188,8 @@ public static Boolean isSuit(ArrayList<Card> list, Discard lastPlay) {
 			
 			//On la trie desormais par Key // On remplace les jokers par les valeurs qu'ils remplacent
 			ArrayList<Integer> lastKeyList=Management.calculate(lastSuitKeyList); 
-			
-			for(int m=0; m<lastKeyList.size(); m++) {
-				System.out.println(lastKeyList.get(m));
-			}
-			
 			Collections.reverse(lastKeyList);
-			
-			for(int m=0; m<lastKeyList.size(); m++) {
-				System.out.println(lastKeyList.get(m));
-			}
-			
+		
 			if(Math.abs(lastKeyList.get(0) - keyList.get(0))> 14) {
 				return false;
 			}
