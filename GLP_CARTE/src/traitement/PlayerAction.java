@@ -2,6 +2,7 @@
 
 package traitement;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import carte.*;
 
@@ -16,14 +17,14 @@ public class PlayerAction {
 }
 	
 public static int verify(ArrayList<Card> cards, Discard discard) {
-		
+	System.out.println(cards.size());
 	switch(cards.size()) {
 		case 1:
 			if(isLegit(cards.get(0), discard) == 1) {
 				return 1;
 			}
 			else if(isLegit(cards.get(0), discard) == 0) {
-				return 0;
+				return -1;
 			}
 			else {
 				return 2;
@@ -33,7 +34,7 @@ public static int verify(ArrayList<Card> cards, Discard discard) {
 				return 1;
 			}
 			else if(isLegit(cards.get(0), cards.get(1), discard) == 0) {
-				return 0;
+				return -1;
 			}
 			else {
 				return 2;
@@ -43,15 +44,15 @@ public static int verify(ArrayList<Card> cards, Discard discard) {
 			if(isLegit(cards, discard) == 2) {
 				return 2;
 			}
-			if(isLegit(cards, discard) != 1) {
+			if(isLegit(cards, discard) != 0) {
 				return cards.size();
 			}
 			else {
-				return 0;
+				return -1;
 			}
 			
 		default:
-			return 0;
+			return -1;
 	}
 }
 
@@ -116,7 +117,7 @@ public static int isLegit(Card c1, Card c2, Discard lastPlay) {
 			if(c1.getKey() == lastKey) {
 				return 0;
 			}
-			else if(c1.getKey() - lastKey < 14 && isDouble(c1, c2, lastKey)) {
+			else if(Math.abs(c1.getKey() - lastKey) < 14 && isDouble(c1, c2, lastKey)) {
 				return 1;
 			}
 			else {
@@ -135,13 +136,11 @@ public static int isLegit(ArrayList<Card> list, Discard lastPlay) {
 			return 2;
 		}
 		else {
-			if(lastPlay.getType()==0) {
-				if(isSuit(list, lastPlay)) {
-					return list.size();
-				}
-				else {
-					return 0;
-				}
+			if(isSuit(list, lastPlay)) {
+				return list.size();
+			}
+			else {
+				return 0;
 			}
 		}
 	}
@@ -153,19 +152,18 @@ public static int isLegit(ArrayList<Card> list, Discard lastPlay) {
 			return 0;
 		}
 	}
-	return 0;
 }
 
 public static Boolean isSuit(ArrayList<Card> list, Discard lastPlay) {
 	
 	ArrayList<Integer> keyList=Management.calculate(list);
-	
 	if(lastPlay.getType() == 0) {
 		for(int i=0; i<keyList.size() - 1; i++) {
 			if(Math.abs(keyList.get(i) - keyList.get(i+1)) > 14){
 				return false;
 			}
 		}
+		return true;
 	}
 	else {
 		int lastSuitPlay=lastPlay.getType();
@@ -175,14 +173,27 @@ public static Boolean isSuit(ArrayList<Card> list, Discard lastPlay) {
 			ArrayList<Card> lastSuitKeyList=new ArrayList<Card>();
 			
 			//On recupere la suite de carte joué auparavant
-			for(int i= (discardWidth - (lastSuitPlay+1)); i<discardWidth; i++) {
+			for(int i= ((discardWidth - (lastSuitPlay))); i<discardWidth; i++) {
 				lastSuitKeyList.add(lastPlay.getCards().get(i));
 			}
+			
 			//On la trie desormais par Key // On remplace les jokers par les valeurs qu'ils remplacent
 			ArrayList<Integer> lastKeyList=Management.calculate(lastSuitKeyList); 
 			
+			for(int m=0; m<lastKeyList.size(); m++) {
+				System.out.println(lastKeyList.get(m));
+			}
 			
-			if(Math.abs(lastKeyList.get(0) - keyList.get(0))>14) {
+			Collections.reverse(lastKeyList);
+			
+			for(int m=0; m<lastKeyList.size(); m++) {
+				System.out.println(lastKeyList.get(m));
+			}
+			
+			if(Math.abs(lastKeyList.get(0) - keyList.get(0))> 14) {
+				return false;
+			}
+			else if(Math.abs(lastKeyList.get(0) - keyList.get(0)) <6){
 				return false;
 			}
 			else {
@@ -198,7 +209,6 @@ public static Boolean isSuit(ArrayList<Card> list, Discard lastPlay) {
 			return false;
 		}
 	}
-	return false;
 }
 
 //isDouble pour les debuts de partie

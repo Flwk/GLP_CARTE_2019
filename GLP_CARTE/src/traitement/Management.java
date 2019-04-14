@@ -46,6 +46,7 @@ public class Management {
 					for(int j=0; j<list.size()-1; j++) {
 						if(Math.abs(list.get(j) - list.get(j+1)) > 14){
 							temp.add(list.get(j)+10);
+							break;
 						}
 					}
 				}

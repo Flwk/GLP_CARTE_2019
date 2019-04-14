@@ -210,8 +210,8 @@ public class MainGUI {
 				}
 				//test si la (les) carte(s) jouée(s) son(t) valide(nt)
 				int isValid=PlayerAction.verify(card, launchTable.getTable().getDiscard());
-				
-				if(isValid == 1 || isValid == 2) {
+			
+				if(isValid  > 0) {
 					launchTable.getTable().getDiscard().setType(cards.size());
 					for(int a=0; a<cards.size(); a++) {
 						Integer inter = Integer.valueOf(cards.get(a));
