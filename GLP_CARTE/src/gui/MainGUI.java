@@ -36,7 +36,6 @@ public class MainGUI {
 	private JPanel p = new JPanel();
 	private ArrayList<String> cards = new ArrayList<String>();
 	private ArrayList<Card> card = new ArrayList<Card>();
-	PlayerAction pa=new PlayerAction();
 	/**
 	 * Create the application.
 	 */
@@ -210,7 +209,7 @@ public class MainGUI {
 					card.add(Card.getCardWithKey(inter));
 				}
 				//test si la (les) carte(s) jouée(s) son(t) valide(nt)
-				int isValid=pa.verify(card, launchTable.getTable().getDiscard());
+				int isValid=PlayerAction.verify(card, launchTable.getTable().getDiscard());
 				
 				if(isValid == 1 || isValid == 2) {
 					launchTable.getTable().getDiscard().setType(cards.size());
