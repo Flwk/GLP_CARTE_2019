@@ -165,7 +165,7 @@ public class Menu extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			quit();
 			MainGUI main = new MainGUI();
-			main.setNbPlayer(nbPlayer);
+			Init.setNbPlayer(nbPlayer);
 			main.show();
 		}
 	}

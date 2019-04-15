@@ -17,39 +17,33 @@ import carte.Table;
  */
 public class Init{
 	
-	private  ArrayList<Player> players=new ArrayList<Player>();
-	private Management management=new Management();;
-	private  Stock stock=new Stock();
-	private Discard discard=new Discard();
-	private Table table ;
+	private static  ArrayList<Player> players=new ArrayList<Player>();
+	private static Management management=new Management();;
+	private static  Stock stock=new Stock();
+	private static Discard discard=new Discard();
+	private static Table table ;
 	private Game game;
-	private int nbPlayer;
+	private static int nbPlayer;
+
 	
-	public Init() {
-		ArrayList<Player> players=new ArrayList<Player>();
-		Discard discard=new Discard();
-		discard.setType(0);
-		Stock stock=new Stock();		
-	}
-	
-	public void launch() {
-		initStock();
-	}
-	public Game initGame() {
+	public static Game initGame() {
+		table=initTable();
 		for(int i=0; i<nbPlayer; i++) {
 			players.add(initPlayer(i, stock));
 		}
-		table=initTable();
 		Game game=new Game(table, players);
 		return game;
 	}
-	public Table initTable() {
-		Table table=new Table(stock, discard);
-		return table;
+	public static Table initTable() {
+		discard.setType(0);
+		stock=new Stock();
+		initStock();
+		Table itable=new Table(stock, discard);
+		return itable;
 	}
 	
 	
-	public Player initPlayer(int i, Stock stock) {
+	public static Player initPlayer(int i, Stock stock) {
 		Player p=new Player("Player"+i, null, null, null, 0);
 		Hand h= new Hand();
 		Scoreboard score=new Scoreboard(100);
@@ -59,13 +53,13 @@ public class Init{
 		return p;
 	}
 	
-	public void initHand(Player player, Stock stock) {
+	public static void initHand(Player player, Stock stock) {
 		for(int i=0; i<5; i++) {
-			management.stockManagement(player.getHand(), stock);
+			Management.stockManagement(player.getHand(), stock);
 		}
 	}
 
-	public void initStock() {
+	public static void initStock() {
 
 		Card as_trefle=new Card("as de trefle", 11);
 		Card as_coeur=new Card("as de coeur", 12);
@@ -203,7 +197,6 @@ public class Init{
 		
 		stock.add(joker_a);
 		stock.add(joker_b);
-		
 	}
 	
 	public void test() {
@@ -214,7 +207,11 @@ public class Init{
 		return game;
 	}
 
-	public void setNbPlayer(int nbPlayer) {
-		this.nbPlayer = nbPlayer;
+	public static void setNbPlayer(int nbrPlayer) {
+		nbPlayer = nbrPlayer;
+	}
+	
+	public static int getNbPlayer() {
+		return nbPlayer;
 	}
 }
