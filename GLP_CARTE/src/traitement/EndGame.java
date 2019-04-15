@@ -10,24 +10,14 @@ import java.util.ArrayList;
  */
 
 public class EndGame {
-	
-	private Player winner;
-	private Scoreboard winnerScore;
-	public  ArrayList <Player> players;
-	
-	
-	public Player theWinner () {
-	
-		for (int i=0; i<players.size(); i++) {
-			if ((players.getScore(i))==0) {
-			winner= Table.players.get(i);
-			}
 		
-			else {
-			Table.getMethod(initTable();
-			} 
+	public static Player winner(ArrayList <Player> players) {
+		for(int i=0; i<players.size(); i++) {
+			if(players.get(i).getHand().cardCount() == 0) {			
+				return players.get(i);
+			}
 		}
-		return winner;
+		return null;
 	}
 }
 		

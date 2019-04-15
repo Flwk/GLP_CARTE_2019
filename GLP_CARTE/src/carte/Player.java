@@ -9,12 +9,14 @@ public class Player {
 	private Scoreboard score;
 	private Hand hand= new Hand();
 	private String type;
+	private int toPass;
 	
-	public Player(String username, Scoreboard score, Hand hand, String type) {
+	public Player(String username, Scoreboard score, Hand hand, String type, int toPass) {
 		this.username=username;
 		this.score=score;
 		this.hand=hand;
 		this.type=type;
+		this.toPass=toPass;
 	}
 	
 	public String getUsername() {
@@ -47,6 +49,12 @@ public class Player {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	public void pass(int a) {
+		toPass=a;
+	}
+	public int getToPass() {
+		return toPass;
 	}
 	
 	public String toString() {

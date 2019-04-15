@@ -44,7 +44,7 @@ public class Init{
 	}
 	
 	public Player initPlayer(int i, Stock stock) {
-		Player p=new Player("Player"+i, null, null, null);
+		Player p=new Player("Player"+i, null, null, null, 0);
 		Hand h= new Hand();
 		Scoreboard score=new Scoreboard(100);
 		p.setScore(score);
