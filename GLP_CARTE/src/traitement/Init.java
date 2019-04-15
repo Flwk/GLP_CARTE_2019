@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import carte.Card;
 import carte.Discard;
+import carte.Game;
 import carte.Hand;
 import carte.Player;
 import carte.Scoreboard;
@@ -21,7 +22,8 @@ public class Init{
 	private  Stock stock=new Stock();
 	private Discard discard=new Discard();
 	private Table table ;
-	private int nbPlayer=5;
+	private Game game;
+	private int nbPlayer;
 	
 	public Init() {
 		ArrayList<Player> players=new ArrayList<Player>();
@@ -33,15 +35,19 @@ public class Init{
 	public void launch() {
 		initStock();
 	}
-	
-	public Table initTable() {
-		
+	public Game initGame() {
 		for(int i=0; i<nbPlayer; i++) {
 			players.add(initPlayer(i, stock));
 		}
-		Table table=new Table(stock, discard, players);
+		table=initTable();
+		Game game=new Game(table, players);
+		return game;
+	}
+	public Table initTable() {
+		Table table=new Table(stock, discard);
 		return table;
 	}
+	
 	
 	public Player initPlayer(int i, Stock stock) {
 		Player p=new Player("Player"+i, null, null, null, 0);
@@ -58,7 +64,7 @@ public class Init{
 			management.stockManagement(player.getHand(), stock);
 		}
 	}
-	
+
 	public void initStock() {
 
 		Card as_trefle=new Card("as de trefle", 11);
@@ -201,14 +207,11 @@ public class Init{
 	}
 	
 	public void test() {
-		table=initTable();
-		System.out.println("Taille de la pioche après distribution:" + stock.size());
-		//System.out.println("Nombre de joueur: \n" + table.getPlayers().toString());
-		System.out.println("");
+		game=initGame();
 	}
 	
-	public Table getTable() {
-		return table;
+	public Game getGame() {
+		return game;
 	}
 
 	public void setNbPlayer(int nbPlayer) {

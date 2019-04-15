@@ -163,8 +163,6 @@ public class Menu extends JFrame{
 	
 	class playListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			//Init launchTable = new Init();
-			//launchTable.test();
 			quit();
 			MainGUI main = new MainGUI();
 			main.setNbPlayer(nbPlayer);
