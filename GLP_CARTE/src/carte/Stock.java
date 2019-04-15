@@ -24,6 +24,10 @@ public class Stock {
 	public Card getCard(int index) {
 		return cards.get(index);
 	}
+	
+	public ArrayList<Card> getStock(){
+		return cards;
+	}
 
 	public int size() {
 		return cards.size();

@@ -31,6 +31,10 @@ public class Hand {
 		return cards.size();
 	}
 
+	public ArrayList<Card> getList() {
+		return cards;
+	}
+	
 	public String toString() {
 		String str = "";
 		str = cards.toString();

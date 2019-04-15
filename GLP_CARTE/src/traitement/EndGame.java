@@ -2,6 +2,7 @@ package traitement;
 
 import carte.Player;
 import carte.Scoreboard;
+import carte.Stock;
 import carte.Table;
 import java.util.ArrayList;
 
@@ -57,5 +58,18 @@ public class EndGame {
 		}
 		players.get(winnerId).getScore().increment(totalScore);
 		return players;
+	}
+	
+	
+	public static void resetHand(ArrayList<Player> players) {
+		for(int index=0; index<Init.getNbPlayer(); index++) {
+			players.get(index).getHand().getList().clear();
+		}
+	}
+	
+public static void initNewHand(Stock stock, ArrayList<Player> players) {
+		for(int index=0; index<Init.getNbPlayer(); index++) {
+			Init.initHand(players.get(index), stock);
+		}
 	}
 }

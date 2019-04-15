@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Game {
 	ArrayList<Table> game;
 	ArrayList<Player> players;
-
+	int id;
 	public Game(Table table, ArrayList<Player> players) {
 		game=new ArrayList<Table>();
 		addTable(table);
@@ -43,5 +43,13 @@ public class Game {
 	
 	public int tableCount() {
 		return game.size();
+	}
+	
+	public void setId(int i) {
+		id=i;
+	}
+	
+	public int getId() {
+		return id;
 	}
 }

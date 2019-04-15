@@ -8,6 +8,7 @@ public class Discard {
 	//.... 3 == 3 ....
 	//....
 	private int type;
+	private int turn=1;
 	private ArrayList<Card> cards;
 	
 	public Discard() {
@@ -35,6 +36,14 @@ public class Discard {
 	}
 	public void setType(int typePlayed) {
 		type=typePlayed;
+	}
+	
+	public int getTurn() {
+		return turn;
+	}
+	
+	public void setTurn(int turn) {
+		this.turn=turn;
 	}
 	
 	public int getLastCardPlay() {

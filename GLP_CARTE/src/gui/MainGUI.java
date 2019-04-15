@@ -1,11 +1,9 @@
 package gui;
 
 import java.awt.*;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.*;
 import carte.Player;
@@ -33,13 +31,12 @@ public class MainGUI {
 	private JButton button_2;
 	private JButton discardButton;
 	private ArrayList<JButton> listButton = new ArrayList<JButton>();
-	private int nbPlayer;
-	private JScrollPane scrollPane;
-	private JPanel p = new JPanel();
+	private JPanel pannel=new JPanel();
+	private JPanel pan = new JPanel();
 	private ArrayList<String> cards = new ArrayList<String>();
 	private ArrayList<Card> card = new ArrayList<Card>();
 	Game game;
-
+	JTextArea textArea = new JTextArea();
 	/**
 	 * Create the application.
 	 */
@@ -51,15 +48,21 @@ public class MainGUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ArrayList<JButton> listButton = new ArrayList<JButton>();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1000, 551);
+		frame.setBounds(100, 100, 1400, 551);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		JScrollPane scrollPane = new JScrollPane(p, JScrollPane.VERTICAL_SCROLLBAR_NEVER,
+
+		pannel.setLayout(null);
+		
+		textArea = new JTextArea();
+		textArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		textArea.setBounds(1022, 13, 348, 478);
+		pannel.add(textArea);
+		
+		JScrollPane scrollPane = new JScrollPane(pan, JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(64, 330, 500, 170);
-		frame.getContentPane().add(scrollPane);
+		pannel.add(scrollPane);
 
 		JButton passerButton = new JButton("Passer");
 		passerButton.setBounds(580, 449, 180, 50);
@@ -69,19 +72,20 @@ public class MainGUI {
 		JButton jouerButton = new JButton("jouer");
 		jouerButton.setBounds(580, 400, 180, 50);
 		jouerButton.addActionListener(new jouerListener());
-		frame.getContentPane().add(jouerButton);
+		pannel.add(jouerButton);
 
 		button_2 = new JButton(new ImageIcon("resources\\images\\cover.gif"));
 		button_2.setBounds(600, 215, 97, 143);
-		frame.getContentPane().add(button_2);
+		pannel.add(button_2);
+		
+		frame.getContentPane().add(pannel, BorderLayout.CENTER);
 	}
 
 	public JPanel getPanel() {
-		return p;
+		return pan;
 	}
 
 	public void tempor() {
-		int x = 64;
 		for (int k = 0; k < game.getPlayers().get(i).getHand().cardCount(); k++) {
 			int key = game.getPlayers().get(i).getHand().getCardKey(k);
 
@@ -95,10 +99,12 @@ public class MainGUI {
 				discardButton.setIcon((new ImageIcon(
 						picturePath.getPicturePath(game.getTable(gameId).getDiscard().getLastCardPlay()))));
 			}
-
-			p.add(cartButton);
-			p.repaint();
-			p.revalidate();
+			
+			pan.add(cartButton);
+			pan.repaint();
+			pan.revalidate();
+			pannel.repaint();
+			pannel.revalidate();
 			frame.repaint();
 			frame.revalidate();
 		}
@@ -108,12 +114,14 @@ public class MainGUI {
 	public void tempor2() {
 		int j = listButton.size() - 1;
 		while (j >= 0) {
-			p.remove(listButton.get(j));
+			pan.remove(listButton.get(j));
 			listButton.remove(j);
 			j = j - 1;
 		}
-		p.repaint();
-		p.revalidate();
+		pan.repaint();
+		pan.revalidate();
+		pannel.repaint();
+		pannel.revalidate();
 		frame.repaint();
 		frame.revalidate();
 		tempor();
@@ -134,8 +142,11 @@ public class MainGUI {
 
 			Management.stockManagement(game.getPlayers().get(i).getHand(), game.getTable(gameId).getStock());
 			game.getPlayers().get(i).pass(1);
-
+			System.out.println(game.getTable(gameId).getDiscard().getType());
+			PrintDiscard.printLog(textArea, i, game);
+			
 			if (!TurnManagement.canPlay(game.getPlayers())) {
+				game.getTable(gameId).getDiscard().setTurn(1);
 				i = TurnManagement.getLastPlayerWhoPlay() - 1;
 				game.getTable(gameId).getDiscard().setType(0);
 				for (int i = 0; i < Init.getNbPlayer(); i++) {
@@ -144,7 +155,6 @@ public class MainGUI {
 			}
 
 			if (i < Init.getNbPlayer() - 1) {
-
 				i = i + 1;
 			} else {
 				i = 0;
@@ -192,26 +202,32 @@ public class MainGUI {
 							game.getTable(gameId).getDiscard().add(Card.getCardWithKey(inter));
 							game.getPlayers().get(i).getHand().remove(inter);
 						}
-
-						PrintDiscard.printCard(frame, game.getTable(gameId).getDiscard());
+						System.out.println(game.getTable(gameId).getDiscard().getType());
+						
+						PrintDiscard.printCard(pannel, game.getTable(gameId).getDiscard());
 						TurnManagement.lastPlayerWhoPlay(i);
-
-					} else {
-						JOptionPane.showMessageDialog(null, "mauvaise carte", "mauvaise carte jouée",
-								JOptionPane.ERROR_MESSAGE);
-					}
-
-					if (isValid == 2) {
-						game.getTable(gameId).getDiscard().setType(0);
-						for (int y = 0; y < Init.getNbPlayer(); y++) {
-							game.getPlayers().get(y).pass(0);
+						if (isValid == 2) {
+							game.getTable(gameId).getDiscard().setTurn(2);
+							PrintDiscard.printLog(textArea, i, game);
+							game.getTable(gameId).getDiscard().setType(0);
+							for (int y = 0; y < Init.getNbPlayer(); y++) {
+								game.getPlayers().get(y).pass(0);
+							}
 						}
+						else {
+							PrintDiscard.printLog(textArea, i, game);
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "mauvaise carte", "mauvaise carte jouée", JOptionPane.ERROR_MESSAGE);
 					}
+
+					
+					
 					/*
 					 * Si un joueur a gagné alors on ammorce la fin de la partie
 					 */
 					if (TurnManagement.endGame(game.getPlayers())) {
-						Player winner = EndGame.winner(game.getPlayers());
+						//Player winner = EndGame.winner(game.getPlayers());
 						JOptionPane.showMessageDialog(null,
 								game.getPlayers().get(i).getUsername() + " a gagné la partie",
 								"Fin de partie!!", JOptionPane.ERROR_MESSAGE);
@@ -220,11 +236,11 @@ public class MainGUI {
 						 * On initialise une nouvelle table de jeu 
 						 * comportant une pioche et un defausse
 						 */
-						game.addTable(Init.initTable());
-						System.out.println(game.tableCount());
-						
+						game.addTable(Init.initTable());					
 						gameId++;
-						System.out.println(game.getTable(gameId).getStock().cardCount());
+						game.setId(gameId);
+						EndGame.resetHand(game.getPlayers());
+						EndGame.initNewHand(game.getTable(gameId).getStock(), game.getPlayers());
 						/*
 						 * Sinon si la carte est valide est n'est pas une bombe ou un deux on passe au
 						 * joueur suivant
@@ -241,6 +257,12 @@ public class MainGUI {
 
 						} while (game.getPlayers().get(i).getToPass() != 0);
 
+					}
+					if(game.getTable(gameId).getDiscard().getTurn() == 2) {
+						game.getTable(gameId).getDiscard().setTurn(0);
+					}
+					else {
+						game.getTable(gameId).getDiscard().setTurn(0);
 					}
 					tempor2();
 					cards.clear();
