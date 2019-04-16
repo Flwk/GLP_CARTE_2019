@@ -13,12 +13,6 @@ import carte.*;
  *
  */
 public class PlayerAction {
-	private ArrayList<String> listC = new ArrayList<String>();
-	private static PlayerAction instance = new PlayerAction();
-
-	public PlayerAction() {
-
-	}
 
 	public static int verify(ArrayList<Card> cards, Discard discard) {
 		switch (cards.size()) {

@@ -1,4 +1,7 @@
 package carte;
+
+import java.util.ArrayList;
+
 /**
  * @author bsadiki
  */
@@ -6,11 +9,30 @@ public class Card {
 
 	private String name;
 	private int key;
-	private static Integer searchKey;
+	//private ArrayList<CardColor> color;
 	
 	public Card(String name, int key) {
 		this.name = name;
 		this.key = key;
+	/*
+		if(name== "Joker") {
+			CardColor a=new CardColor("noir", key+1);
+			CardColor b=new CardColor("rouge", key+2);
+			color.add(a);
+			color.add(b);
+		}
+		else {
+			CardColor a=new CardColor("de trefle", key+1);
+			CardColor b=new CardColor("de pic", key+2);
+			CardColor c=new CardColor("de coeur", key+3);
+			CardColor d=new CardColor("de carreaux", key+4);
+			color.add(a);
+			color.add(b);
+			color.add(c);
+			color.add(d);
+		}
+	*/
+		
 	}
 
 	public String getName() {

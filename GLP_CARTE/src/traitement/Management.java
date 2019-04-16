@@ -4,25 +4,35 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import carte.Card;
+import carte.CardType;
 import carte.Hand;
 import carte.Stock;
 
 public class Management {
 
 	public static void stockManagement(Hand hand, Stock stock) {
-		Card card = getRandomCard(stock);
+		CardType cardType = getRandomCard(stock); //La sa resort "un type de carte" Il faut maintenant recuperer une couleur 
+		Card card=getRandomCardColor(cardType);
 		hand.add(card);
-		deleteStockCard(card, stock);
+		deleteStockCard(cardType, card, stock);
 	}
 
-	public static Card getRandomCard(Stock stock) {
-		
+	public static CardType getRandomCard(Stock stock) {
 		double index = Math.random() * (stock.cardCount() - 0);
 		return stock.getCard((int) index);
 	}
+	
+	public static Card getRandomCardColor(CardType card) {
+		
+		double index = Math.random() * (card.getList().size() - 0);
+		return card.getList().get((int) index); 
+	}
 
-	public static void deleteStockCard(Card card, Stock stock) {
-		stock.remove(card);
+	public static void deleteStockCard(CardType cardType, Card card, Stock stock) {
+		cardType.getList().remove(card);
+		if(cardType.getList().size()==0) {
+			stock.remove(cardType);
+		}
 	}
 
 	public static ArrayList<Integer> calculate(ArrayList<Card> list) {

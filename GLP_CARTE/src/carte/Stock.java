@@ -3,17 +3,17 @@ package carte;
 import java.util.ArrayList;
 
 public class Stock {
-	private ArrayList<Card> cards;
+	private ArrayList<CardType> cards;
 	
 	public Stock() {
-		cards=new ArrayList<Card>();
+		cards=new ArrayList<CardType>();
 	}
 	
-	public void add(Card card) {
+	public void add(CardType card) {
 		cards.add(card);
 	}
 	
-	public void remove(Card card) {
+	public void remove(CardType card) {
 		cards.remove(card);
 	}
 	
@@ -21,11 +21,11 @@ public class Stock {
 		return cards.size();
 	}
 
-	public Card getCard(int index) {
+	public CardType getCard(int index) {
 		return cards.get(index);
 	}
 	
-	public ArrayList<Card> getStock(){
+	public ArrayList<CardType> getStock(){
 		return cards;
 	}
 

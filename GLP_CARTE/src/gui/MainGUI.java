@@ -3,10 +3,12 @@ package gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import carte.Player;
 import carte.Table;
 import traitement.EndGame;
 import traitement.Init;
@@ -36,6 +38,7 @@ public class MainGUI {
 	private ArrayList<String> cards = new ArrayList<String>();
 	private ArrayList<Card> card = new ArrayList<Card>();
 	Game game;
+	JLabel label;
 	JTextArea textArea = new JTextArea();
 	/**
 	 * Create the application.
@@ -53,7 +56,14 @@ public class MainGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		pannel.setLayout(null);
-		
+		 try {
+				label=new JLabel(new ImageIcon(ImageIO.read(new File("D:/Games/background.jpg"))));
+				textArea.setBounds(100, 100, 1400, 551);
+				pannel.add(label);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		textArea = new JTextArea();
 		textArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		textArea.setBounds(1022, 13, 348, 478);
@@ -79,6 +89,8 @@ public class MainGUI {
 		pannel.add(button_2);
 		
 		frame.getContentPane().add(pannel, BorderLayout.CENTER);
+		
+		
 	}
 
 	public JPanel getPanel() {
@@ -202,8 +214,6 @@ public class MainGUI {
 							game.getTable(gameId).getDiscard().add(Card.getCardWithKey(inter));
 							game.getPlayers().get(i).getHand().remove(inter);
 						}
-						System.out.println(game.getTable(gameId).getDiscard().getType());
-						
 						PrintDiscard.printCard(pannel, game.getTable(gameId).getDiscard());
 						TurnManagement.lastPlayerWhoPlay(i);
 						if (isValid == 2) {
