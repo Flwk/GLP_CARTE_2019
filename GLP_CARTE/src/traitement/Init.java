@@ -3,6 +3,7 @@ package traitement;
 
 import java.util.ArrayList;
 
+import carte.BotPlayer;
 import carte.Card;
 import carte.CardType;
 import carte.Discard;
@@ -24,12 +25,19 @@ public class Init{
 	private static Table table ;
 	private Game game;
 	private static int nbPlayer;
+	private static int nbPlayerHumain;
+	private static int nbPlayerBot;
 
 	
 	public static Game initGame() {
 		table=initTable();
-		for(int i=0; i<nbPlayer; i++) {
+	
+		
+		for(int i=0; i<nbPlayerHumain; i++) {
 			players.add(initPlayer(i, stock));
+		}
+		for(int i=0; i<nbPlayerBot; i++) {
+			players.add(initBot(i, stock));
 		}
 		Game game=new Game(table, players);
 		return game;
@@ -37,14 +45,23 @@ public class Init{
 	public static Table initTable() {
 		discard.setType(0);
 		stock=new Stock();
-		initStock();
+		stock=initStock();
 		Table itable=new Table(stock, discard);
 		return itable;
 	}
 	
 	
 	public static Player initPlayer(int i, Stock stock) {
-		Player p=new Player("Player"+i, null, null, null, 0);
+		Player p=new Player("Player"+i, null, 0, null, 0);
+		Hand h= new Hand();
+		Scoreboard score=new Scoreboard(100);
+		p.setScore(score);
+		p.setHand(h);
+		initHand(p, stock);
+		return p;
+	}
+	public static Player initBot(int i, Stock stock) {
+		Player p=new BotPlayer("Bot"+i, null, null, 0);
 		Hand h= new Hand();
 		Scoreboard score=new Scoreboard(100);
 		p.setScore(score);
@@ -59,7 +76,8 @@ public class Init{
 		}
 	}
 
-	public static void initStock() {
+	public static Stock initStock() {
+		Stock init= new Stock();
 		CardType as=new CardType("As", 10);		
 		CardType deux=new CardType("2", 20);		
 		CardType trois=new CardType("3", 30);				
@@ -106,7 +124,7 @@ public class Init{
 		c.add(trois_pic);
 		c.add(trois_carreaux);
 		
-		Card quatre_trefle=new Card("4", 41);
+		Card quatre_trefle=new Card("4 de trefle", 41);
 		Card quatre_coeur=new Card("4 de coeur", 42);
 		Card quatre_pic=new Card("4 de pic", 43);
 		Card quatre_carreaux=new Card("4 de carreaux", 44);
@@ -228,20 +246,21 @@ public class Init{
 		joker.setList(n);
 		
 		
-		stock.add(as);
-		stock.add(deux);		
-		stock.add(trois);		
-		stock.add(quatre);
-		stock.add(cinq);
-		stock.add(six);	
-		stock.add(sept);	
-		stock.add(huit);	
-		stock.add(neuf);		
-		stock.add(dix);		
-		stock.add(valet);
-		stock.add(dame);
-		stock.add(roi);
-		stock.add(joker);
+		init.add(as);
+		init.add(deux);		
+		init.add(trois);		
+		init.add(quatre);
+		init.add(cinq);
+		init.add(six);	
+		init.add(sept);	
+		init.add(huit);	
+		init.add(neuf);		
+		init.add(dix);		
+		init.add(valet);
+		init.add(dame);
+		init.add(roi);
+		init.add(joker);
+		return init;
 	}
 	
 	public void test() {
@@ -259,4 +278,21 @@ public class Init{
 	public static int getNbPlayer() {
 		return nbPlayer;
 	}
+	
+	public static int getNbPlayerHumain() {
+		return nbPlayerHumain;
+	}
+	
+	public static void setNbPlayerHumain(int nbPlayerHumain) {
+		Init.nbPlayerHumain = nbPlayerHumain;
+	}
+	
+	public static int getNbPlayerBot() {
+		return nbPlayerBot;
+	}
+	
+	public static void setNbPlayerBot(int nbPlayerBot) {
+		Init.nbPlayerBot = nbPlayerBot;
+	}
+	
 }

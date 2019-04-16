@@ -96,7 +96,9 @@ public class PrintDiscard {
 		int id=game.getId();
 		int type=game.getTable(id).getDiscard().getType();
 		int size=game.getTable(id).getDiscard().cardCount();
-		String str="Player"+ playerId + ": a joué ";
+		
+		String str=game.getPlayers().get(playerId).getUsername()+ " type: "+ game.getPlayers().get(playerId).getType() + ": a joué ";
+		
 		if(game.getTable(id).getDiscard().getTurn() == 1) {
 			area.append("-------------------------------------------------------------\n");
 		}
@@ -106,7 +108,7 @@ public class PrintDiscard {
 		case 0:
 			
 			if(game.getPlayers().get(playerId).getToPass() == 1) {
-				area.append("Player"+ playerId +": n'y peux rien\n");
+				area.append(game.getPlayers().get(playerId).getUsername() +": n'y peux rien\n");
 			}
 			else {
 				for(int playSize=(size-type); playSize<size; playSize++) {
@@ -118,7 +120,7 @@ public class PrintDiscard {
 			break;
 		case 1:
 			if(game.getPlayers().get(playerId).getToPass() == 1) {
-				area.append("Player"+ playerId +": n'y peux rien \n");
+				area.append(game.getPlayers().get(playerId).getUsername() +": n'y peux rien \n");
 			}
 			else {
 				for(int playSize=(size-type); playSize<size; playSize++) {
@@ -130,7 +132,7 @@ public class PrintDiscard {
 			break;
 		case 2:
 			if(game.getPlayers().get(playerId).getToPass() == 1) {
-				area.append("Player"+ playerId +": n'y peux rien \n");
+				area.append(game.getPlayers().get(playerId).getUsername() +": n'y peux rien \n");
 			}
 			else {
 				for(int playSize=(size-type); playSize<size; playSize++) {
@@ -142,7 +144,7 @@ public class PrintDiscard {
 			break;
 		case 3:
 			if(game.getPlayers().get(playerId).getToPass() == 1) {
-				area.append("Player"+ playerId +": n'y peux rien \n");
+				area.append(game.getPlayers().get(playerId).getUsername() +": n'y peux rien \n");
 			}
 			else {
 				for(int playSize=(size-type); playSize<size; playSize++) {
@@ -154,7 +156,7 @@ public class PrintDiscard {
 			break;
 		case 4:
 			if(game.getPlayers().get(playerId).getToPass() == 1) {
-				area.append("Player"+ playerId +": n'y peux rien \n");
+				area.append(game.getPlayers().get(playerId).getUsername() +": n'y peux rien \n");
 			}
 			else {
 				for(int playSize=(size-type); playSize<size; playSize++) {

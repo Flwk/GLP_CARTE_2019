@@ -8,10 +8,10 @@ public class Player {
 	private String username;
 	private Scoreboard score;
 	private Hand hand= new Hand();
-	private String type;
+	private int type;
 	private int toPass;
 	
-	public Player(String username, Scoreboard score, Hand hand, String type, int toPass) {
+	public Player(String username, Scoreboard score, int type, Hand hand, int toPass) {
 		this.username=username;
 		this.score=score;
 		this.hand=hand;
@@ -43,11 +43,11 @@ public class Player {
 		this.hand = hand;
 	}
 
-	public String getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 	public void pass(int a) {

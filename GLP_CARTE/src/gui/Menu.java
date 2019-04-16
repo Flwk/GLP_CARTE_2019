@@ -33,9 +33,14 @@ public class Menu extends JFrame{
 	JTextField txt = new JTextField();
 	JButton buttonMore = new JButton("+");
 	JButton buttonLess = new JButton("-");
+	JTextField txt2 = new JTextField();
+	JButton buttonMore2 = new JButton("+");
+	JButton buttonLess2 = new JButton("-");
 	Init launchTable;
 	MainGUI main = new MainGUI();
 	int nbPlayer=1;
+	int nbPlayerHumain=1;
+	int nbPlayerBot=0;
 	int rulesTypes=0;
 	
 	public Menu() {
@@ -86,7 +91,7 @@ public class Menu extends JFrame{
 		txt.setForeground(Color.WHITE);
 		txt.setBackground(Color.DARK_GRAY);
 		txt.setBounds(306, 371, 206, 71);
-		txt.setText("Nombre de Joueur: " + nbPlayer);
+		txt.setText("Nombre d'humain: " + nbPlayerHumain);
 	
 
 		buttonMore.setForeground(Color.WHITE);
@@ -101,6 +106,27 @@ public class Menu extends JFrame{
 		buttonLess.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		buttonLess.setBounds(524, 371, 97, 71);
 		buttonLess.addActionListener(new decrementListener());
+		
+		
+		txt2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txt2.setForeground(Color.WHITE);
+		txt2.setBackground(Color.DARK_GRAY);
+		txt2.setBounds(306, 471, 206, 71);
+		txt2.setText("Nombre de Bot: " + nbPlayerBot);
+	
+
+		buttonMore2.setForeground(Color.WHITE);
+		buttonMore2.setBackground(Color.DARK_GRAY);
+		buttonMore2.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		buttonMore2.setBounds(633, 471, 97, 71);
+		buttonMore2.addActionListener(new incrementListener2());
+		
+		
+		buttonLess2.setForeground(Color.WHITE);
+		buttonLess2.setBackground(Color.DARK_GRAY);
+		buttonLess2.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		buttonLess2.setBounds(524, 471, 97, 71);
+		buttonLess2.addActionListener(new decrementListener2());
 		
 		
 
@@ -127,6 +153,9 @@ public class Menu extends JFrame{
 		panel.add(buttonMore);
 		panel.add(buttonLess);
 		panel.add(txt);
+		panel.add(buttonMore2);
+		panel.add(buttonLess2);
+		panel.add(txt2);
 		
 		
 	}
@@ -166,6 +195,8 @@ public class Menu extends JFrame{
 			quit();
 			MainGUI main = new MainGUI();
 			Init.setNbPlayer(nbPlayer);
+			Init.setNbPlayerBot(nbPlayerBot);
+			Init.setNbPlayerHumain(nbPlayerHumain);
 			main.show();
 		}
 	}
@@ -173,24 +204,52 @@ public class Menu extends JFrame{
 	class incrementListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			if(nbPlayer<5) {
+				nbPlayerHumain++;
 				nbPlayer++;
 			}
 			else {
 				JOptionPane.showMessageDialog( null, "MAXIMUM 5 JOUEUR!!", "ERREUR NOMBRE DE JOUEUR", JOptionPane.ERROR_MESSAGE);
 			}
-			txt.setText("Nombre de Joueur: " + nbPlayer);
+			txt.setText("Nombre d'humain: " + nbPlayerHumain);
 		}
 	}
 	
 	class decrementListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			if(nbPlayer>1) {
+			if(nbPlayer>1 && nbPlayerHumain>1) {
+				nbPlayerHumain--;
+				nbPlayer--;
+			}
+			else {
+				JOptionPane.showMessageDialog( null, "MINIMUM 1 JOUEUR!! AVEC UN JOUEUR HUMAIN AU MINIMUM", "ERREUR NOMBRE DE JOUEUR", JOptionPane.ERROR_MESSAGE);
+			}
+			txt.setText("Nombre d'humain: " + nbPlayerHumain);
+		}
+	}
+	
+	class incrementListener2 implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			if(nbPlayer<5) {
+				nbPlayerBot++;
+				nbPlayer++;
+			}
+			else {
+				JOptionPane.showMessageDialog( null, "MAXIMUM 5 JOUEUR!!", "ERREUR NOMBRE DE JOUEUR", JOptionPane.ERROR_MESSAGE);
+			}
+			txt2.setText("Nombre de Bot: " + nbPlayerBot);
+		}
+	}
+	
+	class decrementListener2 implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			if(nbPlayer >1) {
+				nbPlayerBot--;
 				nbPlayer--;
 			}
 			else {
 				JOptionPane.showMessageDialog( null, "MINIMUM 1 JOUEUR!!", "ERREUR NOMBRE DE JOUEUR", JOptionPane.ERROR_MESSAGE);
 			}
-			txt.setText("Nombre de Joueur: " + nbPlayer);
+			txt2.setText("Nombre de Bot: " + nbPlayerBot);
 		}
 	}
 	

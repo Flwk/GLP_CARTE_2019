@@ -19,4 +19,8 @@ public class CardType {
 	public void setList(ArrayList<Card> cardList) {
 		list=cardList;
 	}
+	
+	public int getKey() {
+		return key;
+	}
 }

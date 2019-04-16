@@ -64,9 +64,6 @@ public class PlayerAction {
 		if (lastPlay.getType() == 0) {
 			if (Math.abs(card.getKey() - 20) < 5) {
 				return 2;
-			} else if (isJoker(card.getKey())) {
-				JOptionPane.showMessageDialog(null, "Vous ne pouvez commencé par un joker", "ERREUR CARTE :JOKER!!", JOptionPane.ERROR_MESSAGE);
-				return 0;
 			} else {
 				return 1;
 			}
@@ -90,7 +87,6 @@ public class PlayerAction {
 				} else {
 					lastPlay.setType(1);
 					return 1;
-
 				}
 			}
 		} else {
@@ -102,7 +98,6 @@ public class PlayerAction {
 	public static int isLegit(Card c1, Card c2, Discard lastPlay) {
 		if (lastPlay.getType() == 0) {
 			if (isDouble(c1, c2)) {
-				lastPlay.setType(2);
 				return 1;
 			}
 			return 0;
@@ -151,11 +146,10 @@ public class PlayerAction {
 	}
 
 	public static Boolean isSuit(ArrayList<Card> list, Discard lastPlay) {
-
 		ArrayList<Integer> keyList = Management.calculate(list);
 		if (lastPlay.getType() == 0) {
 			for (int i = 0; i < keyList.size() - 1; i++) {
-				if (Math.abs(keyList.get(i) - keyList.get(i + 1)) > 14) {
+				if ( (keyList.get(i) - keyList.get(i+1)) >= 0 || (keyList.get(i) - keyList.get(i+1)) < -14 || Math.abs(keyList.get(i) - keyList.get(i+1))<5) {
 					return false;
 				}
 			}
@@ -177,13 +171,11 @@ public class PlayerAction {
 				ArrayList<Integer> lastKeyList = Management.calculate(lastSuitKeyList);
 				Collections.reverse(lastKeyList);
 
-				if (Math.abs(lastKeyList.get(0) - keyList.get(0)) > 14) {
-					return false;
-				} else if (Math.abs(lastKeyList.get(0) - keyList.get(0)) < 6) {
+				if ((lastKeyList.get(0) - keyList.get(0)) >= 0 || (lastKeyList.get(0) - keyList.get(0)) < -14 || Math.abs(lastKeyList.get(0) - keyList.get(0))<5) {
 					return false;
 				} else {
 					for (int i = 0; i < keyList.size() - 1; i++) {
-						if (Math.abs(keyList.get(i) - keyList.get(i + 1)) > 14) {
+						if ((keyList.get(i) - keyList.get(i+1)) >= 0 || (keyList.get(i) - keyList.get(i+1)) < -14 || Math.abs(keyList.get(i) - keyList.get(i+1))<5) {
 							return false;
 						}
 					}

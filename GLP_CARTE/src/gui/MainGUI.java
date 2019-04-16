@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import carte.Table;
+import traitement.BotManager;
 import traitement.EndGame;
 import traitement.Init;
 import traitement.Management;
@@ -98,6 +99,7 @@ public class MainGUI {
 	}
 
 	public void tempor() {
+		
 		for (int k = 0; k < game.getPlayers().get(i).getHand().cardCount(); k++) {
 			int key = game.getPlayers().get(i).getHand().getCardKey(k);
 
@@ -151,10 +153,9 @@ public class MainGUI {
 
 	class PasserListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-
+			BotManager.botCanPlay(game, i);
 			Management.stockManagement(game.getPlayers().get(i).getHand(), game.getTable(gameId).getStock());
 			game.getPlayers().get(i).pass(1);
-			System.out.println(game.getTable(gameId).getDiscard().getType());
 			PrintDiscard.printLog(textArea, i, game);
 			
 			if (!TurnManagement.canPlay(game.getPlayers())) {
@@ -268,6 +269,7 @@ public class MainGUI {
 						} while (game.getPlayers().get(i).getToPass() != 0);
 
 					}
+					BotManager.botCanPlay(game, i);
 					if(game.getTable(gameId).getDiscard().getTurn() == 2) {
 						game.getTable(gameId).getDiscard().setTurn(0);
 					}
