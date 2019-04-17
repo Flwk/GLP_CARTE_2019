@@ -29,7 +29,6 @@ public class BotManager {
 		 * debut de "partie" 1 pour une carte 2 pour des paires 3 pour une suite de
 		 * trois carte 4 pour une suite de quattre carte
 		 */
-
 		switch (game.getTable(0).getDiscard().getType()) {
 
 		case 0:
@@ -203,6 +202,20 @@ public class BotManager {
 		}
 		System.out.println("--------------------------");
 		
-		
+		if(posibility.size()>0) {
+			Posibility p=Probability.bestPlay(posibility, game, playerId);
+			if(p.getProba()>0) {
+				System.out.println("--------------------------");
+				System.out.println("--------------------------");
+				System.out.println("--------------------------");
+				System.out.println("Meilleur option: ");
+				for(int i=0; i<p.getList().size(); i++) {
+					System.out.println(p.getList().get(i).getName());
+				}
+				System.out.println("--------------------------");
+				System.out.println("--------------------------");
+				System.out.println("--------------------------");
+			}
+		}
 	}
 }

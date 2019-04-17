@@ -44,4 +44,8 @@ public class Hand {
 	public int getCardKey(int index) {
 		return cards.get(index).getKey();
 	}
+	
+	public Card getCard(int index) {
+		return cards.get(index);
+	}
 }

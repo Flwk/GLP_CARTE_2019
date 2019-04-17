@@ -33,5 +33,21 @@ public class Stock {
 		return cards.size();
 	}
 
-
+	public CardType searchByKey(int key) {
+		for(int index=0; index<cards.size(); index++) {
+			if(cards.get(index).getKey() == key) {
+				return cards.get(index);
+			}
+		}
+		return null;
+	}
+	
+	public boolean keyCardExist(int key) {
+		for(int index=0; index<cards.size(); index++) {
+			if(cards.get(index).getKey() == key) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -6,6 +6,7 @@ public class Game {
 	ArrayList<Table> game;
 	ArrayList<Player> players;
 	int id;
+	
 	public Game(Table table, ArrayList<Player> players) {
 		game=new ArrayList<Table>();
 		addTable(table);
