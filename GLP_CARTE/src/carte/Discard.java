@@ -8,6 +8,7 @@ public class Discard {
 	//.... 3 == 3 ....
 	//....
 	private int type;
+	private int lastPlaySize=0;
 	private int turn=1;
 	private ArrayList<Card> cards;
 	
@@ -48,6 +49,24 @@ public class Discard {
 	
 	public int getLastCardPlay() {
 		int nbr=cardCount();
-		return cards.get(nbr-1).getKey();
+		if(cards.get(nbr-1).getKey() > 140) {
+			if(cards.get(nbr-2).getKey() > 140) {
+				return cards.get(nbr-3).getKey()+20;
+			}
+			else {
+				return cards.get(nbr-2).getKey()+10;
+			}	
+		}
+		else {
+			return cards.get(nbr-1).getKey();
+		}
+	}
+
+	public int getLastPlaySize() {
+		return lastPlaySize;
+	}
+
+	public void setLastPlaySize(int lastPlaySize) {
+		this.lastPlaySize = lastPlaySize;
 	}
 }

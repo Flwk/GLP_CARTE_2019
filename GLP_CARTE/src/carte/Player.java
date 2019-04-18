@@ -50,13 +50,16 @@ public class Player {
 	public void setType(int type) {
 		this.type = type;
 	}
-	public void pass(int a) {
-		toPass=a;
+	public void pass() {
+		toPass=1;
 	}
 	public int getToPass() {
 		return toPass;
 	}
 	
+	public void reset() {
+		toPass=0;
+	}
 	public String toString() {
 		String str="\n";
 		str= getUsername() + "\n "+" nombre de carte: " + hand.cardCount()+ "\n" + getHand()  +"\n\n";

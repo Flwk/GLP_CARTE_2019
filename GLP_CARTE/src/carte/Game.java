@@ -2,10 +2,13 @@ package carte;
 
 import java.util.ArrayList;
 
+import traitement.Init;
+
 public class Game {
 	ArrayList<Table> game;
 	ArrayList<Player> players;
 	int id;
+	int playingPlayer=0;
 	
 	public Game(Table table, ArrayList<Player> players) {
 		game=new ArrayList<Table>();
@@ -52,5 +55,22 @@ public class Game {
 	
 	public int getId() {
 		return id;
+	}
+	
+	public  int getPlayingPlayer() {
+		return playingPlayer;
+	}
+	
+	public int getNextPlayingPlayer() {
+		if((getPlayingPlayer() + 1) < Init.getNbPlayer() ) {
+			return getPlayingPlayer() + 1;
+		}
+		else {
+			return 0;
+		}
+	}
+
+	public  void setPlayingPlayer(int index) {
+		playingPlayer=index;
 	}
 }

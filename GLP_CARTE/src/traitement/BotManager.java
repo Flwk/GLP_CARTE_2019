@@ -2,6 +2,9 @@ package traitement;
 
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
 import carte.Card;
 import carte.Game;
 import carte.Hand;
@@ -10,25 +13,10 @@ import carte.Posibility;
 
 public class BotManager {
 
-	public static boolean isBotTurn(Player player) {
-
-		if (player.getType() == 1) {
-			return true;
-		} else {
-			return false;
-		}
-
-	}
-
-	public static void botCanPlay(Game game, int playerId) {
+	public static void botCanPlay(Game game, JPanel pan, JTextArea text) {
 		ArrayList<Posibility> posibility = new ArrayList<Posibility>();
-		Hand hand = game.getPlayers().get(playerId).getHand();
-		/*
-		 * Selon le type de jeu actuel on effectue different test
-		 * game.getTable(0).getDiscard().getType() retourne le type de jeu 0 pour un
-		 * debut de "partie" 1 pour une carte 2 pour des paires 3 pour une suite de
-		 * trois carte 4 pour une suite de quattre carte
-		 */
+		Hand hand = game.getPlayers().get(game.getPlayingPlayer()).getHand();
+
 		switch (game.getTable(0).getDiscard().getType()) {
 
 		case 0:
@@ -193,29 +181,21 @@ public class BotManager {
 				}
 			}
 		}
-		
-		for(int i=0; i<posibility.size(); i++) {
-			for(int j=0; j<posibility.get(i).getList().size(); j++) {
-				System.out.println(posibility.get(i).getList().get(j).getName());
-			}
-			System.out.println("--------------------------");
-		}
-		System.out.println("--------------------------");
-		
+		/*
+		 * Si le bot peut jouer au moins une carte	
+		 */
 		if(posibility.size()>0) {
-			Posibility p=Probability.bestPlay(posibility, game, playerId);
+			Posibility p=Probability.bestPlay(posibility, game);
+			//SI LA PROBA EST SUPERIEUR A 0 
 			if(p.getProba()>0) {
-				System.out.println("--------------------------");
-				System.out.println("--------------------------");
-				System.out.println("--------------------------");
-				System.out.println("Meilleur option: ");
-				for(int i=0; i<p.getList().size(); i++) {
-					System.out.println(p.getList().get(i).getName());
-				}
-				System.out.println("--------------------------");
-				System.out.println("--------------------------");
-				System.out.println("--------------------------");
+				TurnManagement.turnManagement(game, pan, text, p);
 			}
+			else {
+				TurnManagement.turnManagement(game, pan, text);
+			}
+		}
+		else {
+			TurnManagement.turnManagement(game, pan, text);			
 		}
 	}
 }

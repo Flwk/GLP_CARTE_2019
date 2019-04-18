@@ -9,7 +9,7 @@ import carte.Hand;
 import carte.Stock;
 
 public class Management {
-
+	
 	public static void stockManagement(Hand hand, Stock stock) {
 		CardType cardType = getRandomCard(stock); //La sa resort "un type de carte" Il faut maintenant recuperer une couleur 
 		Card card=getRandomCardColor(cardType);
@@ -45,64 +45,65 @@ public class Management {
 		
 		for(int index=0; index<cardList.size(); index++) {
 			int cardKey=cardList.get(index).getKey();
+			
+			CardType cardType=new CardType(null, 0);
 			Card card=cardList.get(index);
 			
 			if(10 < cardKey && cardKey < 15) {		
-				CardType cardType=fictif.searchByKey(10);
+				cardType=fictif.searchByKey(10);
 				deleteStockCard(cardType, card, fictif);		
 			}
 			else if(20 < cardKey && cardKey < 25) {		
-				CardType cardType=fictif.searchByKey(20);
+				cardType=fictif.searchByKey(20);
 				deleteStockCard(cardType, card, fictif);			
 			}
 			else if(30 < cardKey && cardKey < 35) {			
-				CardType cardType=fictif.searchByKey(30);
+				cardType=fictif.searchByKey(30);
 				deleteStockCard(cardType, card, fictif);			
 			}
 			else if(40 < cardKey && cardKey < 45) {			
-				CardType cardType=fictif.searchByKey(40);
+				cardType=fictif.searchByKey(40);
 				deleteStockCard(cardType, card, fictif);			
 			}
 			else if(50 < cardKey && cardKey < 55) {			
-				CardType cardType=fictif.searchByKey(50);
+				cardType=fictif.searchByKey(50);
 				deleteStockCard(cardType, card, fictif);			
 			}
 			else if(60 < cardKey && cardKey < 65) {			
-				CardType cardType=fictif.searchByKey(60);
+				cardType=fictif.searchByKey(60);
 				deleteStockCard(cardType, card, fictif);				
 			}
 			else if(70 < cardKey && cardKey < 75) {			
-				CardType cardType=fictif.searchByKey(70);
+				cardType=fictif.searchByKey(70);
 				deleteStockCard(cardType, card, fictif);			
 			}
 			else if(80 < cardKey && cardKey < 85) {			
-				CardType cardType=fictif.searchByKey(80);
+				cardType=fictif.searchByKey(80);
 				deleteStockCard(cardType, card, fictif);			
 			}
 			else if(90 < cardKey && cardKey < 95) {			
-				CardType cardType=fictif.searchByKey(90);
+				cardType=fictif.searchByKey(90);
 				deleteStockCard(cardType, card, fictif);			
 			}
 			else if(100 < cardKey && cardKey < 105) {			
-				CardType cardType=fictif.searchByKey(60);
+				cardType=fictif.searchByKey(60);
 				deleteStockCard(cardType, card, fictif);		
 			}
 			else if(110 < cardKey && cardKey < 115) {		
-				CardType cardType=fictif.searchByKey(110);
+				cardType=fictif.searchByKey(110);
 				deleteStockCard(cardType, card, fictif);				
 			}
 			else if(120 < cardKey && cardKey < 125) {			
-				CardType cardType=fictif.searchByKey(120);
+				cardType=fictif.searchByKey(120);
 				deleteStockCard(cardType, card, fictif);			
 			}
 			else if(130 < cardKey && cardKey < 135) {			
-				CardType cardType=fictif.searchByKey(130);
+				cardType=fictif.searchByKey(130);
 				deleteStockCard(cardType, card, fictif);
 			}
 			else {	
-				CardType cardType=fictif.searchByKey(140);
+				cardType=fictif.searchByKey(140);
 				deleteStockCard(cardType, card, fictif);
-	
 			}
 		}
 	}

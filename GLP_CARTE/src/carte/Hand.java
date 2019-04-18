@@ -26,6 +26,7 @@ public class Hand {
 			}
 		}
 	}
+	
 
 	public int cardCount() {
 		return cards.size();

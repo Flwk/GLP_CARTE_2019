@@ -47,7 +47,7 @@ public class Menu extends JFrame{
 		setTitle("Tu n'y peux rien ! MENU");
 		setFont(new Font("Dialog", Font.PLAIN, 20));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 780, 515);
+		setBounds(100, 100, 780, 615);
 		build();
 		panel();
 		

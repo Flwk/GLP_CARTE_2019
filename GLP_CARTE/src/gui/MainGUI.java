@@ -3,23 +3,17 @@ package gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import carte.Table;
-import traitement.BotManager;
-import traitement.EndGame;
 import traitement.Init;
-import traitement.Management;
 import traitement.PlayerAction;
 import traitement.PrintDiscard;
 import traitement.TurnManagement;
 import carte.picturePath;
 import carte.Card;
 import carte.Game;
+import carte.Posibility;
 
 /**
  * @author Bilal / Nadir / Clément
@@ -39,7 +33,6 @@ public class MainGUI {
 	private ArrayList<String> cards = new ArrayList<String>();
 	private ArrayList<Card> card = new ArrayList<Card>();
 	Game game;
-	JLabel label;
 	JTextArea textArea = new JTextArea();
 	/**
 	 * Create the application.
@@ -47,28 +40,23 @@ public class MainGUI {
 	public MainGUI() {
 		initialize();
 	}
-
+		
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1400, 551);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		pannel.setLayout(null);
-		 try {
-				label=new JLabel(new ImageIcon(ImageIO.read(new File("D:/Games/background.jpg"))));
-				textArea.setBounds(100, 100, 1400, 551);
-				pannel.add(label);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		textArea = new JTextArea();
-		textArea.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		textArea.setBounds(1022, 13, 348, 478);
-		pannel.add(textArea);
+		JScrollPane scrollText=new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollText.setBounds(1022, 13, 348, 478);
+		scrollText.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		pannel.add(scrollText);
 		
 		JScrollPane scrollPane = new JScrollPane(pan, JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -87,6 +75,7 @@ public class MainGUI {
 
 		button_2 = new JButton(new ImageIcon("resources\\images\\cover.gif"));
 		button_2.setBounds(600, 215, 97, 143);
+		button_2.addActionListener(new test());
 		pannel.add(button_2);
 		
 		frame.getContentPane().add(pannel, BorderLayout.CENTER);
@@ -97,18 +86,25 @@ public class MainGUI {
 	public JPanel getPanel() {
 		return pan;
 	}
+	public JPanel getPan() {
+		return pannel;
+	}
+	
+	public JTextArea getArea() {
+		return textArea;
+	}
 
 	public void tempor() {
 		
-		for (int k = 0; k < game.getPlayers().get(i).getHand().cardCount(); k++) {
-			int key = game.getPlayers().get(i).getHand().getCardKey(k);
-
+		for (int k = 0; k < game.getPlayers().get(game.getPlayingPlayer()).getHand().cardCount(); k++) {
+			int key = game.getPlayers().get(game.getPlayingPlayer()).getHand().getCardKey(k);
+			
 			JButton cartButton = new JButton(new ImageIcon(picturePath.getPicturePath(key)));
 			cartButton.setPreferredSize(new Dimension(97, 143));
 			listButton.add(cartButton);
 			cartButton.setActionCommand(String.valueOf(key));
 			cartButton.addActionListener(new SelectionListener());
-
+			
 			if (turn != 0) {
 				discardButton.setIcon((new ImageIcon(
 						picturePath.getPicturePath(game.getTable(gameId).getDiscard().getLastCardPlay()))));
@@ -143,6 +139,7 @@ public class MainGUI {
 
 	public void Init() {
 		game=Init.initGame();
+		System.out.println(Init.getNbPlayer());
 	}
 
 	public void show() {
@@ -153,28 +150,7 @@ public class MainGUI {
 
 	class PasserListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			BotManager.botCanPlay(game, i);
-			Management.stockManagement(game.getPlayers().get(i).getHand(), game.getTable(gameId).getStock());
-			game.getPlayers().get(i).pass(1);
-			PrintDiscard.printLog(textArea, i, game);
-			
-			if (!TurnManagement.canPlay(game.getPlayers())) {
-				game.getTable(gameId).getDiscard().setTurn(1);
-				i = TurnManagement.getLastPlayerWhoPlay() - 1;
-				game.getTable(gameId).getDiscard().setType(0);
-				for (int i = 0; i < Init.getNbPlayer(); i++) {
-					game.getPlayers().get(i).pass(0);
-				}
-			}
-
-			if (i < Init.getNbPlayer() - 1) {
-				i = i + 1;
-			} else {
-				i = 0;
-			}
-
-			tempor2();
-
+			TurnManagement.turnManagement(game, pannel, textArea);
 		}
 	}
 
@@ -186,9 +162,11 @@ public class MainGUI {
 				if (String.valueOf(cards.get(i)) == String.valueOf(e.getActionCommand())) {
 					cards.remove(i);
 					test = 1;
+					System.out.println("test2");
 				}
 			}
 			if (test == 0) {
+				System.out.println("test");
 				cards.add(e.getActionCommand());
 			}
 
@@ -197,90 +175,53 @@ public class MainGUI {
 
 	class jouerListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (!cards.isEmpty()) {
-				if (game.getPlayers().get(i).getToPass() == 0) {
-					for (int a = 0; a < cards.size(); a++) {
-						Integer inter = Integer.valueOf(cards.get(a));
-						card.add(Card.getCardWithKey(inter));
-					}
-
-					// test si la (les) carte(s) jouée(s) son(t) valide(nt)
-					int isValid = PlayerAction.verify(card, game.getTable(gameId).getDiscard());
-
-					if (isValid > 0) {
-						game.getTable(gameId).getDiscard().setType(cards.size());
-
-						for (int a = 0; a < cards.size(); a++) {
-							Integer inter = Integer.valueOf(cards.get(a));
-							game.getTable(gameId).getDiscard().add(Card.getCardWithKey(inter));
-							game.getPlayers().get(i).getHand().remove(inter);
-						}
-						PrintDiscard.printCard(pannel, game.getTable(gameId).getDiscard());
-						TurnManagement.lastPlayerWhoPlay(i);
-						if (isValid == 2) {
-							game.getTable(gameId).getDiscard().setTurn(2);
-							PrintDiscard.printLog(textArea, i, game);
-							game.getTable(gameId).getDiscard().setType(0);
-							for (int y = 0; y < Init.getNbPlayer(); y++) {
-								game.getPlayers().get(y).pass(0);
-							}
-						}
-						else {
-							PrintDiscard.printLog(textArea, i, game);
-						}
-					} else {
-						JOptionPane.showMessageDialog(null, "mauvaise carte", "mauvaise carte jouée", JOptionPane.ERROR_MESSAGE);
-					}
-
-					
-					
-					/*
-					 * Si un joueur a gagné alors on ammorce la fin de la partie
-					 */
-					if (TurnManagement.endGame(game.getPlayers())) {
-						//Player winner = EndGame.winner(game.getPlayers());
-						JOptionPane.showMessageDialog(null,
-								game.getPlayers().get(i).getUsername() + " a gagné la partie",
-								"Fin de partie!!", JOptionPane.ERROR_MESSAGE);
-						game.setPlayers(EndGame.scoreManager(game.getPlayers(), i));
-						/*
-						 * On initialise une nouvelle table de jeu 
-						 * comportant une pioche et un defausse
-						 */
-						game.addTable(Init.initTable());					
-						gameId++;
-						game.setId(gameId);
-						EndGame.resetHand(game.getPlayers());
-						EndGame.initNewHand(game.getTable(gameId).getStock(), game.getPlayers());
-						/*
-						 * Sinon si la carte est valide est n'est pas une bombe ou un deux on passe au
-						 * joueur suivant
-						 */
-					} else if (isValid > 0 && isValid != 2) {
-						do {
-
-							if (i < Init.getNbPlayer() - 1) {
-								i = i + 1;
-							} else {
-								i = 0;
-
-							}
-
-						} while (game.getPlayers().get(i).getToPass() != 0);
-
-					}
-					BotManager.botCanPlay(game, i);
-					if(game.getTable(gameId).getDiscard().getTurn() == 2) {
-						game.getTable(gameId).getDiscard().setTurn(0);
-					}
-					else {
-						game.getTable(gameId).getDiscard().setTurn(0);
-					}
-					tempor2();
-					cards.clear();
-					card.clear();
+			/*
+			 * Si aucune carte n'est selectioné on ne peut jouer
+			 */
+			
+			if(!cards.isEmpty()) {
+				/*
+				 * On va tester si les cartes jouées suivent les regles du jeu
+				 * Pour cela on recupere les cartes correspondante aux clefs jouée
+				 */
+				for (int a = 0; a < cards.size(); a++) {
+					Integer inter = Integer.valueOf(cards.get(a));
+					card.add(Card.getCardWithKey(inter));
 				}
+				
+				int isValid = PlayerAction.verify(card, game.getTable(gameId).getDiscard());
+				// Si les cartes on passe les test et sont valident
+				if (isValid == 2) {
+					Posibility pos=new Posibility(0, card);
+					TurnManagement.turnManagement(game, pannel, textArea, pos);
+				}
+				else if(isValid > 0) {
+					Posibility pos=new Posibility(1, card);
+					TurnManagement.turnManagement(game, pannel, textArea, pos);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "mauvaise carte", "mauvaise carte jouée", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			
+			/*
+			 * On appele la fonction qui va gerer les tours des joueurs
+			 */
+			tempor2();
+			cards.clear();
+			card.clear();
+		}
+	}
+	
+	class test implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("--------------------------------------------");
+			System.out.println(game.getPlayers().get(game.getPlayingPlayer()));
+			for(int i=0; i<game.getTable(0).getDiscard().cardCount(); i++) {
+				System.out.println(game.getTable(0).getDiscard().getCards().get(i).getName());
 			}
 		}
 	}
 }
+
+

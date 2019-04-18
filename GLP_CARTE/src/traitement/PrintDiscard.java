@@ -44,7 +44,7 @@ public class PrintDiscard {
 			discardButton_a.setBounds(323, 100, 97, 143);
 			discardButton_b
 					.setIcon(new ImageIcon(picturePath.getPicturePath(discard.getCards().get(size - 1).getKey())));
-			discardButton_b.setBounds(420, 0, 97, 143);
+			discardButton_b.setBounds(420, 100, 97, 143);
 			gui.add(discardButton_a);
 			gui.add(discardButton_b);
 			gui.remove(discardButton_c);
@@ -73,7 +73,7 @@ public class PrintDiscard {
 			discardButton_a.setBounds(323, 100, 97, 143);
 			discardButton_b
 					.setIcon(new ImageIcon(picturePath.getPicturePath(discard.getCards().get(size - 3).getKey())));
-			discardButton_b.setBounds(420, 100, 97, 143);
+			discardButton_c.setBounds(420, 100, 97, 143);
 			discardButton_c
 					.setIcon(new ImageIcon(picturePath.getPicturePath(discard.getCards().get(size - 2).getKey())));
 			discardButton_c.setBounds(513, 100, 97, 143);
@@ -92,85 +92,25 @@ public class PrintDiscard {
 		}
 	}
 	
-	public static void printLog(JTextArea area, int playerId, Game game) {
+	public static void printLog(JTextArea area, Game game) {
 		int id=game.getId();
-		int type=game.getTable(id).getDiscard().getType();
+		int type=game.getTable(id).getDiscard().getLastPlaySize();
 		int size=game.getTable(id).getDiscard().cardCount();
 		
-		String str=game.getPlayers().get(playerId).getUsername()+ " type: "+ game.getPlayers().get(playerId).getType() + ": a joué ";
+		String str=game.getPlayers().get(game.getPlayingPlayer()).getUsername()+ " : a joué ";
 		
-		if(game.getTable(id).getDiscard().getTurn() == 1) {
-			area.append("-------------------------------------------------------------\n");
+		if(game.getPlayers().get(game.getPlayingPlayer()).getToPass() == 1) {
+			area.append(game.getPlayers().get(game.getPlayingPlayer()).getUsername() +": n'y peux rien\n");
 		}
-
-		switch(playerId) {
-		
-		case 0:
-			
-			if(game.getPlayers().get(playerId).getToPass() == 1) {
-				area.append(game.getPlayers().get(playerId).getUsername() +": n'y peux rien\n");
+		else {
+			for(int playSize=(size-type); playSize<size; playSize++) {
+				System.out.println(game.getTable(0).getDiscard().getCards().get(playSize).getName() + "test");
+				str=str + game.getTable(id).getDiscard().getCards().get(playSize).getName() + "  ";
 			}
-			else {
-				for(int playSize=(size-type); playSize<size; playSize++) {
-					str=str + game.getTable(id).getDiscard().getCards().get(playSize).getName() + "  ";
-				}
-				str=str+"\n";
-				area.append(str);
-			}
-			break;
-		case 1:
-			if(game.getPlayers().get(playerId).getToPass() == 1) {
-				area.append(game.getPlayers().get(playerId).getUsername() +": n'y peux rien \n");
-			}
-			else {
-				for(int playSize=(size-type); playSize<size; playSize++) {
-					str=str + game.getTable(id).getDiscard().getCards().get(playSize).getName() + "  ";
-				}
-				str=str+"\n";
-				area.append(str);
-			}
-			break;
-		case 2:
-			if(game.getPlayers().get(playerId).getToPass() == 1) {
-				area.append(game.getPlayers().get(playerId).getUsername() +": n'y peux rien \n");
-			}
-			else {
-				for(int playSize=(size-type); playSize<size; playSize++) {
-					str=str + game.getTable(id).getDiscard().getCards().get(playSize).getName() + "  ";
-				}
-				str=str+"\n";
-				area.append(str);
-			}
-			break;
-		case 3:
-			if(game.getPlayers().get(playerId).getToPass() == 1) {
-				area.append(game.getPlayers().get(playerId).getUsername() +": n'y peux rien \n");
-			}
-			else {
-				for(int playSize=(size-type); playSize<size; playSize++) {
-					str=str + game.getTable(id).getDiscard().getCards().get(playSize).getName() + "  ";
-				}
-				str=str+"\n";
-				area.append(str);
-			}
-			break;
-		case 4:
-			if(game.getPlayers().get(playerId).getToPass() == 1) {
-				area.append(game.getPlayers().get(playerId).getUsername() +": n'y peux rien \n");
-			}
-			else {
-				for(int playSize=(size-type); playSize<size; playSize++) {
-					str=str + game.getTable(id).getDiscard().getCards().get(playSize).getName() + "  ";
-				}
-				str=str+"\n";
-				area.append(str);
-			}
-			break;
+			str=str+"\n";
+			area.append(str);
 		}
 		
-		if(game.getTable(id).getDiscard().getTurn() == 2) {
-			area.append("-------------------------------------------------------------\n");
-		}
 	}
 
 }
