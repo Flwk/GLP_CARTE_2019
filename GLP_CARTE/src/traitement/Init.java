@@ -31,7 +31,7 @@ public class Init{
 	
 	public static Game initGame() {
 		table=initTable();
-	
+		
 		
 		for(int i=0; i<nbPlayerHumain; i++) {
 			players.add(initPlayer(i, stock));

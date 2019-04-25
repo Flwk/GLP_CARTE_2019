@@ -23,7 +23,6 @@ public class Probability {
 
 	public static Posibility bestPlay(ArrayList<Posibility> posibility, Game game) {
 
-	;
 		playerId = game.getPlayingPlayer();
 		/*
 		 * On prepare la liste des cartes pas encore presente dans la defausse On y
@@ -251,6 +250,7 @@ public class Probability {
 					key = (int) Math.round((double) key);
 					key = key * 10;
 
+					//On recherche si la carte qui suit existe et s'il elle exite pas on reduit la proba
 					if (fictif.keyCardExist(key + 10)) {
 						CardType nbr = fictif.searchByKey(key + 10);
 						for (int index = 0; index < nbr.getList().size(); index++) {

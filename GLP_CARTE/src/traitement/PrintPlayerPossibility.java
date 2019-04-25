@@ -1,5 +1,7 @@
 package traitement;
 
+import java.awt.Dimension;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -8,12 +10,15 @@ import javax.swing.JTextArea;
 import carte.Card;
 import carte.Game;
 import carte.Hand;
-import carte.Player;
 import carte.Posibility;
+import carte.picturePath;
+import gui.PanelImage;
 
-public class BotManager {
-
-	public static void botCanPlay(Game game, JPanel pan, JTextArea text) {
+public class PrintPlayerPossibility {
+	/*
+	 * La même class que BotManager mais pour un joueur humain
+	 */
+	public static void printHandPossibility(Game game, JPanel pan) {
 		
 		ArrayList<Posibility> posibility = new ArrayList<Posibility>();
 		Hand hand = game.getPlayers().get(game.getPlayingPlayer()).getHand();
@@ -21,6 +26,7 @@ public class BotManager {
 		switch (game.getTable(0).getDiscard().getType()) {
 
 		case 0:
+			
 			for (int index = 0; index < hand.cardCount(); index++) {
 				// On recupere la valeur retourner par isLegit
 				int val = PlayerAction.isLegit(hand.getList().get(index), game.getTable(0).getDiscard());
@@ -29,7 +35,9 @@ public class BotManager {
 					card.add(hand.getList().get(index));
 					Posibility play = new Posibility(0, card);
 					posibility.add(play);
+					
 				} else if (val == 1) {
+					
 					ArrayList<Card> card = new ArrayList<Card>();
 					card.add(hand.getList().get(index));
 					Posibility play = new Posibility(1, card);
@@ -183,21 +191,38 @@ public class BotManager {
 			}
 		}
 		
-		/*
-		 * Si le bot peut jouer au moins une carte	
-		 */
+		int x=0;
+		int y=0;
+		
+		
+		pan.removeAll();
+		
 		if(posibility.size()>0) {
-			Posibility p=Probability.bestPlay(posibility, game);
-			//SI LA PROBA EST SUPERIEUR A 0 
-			if(p.getProba()>=0) {
-				TurnManagement.turnManagement(game, pan, text, p);
+			for(int index=0; index<posibility.size(); index++) {
+				Posibility p=Probability.bestPlay(posibility, game);
+				
+				if(posibility.get(index).getProba()>=0) {
+					
+					for(int index2=0; index2<posibility.get(index).getList().size(); index2++) {
+						PanelImage pI= new PanelImage();
+						pI.setBounds(x, y, 97, 143);
+						
+						try {
+							
+							pI.setImage(picturePath.getPicturePath(posibility.get(index).getList().get(index2).getKey()));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						x=x+100;
+						pan.add(pI);
+					}
+					y=y+143;
+				}
+				x=0;
 			}
-			else {
-				TurnManagement.turnManagement(game, pan, text);
-			}
-		}
-		else {
-			TurnManagement.turnManagement(game, pan, text);			
+			
+			pan.setPreferredSize(new Dimension(x , y));
 		}
 	}
 }

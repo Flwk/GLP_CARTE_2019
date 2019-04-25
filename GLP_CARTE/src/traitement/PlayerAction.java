@@ -61,20 +61,29 @@ public class PlayerAction {
 	}
 
 	public static int isLegit(Card card, Discard lastPlay) {
+		/*
+		 * Si le type est 0
+		 */
 		if (lastPlay.getType() == 0) {
 			if (Math.abs(card.getKey() - 20) < 5) {
 				return 2;
-			} else {
+			} else if(isJoker(card.getKey())){ //On refuse les jokers en ouverture
+				return 0;
+			}
+			else {
 				return 1;
 			}
-		} else if (lastPlay.getType() == 1) { // Si c'est la premiere carte joué toute carte est accepté
-
+		} else if (lastPlay.getType() == 1) {
+			int cardPlayKey = card.getKey();
 			int nbr = lastPlay.cardCount();
 			int lastKey = lastPlay.getCards().get(nbr - 1).getKey();
 			if (isJoker(lastKey)) {
+				if (isJoker(cardPlayKey)) { //On ne peut jouer deux joker consecutifs
+					return 0;
+				}
 				lastKey = lastPlay.getCards().get(nbr - 2).getKey() + 10;
 			}
-			int cardPlayKey = card.getKey();
+			
 			if (isJoker(cardPlayKey)) {
 				lastPlay.setType(1);
 				return 1; // Si la carte est un joker on accepte la carte
@@ -98,6 +107,9 @@ public class PlayerAction {
 	public static int isLegit(Card c1, Card c2, Discard lastPlay) {
 		if (lastPlay.getType() == 0) {
 			if (isDouble(c1, c2)) {
+				if(isJoker(c1.getKey()) && isJoker(c2.getKey())) {
+					return 0;
+				}
 				return 1;
 			}
 			return 0;
@@ -112,7 +124,7 @@ public class PlayerAction {
 			if (Math.abs(c1.getKey() - 20) < 5 && isDouble(c1, c2, lastKey)) {
 				return 2;
 			} else {
-				if (c1.getKey() == lastKey) {
+				if (c1.getKey() == lastKey || c2.getKey() == lastKey || c1.getKey() < lastKey) {
 					return 0;
 				} else if (Math.abs(c1.getKey() - lastKey) < 14 && isDouble(c1, c2, lastKey)) {
 					return 1;

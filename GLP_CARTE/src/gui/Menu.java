@@ -176,7 +176,12 @@ public class Menu extends JFrame{
 				buttonEntrainement.setBackground(Color.LIGHT_GRAY);
 				buttonNormal.setBackground(Color.DARK_GRAY);
 			}
-			
+			buttonMore.setEnabled(false);
+			buttonLess.setEnabled(false);
+			buttonMore2.setEnabled(false);
+			buttonLess2.setEnabled(false);
+			txt.setText("Nombre d'humain: 1");
+			txt2.setText("Nombre de Bot: 4");
 		}
 	}
 	
@@ -187,17 +192,33 @@ public class Menu extends JFrame{
 				buttonEntrainement.setBackground(Color.DARK_GRAY);
 				buttonNormal.setBackground(Color.LIGHT_GRAY);
 			}
+			buttonMore.setEnabled(true);
+			buttonLess.setEnabled(true);
+			buttonMore2.setEnabled(true);
+			buttonLess2.setEnabled(true);
+			txt.setText("Nombre d'humain: " + nbPlayerHumain);
+			txt2.setText("Nombre de Bot: " + nbPlayerHumain);
 		}
 	}
 	
 	class playListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			quit();
-			MainGUI main = new MainGUI();
-			Init.setNbPlayer(nbPlayer);
-			Init.setNbPlayerBot(nbPlayerBot);
-			Init.setNbPlayerHumain(nbPlayerHumain);
-			main.show();
+			if(rulesTypes == 0) {
+				MainGUI main = new MainGUI();
+				Init.setNbPlayer(nbPlayer);
+				Init.setNbPlayerBot(nbPlayerBot);
+				Init.setNbPlayerHumain(nbPlayerHumain);
+				main.show();
+			}
+			else {
+				trainingGui main=new trainingGui();
+				Init.setNbPlayer(5);
+				Init.setNbPlayerBot(4);
+				Init.setNbPlayerHumain(1);
+				main.show();
+			}
+			
 		}
 	}
 	

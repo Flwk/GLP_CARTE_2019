@@ -217,7 +217,8 @@ public class picturePath {
 		break;
 		
 		default:
-			path=null;
+			System.out.println("JOKER!!!");
+			path="D://Games/Joker.png";
 		}
 		return path;
 	}

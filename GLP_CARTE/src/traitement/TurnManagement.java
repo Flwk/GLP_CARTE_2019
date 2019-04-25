@@ -1,5 +1,6 @@
 package traitement;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -41,14 +42,31 @@ public class TurnManagement {
 		return false;
 	}
 	
+	
+	/*
+	 * @param game | La partie actuel
+	 * @param pan  | Le JPanel de la fenetre aux cas ou le prochain joueur est un robot pour afficher ses gestes
+	 * @param text | Le Champ de texte ou afficher les logs
+	 * 
+	 * Gere les joueurs Humain et Bot qui passent leur tours 
+	 * 
+	 */
 	public static void turnManagement(Game game, JPanel pan, JTextArea text) {
+		
 		game.getPlayers().get(game.getPlayingPlayer()).pass();
 		PrintDiscard.printLog(text, game);
 		endTurn(game, text, pan);
+		//Si endTurn retourne la fin d'un tour et que perssonne ne peut jouer on reset
 		if(game.getTable(0).getDiscard().getType() != 0) {
 			game.setPlayingPlayer(game.getNextPlayingPlayer());		
 		}
-		Management.stockManagement(game.getPlayers().get(game.getPlayingPlayer()).getHand(), game.getTable(0).getStock());	
+		
+		//On pioche seulement si le pioche n'est pas vide
+		if(game.getTable(0).getStock().cardCount()>0) {
+			Management.stockManagement(game.getPlayers().get(game.getPlayingPlayer()).getHand(), game.getTable(0).getStock());	
+		}
+		
+		//Si le prochain joueur est un bot
 		if(game.getPlayers().get(game.getPlayingPlayer()).getType() == 1) {
 			BotManager.botCanPlay(game, pan, text);
 		}
@@ -58,19 +76,19 @@ public class TurnManagement {
 	public static void turnManagement(Game game, JPanel pan, JTextArea text, Posibility pos) {
 			if(endGame(game.getPlayers())) {
 	
-					/*
-					 * On gere le score des joueurs
-					 */
-					//game.setPlayers(EndGame.scoreManager(game.getPlayers(), game.getPlayingPlayer()));
-					
-					/*
-					 * On initialise une nouvelle table de jeu 
-					 * comportant une pioche et un defausse
-					 */
-				//	game.addTable(Init.initTable());					
-			//		game.setId(game.getId()+1);
-					//EndGame.resetHand(game.getPlayers());
-				//	EndGame.initNewHand(game.getTable(game.getId()+1).getStock(), game.getPlayers());
+				/*
+				 * On gere le score des joueurs
+				 */
+				game.setPlayers(EndGame.scoreManager(game.getPlayers(), game.getPlayingPlayer()));
+				
+				/*
+				 * On initialise une nouvelle table de jeu 
+				 * comportant une pioche et un defausse
+				 */
+				game.addTable(Init.initTable());					
+				game.setId(game.getId()+1);
+				EndGame.resetHand(game.getPlayers());
+				EndGame.initNewHand(game.getTable(game.getId()+1).getStock(), game.getPlayers());
 				
 			}
 			/*
@@ -88,13 +106,19 @@ public class TurnManagement {
 				game.getTable(0).getDiscard().setType(pos.getList().size());
 				game.getTable(0).getDiscard().setLastPlaySize(pos.getList().size());
 				PrintDiscard.printLog(text, game);
-				PrintDiscard.printCard(pan, game.getTable(0).getDiscard());
+				try {
+					PrintDiscard.printCard(pan, game.getTable(0).getDiscard());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				
 				if(pos.getType() == 0) {
 					game.getTable(0).getDiscard().setType(0);
-					Management.stockManagement(game.getPlayers().get(game.getPlayingPlayer()).getHand(), game.getTable(0).getStock());
-					
+					if(game.getTable(0).getStock().cardCount()>0) {
+						Management.stockManagement(game.getPlayers().get(game.getPlayingPlayer()).getHand(), game.getTable(0).getStock());
+					}
 					if(game.getPlayers().get(game.getPlayingPlayer()).getType() == 1 ) {
 						BotManager.botCanPlay(game, pan, text);
 					}
@@ -102,8 +126,9 @@ public class TurnManagement {
 				else {
 					endTurn(game, text, pan);
 					game.setPlayingPlayer(game.getNextPlayingPlayer());
-					Management.stockManagement(game.getPlayers().get(game.getPlayingPlayer()).getHand(), game.getTable(0).getStock());
-					
+					if(game.getTable(0).getStock().cardCount()>0) {
+						Management.stockManagement(game.getPlayers().get(game.getPlayingPlayer()).getHand(), game.getTable(0).getStock());
+					}
 					if(game.getPlayers().get(game.getPlayingPlayer()).getType() == 1 ) {
 						BotManager.botCanPlay(game, pan, text);
 					}
