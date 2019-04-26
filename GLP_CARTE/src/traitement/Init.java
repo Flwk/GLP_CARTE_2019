@@ -16,6 +16,7 @@ import carte.Table;
 /**
  * 
  * @author cvericel
+ * Initialise la partie
  */
 public class Init{
 	
@@ -28,54 +29,81 @@ public class Init{
 	private static int nbPlayerHumain;
 	private static int nbPlayerBot;
 
-	
+	/*
+	 * Initialise la Partie
+	 */
 	public static Game initGame() {
+		//On initialise la table
 		table=initTable();
 		
-		
+		//On y ajoute les joueurs humain
 		for(int i=0; i<nbPlayerHumain; i++) {
 			players.add(initPlayer(i, stock));
 		}
+		//On y ajoute les joueurs "bot"
 		for(int i=0; i<nbPlayerBot; i++) {
 			players.add(initBot(i, stock));
 		}
 		Game game=new Game(table, players);
 		return game;
 	}
+	/*
+	 * initialise la table
+	 */
 	public static Table initTable() {
-		discard.setType(0);
+		//On creer la nouvelle pioche et on l'initialise
 		stock=new Stock();
 		stock=initStock();
-		Table itable=new Table(stock, discard);
-		return itable;
+		Table intertable=new Table(stock, discard);
+		return intertable;
 	}
 	
-	
+	/*
+	 * Methode qui va initialiser un joueur humain
+	 * @param i | l'id du joueur
+	 */
 	public static Player initPlayer(int i, Stock stock) {
+		//On creer le joueur
 		Player p=new Player("Player"+i, null, 0, null, 0);
 		Hand h= new Hand();
 		Scoreboard score=new Scoreboard(100);
 		p.setScore(score);
 		p.setHand(h);
+		//On initialise sa main
 		initHand(p, stock);
 		return p;
 	}
+	/*
+	 * Methode qui va initialiser un joueur "bot"
+	 */
 	public static Player initBot(int i, Stock stock) {
+		//On creer le joueur
 		Player p=new BotPlayer("Bot"+i, null, null, 0);
 		Hand h= new Hand();
 		Scoreboard score=new Scoreboard(100);
 		p.setScore(score);
 		p.setHand(h);
+		//On initialise sa main
 		initHand(p, stock);
 		return p;
 	}
-	
+	/*
+	 *  Initialise une main
+	 */
 	public static void initHand(Player player, Stock stock) {
 		for(int i=0; i<5; i++) {
+			/*
+			 * On appele la methode static qui gere la pioche
+			 */
 			Management.stockManagement(player.getHand(), stock);
 		}
 	}
 
+	/*
+	 * initialise la pioche
+	 * Methode BRUTE et SALE
+	 * ON CREER CHAQUE CARTE UNE PAR UNE ET ON LES MET DANS LA PIOCHE
+	 */
 	public static Stock initStock() {
 		Stock init= new Stock();
 		CardType as=new CardType("As", 10);		
@@ -263,14 +291,6 @@ public class Init{
 		return init;
 	}
 	
-	public void test() {
-		game=initGame();
-	}
-	
-	public Game getGame() {
-		return game;
-	}
-
 	public static void setNbPlayer(int nbrPlayer) {
 		nbPlayer = nbrPlayer;
 	}

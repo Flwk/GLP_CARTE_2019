@@ -2,13 +2,17 @@ package carte;
 
 import java.util.ArrayList;
 
-public class Posibility {
+/**
+ * @author cleme
+ * Possibility nous est utile pour calculer la meilleur option de jeu a éffectué
+ */
+public class Possibility {
 	
 	ArrayList<Card> card=new ArrayList<Card>();
 	int type;
 	int proba;
 	
-	public Posibility(int type, ArrayList<Card> card) {
+	public Possibility(int type, ArrayList<Card> card) {
 		this.card=card;
 		this.type=type;
 		this.proba=0;

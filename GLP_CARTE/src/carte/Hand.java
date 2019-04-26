@@ -5,6 +5,8 @@ import java.util.ArrayList;
 /**
  * 
  * @author cvericel
+ * Hand est la main d'un joueur
+ * 
  */
 
 public class Hand {

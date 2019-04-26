@@ -2,6 +2,7 @@ package carte;
 /**
  * 
  * @author cvericel
+ * Class qui gére les joueurs de la partie
  */
 public class Player {
 		

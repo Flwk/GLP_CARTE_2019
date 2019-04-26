@@ -67,7 +67,7 @@ public class PrintDiscard {
 			discardButton_c.setImage(picturePath.getPicturePath(discard.getCards().get(size - 2).getKey()));
 			discardButton_c.setBounds(794, 220, 97, 143);
 			discardButton_d.setImage(picturePath.getPicturePath(discard.getCards().get(size - 1).getKey()));
-			discardButton_d.setBounds(901, 220, 97, 143);
+			discardButton_d.setBounds(891, 220, 97, 143);
 			gui.add(discardButton_a);
 			gui.add(discardButton_b);
 			gui.add(discardButton_c);
@@ -96,7 +96,6 @@ public class PrintDiscard {
 			str = str + "\n";
 			area.append(str);
 		}
-
 	}
 	
 	public static void printOtherPlayerHand(JPanel pan, Game game) {
@@ -146,5 +145,22 @@ public class PrintDiscard {
 		}
 		pan.setPreferredSize(new Dimension(x, y));
 	}
-
+	public static void printOtherHandSize(JPanel pan, Game game) {
+		int y=0;
+		pan.removeAll();
+		
+		for(int index=0; index <game.getPlayers().size(); index++) {
+			JTextField text= new JTextField();
+			text.setEditable(false);
+			text.setOpaque(false);
+			text.setBackground(new Color(0,0,0,0));
+			text.setText(game.getPlayers().get(index).getUsername() + " a encore "+game.getPlayers().get(index).getHand().cardCount()+ " cartes");
+			text.setBounds(0, y, 250, 25);
+			text.setFont(new Font("Arial", Font.PLAIN, 18));
+			text.setForeground(Color.WHITE);
+			text.setBorder(null);
+			pan.add(text);
+			y=y+25;
+		}
+	}
 }

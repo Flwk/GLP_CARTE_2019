@@ -1,9 +1,16 @@
 package carte;
 
+/**
+ * @author cvericel
+ *
+ * Cette class va s'occuper de l'affichage des cartes 
+ */
 public class picturePath {
-	public picturePath() {
-	}
-	
+
+	/*
+	 * @param key, c'est la clef de la cartes
+	 * @return String, cela représente le chemin pour acceder a l'image
+	 */
 	public static String getPicturePath(int key) {
 		String path;
 		switch(key) {
@@ -217,8 +224,7 @@ public class picturePath {
 		break;
 		
 		default:
-			System.out.println("JOKER!!!");
-			path="D://Games/Joker.png";
+			path="resources\\images\\Joker.png";
 		}
 		return path;
 	}

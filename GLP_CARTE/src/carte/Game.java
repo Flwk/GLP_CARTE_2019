@@ -4,10 +4,15 @@ import java.util.ArrayList;
 
 import traitement.Init;
 
+/**
+ * @author cvericel
+ * Game est la class qui regroupe les tables de jeux 
+ * Ainsi que tous les joueurs de la partie
+ */
 public class Game {
 	ArrayList<Table> game;
 	ArrayList<Player> players;
-	int id;
+	int id=0;
 	int playingPlayer=0;
 	
 	public Game(Table table, ArrayList<Player> players) {

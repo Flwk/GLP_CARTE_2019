@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * @author cvericel
- *
+ * EndGame gere les fin de partie notament le score des joueurs ainsi que le gagnant
  */
 
 public class EndGame {
@@ -60,14 +60,19 @@ public class EndGame {
 		return players;
 	}
 	
-	
+	/*
+	 * remet a 0 les mains des joueurs
+	 */
 	public static void resetHand(ArrayList<Player> players) {
 		for(int index=0; index<Init.getNbPlayer(); index++) {
 			players.get(index).getHand().getList().clear();
 		}
 	}
 	
-public static void initNewHand(Stock stock, ArrayList<Player> players) {
+	/*
+	 * Initialise de nouvelle main pour les joueurs
+	 */
+	public static void initNewHand(Stock stock, ArrayList<Player> players) {
 		for(int index=0; index<Init.getNbPlayer(); index++) {
 			Init.initHand(players.get(index), stock);
 		}

@@ -2,14 +2,17 @@ package carte;
 
 import java.util.ArrayList;
 
+/**
+ * @author cvericel
+ *
+ */
 public class Discard {
-	//type 1 == 1 cartes jouées
-	//.... 2 == 2 ....
-	//.... 3 == 3 ....
-	//....
-	private int type;
+	/*
+	 * type est un int qui correspond au "type de jeu" actuel, 1 pour des cartes unique, 2 pour paire
+	 * 3 pour suite de trois .., et 0 pour n'importe qu'elle combinaison de carte valable
+	 */
+	private int type=0;
 	private int lastPlaySize=0;
-	private int turn=1;
 	private ArrayList<Card> cards;
 	
 	public Discard() {
@@ -37,14 +40,6 @@ public class Discard {
 	}
 	public void setType(int typePlayed) {
 		type=typePlayed;
-	}
-	
-	public int getTurn() {
-		return turn;
-	}
-	
-	public void setTurn(int turn) {
-		this.turn=turn;
 	}
 	
 	public int getLastCardPlay() {

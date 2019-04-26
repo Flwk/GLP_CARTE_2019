@@ -188,9 +188,9 @@ public class trainingGui {
 		class PasserListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				TurnManagement.turnManagement(game, pannel, textArea);
-				tempor2();
 				PrintDiscard.printOtherPlayerHand(otherPlayerHand, game);
 				PrintPlayerPossibility.printHandPossibility(game, possibility);
+				tempor2();
 			}
 		}
 

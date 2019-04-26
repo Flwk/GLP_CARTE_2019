@@ -2,10 +2,9 @@ package traitement;
 
 import java.util.ArrayList;
 
-
 import carte.CardType;
 import carte.Game;
-import carte.Posibility;
+import carte.Possibility;
 import carte.Stock;
 
 public class Probability {
@@ -21,7 +20,7 @@ public class Probability {
 	 * 0 la partie s'arrete genre c'est une bombe ou un deux qui est posé
 	 */
 
-	public static Posibility bestPlay(ArrayList<Posibility> posibility, Game game) {
+	public static Possibility bestPlay(ArrayList<Possibility> posibility, Game game) {
 
 		playerId = game.getPlayingPlayer();
 		/*
@@ -80,17 +79,16 @@ public class Probability {
 		return posibility.get(posibilityPlace);
 	}
 
-	public static void calculateRisk(Posibility posibility, int size, Game game) {
+	public static void calculateRisk(Possibility posibility, int size, Game game) {
 		calculateProba(game.getTable(0).getDiscard().getType(), size, posibility, game);
 		posibility.setProba(proba);
 		proba = 0;
 	}
 
 	/*
-	 * @param int i | i represente le type de jeu en cours | 0 étant une fin de
-	 * manche
+	 * @param int i | i represente le type de jeu en cours | 0 étant une fin de manche
 	 */
-	public static void calculateProba(int i, int size, Posibility posibility, Game game) {
+	public static void calculateProba(int i, int size, Possibility posibility, Game game) {
 
 		if (i == 0) {
 			if (posibility.getType() == 0) {
@@ -160,7 +158,7 @@ public class Probability {
 				}
 			}
 		} else {
-			
+
 			/*
 			 * Ici on gere les possibilité qui font recuperer la main
 			 */
@@ -205,21 +203,21 @@ public class Probability {
 				}
 
 				/*
-				 * Si c'est notre seul choix on joue que si un joueur potentiel peut avoir la carte d'aprés celle joue le tour d'avant
-				 * Pour cela on recupere la clef de la derniere carte joué
+				 * Si c'est notre seul choix on joue que si un joueur potentiel peut avoir la
+				 * carte d'aprés celle joue le tour d'avant Pour cela on recupere la clef de la
+				 * derniere carte joué
 				 */
-				if(size == 1) {
-					int lastKeyPlay=game.getTable(0).getDiscard().getLastCardPlay();
+				if (size == 1) {
+					int lastKeyPlay = game.getTable(0).getDiscard().getLastCardPlay();
 					lastKeyPlay = lastKeyPlay / 10;
 					lastKeyPlay = (int) Math.round((double) lastKeyPlay);
 					lastKeyPlay = lastKeyPlay * 10;
 					if (fictif.keyCardExist(lastKeyPlay)) {
 						CardType nbr = fictif.searchByKey(lastKeyPlay + 10);
-						if(nbr.getList().size()>2) {
-							proba=0;
-						}
-						else {
-							proba=-1;
+						if (nbr.getList().size() > 2) {
+							proba = 0;
+						} else {
+							proba = -1;
 						}
 					}
 				}
@@ -231,13 +229,14 @@ public class Probability {
 						if (game.getPlayers().get(index).getHand().cardCount() <= 2) {
 							proba = 0;
 							break;
-						} 
+						}
 					}
 				}
 			} else {
 
 				/*
-				 * Maintenant on cherche la meilleur option parmis la liste plusieurs option apres lesquelles le jeu continue
+				 * Maintenant on cherche la meilleur option parmis la liste plusieurs option
+				 * apres lesquelles le jeu continue
 				 */
 				switch (posibility.getList().size()) {
 				case 1:
@@ -250,11 +249,12 @@ public class Probability {
 					key = (int) Math.round((double) key);
 					key = key * 10;
 
-					//On recherche si la carte qui suit existe et s'il elle exite pas on reduit la proba
+					// On recherche si la carte qui suit existe et s'il elle exite pas on reduit la
+					// proba
 					if (fictif.keyCardExist(key + 10)) {
 						CardType nbr = fictif.searchByKey(key + 10);
 						for (int index = 0; index < nbr.getList().size(); index++) {
-							proba=proba+5;
+							proba = proba + 5;
 						}
 					} else {
 						proba = 3;
@@ -276,8 +276,8 @@ public class Probability {
 							proba = proba + 6;
 						}
 					}
-					if(nbrOfBombPossibility >5) {
-						proba=proba+5;
+					if (nbrOfBombPossibility > 5) {
+						proba = proba + 5;
 					}
 					break;
 				case 3:

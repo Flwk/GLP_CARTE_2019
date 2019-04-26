@@ -9,7 +9,6 @@ public class Card {
 
 	private String name;
 	private int key;
-	//private ArrayList<CardColor> color;
 	
 	public Card(String name, int key) {
 		this.name = name;
@@ -36,6 +35,9 @@ public class Card {
 		return name;
 	}
 	
+	/*
+	 * Retourne une carte selon la clef rentrer
+	 */
 	public static Card getCardWithKey(Integer searchKey){
 	
 		switch(searchKey) {

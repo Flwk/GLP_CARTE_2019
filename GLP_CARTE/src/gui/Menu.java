@@ -28,6 +28,7 @@ public class Menu extends JFrame{
 	JButton buttonEntrainement = new JButton("Mode Entrainement");
 	JButton buttonNormal = new JButton("Mode Normal");
 	JButton info = new JButton("i");
+	@SuppressWarnings("rawtypes")
 	JList list = new JList();
 	JButton buttonPlay = new JButton("Jouer");
 	JTextField txt = new JTextField();
@@ -56,7 +57,9 @@ public class Menu extends JFrame{
 		//construction de la fenetre
 				
 	}
-	
+	/*
+	 * Construit le menu
+	 */
 	public void build() {
 		
 

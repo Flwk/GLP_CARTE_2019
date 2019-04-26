@@ -3,6 +3,7 @@ package carte;
 /**
  * 
  * @author cvericel
+ * Cette class gere le score des joueurs de la table
  */
 public class Scoreboard {
 	private int score;
@@ -28,6 +29,6 @@ public class Scoreboard {
 	}
 
 	public String toString() {
-		return " Votre score est : " + getScore();
+		return " " + getScore();
 	}
 }

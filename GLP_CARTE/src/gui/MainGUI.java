@@ -3,21 +3,27 @@ package gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 import carte.Table;
 import traitement.Init;
 import traitement.PlayerAction;
+import traitement.PrintDiscard;
 import traitement.TurnManagement;
 import carte.picturePath;
+import gui.trainingGui.PasserListener;
+import gui.trainingGui.jouerListener;
 import carte.Card;
 import carte.Game;
 import carte.Posibility;
+import carte.Possibility;
 
 /**
  * @author Bilal / Nadir / Clément
- *
+ * Fenetre de jeu Principal, utiliser lors du mode de jeu "normal"
  */
 public class MainGUI {
 	int gameId = 0;
@@ -33,7 +39,7 @@ public class MainGUI {
 	private ArrayList<Card> card = new ArrayList<Card>();
 	Game game;
 	JTextArea textArea = new JTextArea();
-
+	JPanel handSize;
 	/**
 	 * Create the application.
 	 */
@@ -46,7 +52,7 @@ public class MainGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1400, 551);
+		frame.setBounds(0, 0, 1500, 645);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		pannel.setLayout(null);
@@ -59,26 +65,43 @@ public class MainGUI {
 		textArea = new JTextArea();
 		JScrollPane scrollText = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollText.setBounds(1022, 13, 348, 478);
+		scrollText.setBounds(1132, 5, 348, 593);
 		scrollText.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		scrollText.setBackground(new Color(0,0,0,0));
+		scrollText.getViewport().setOpaque(false);
+		
+		textArea.setForeground(Color.white);
 		textArea.setEditable(false);
 		textArea.setBackground(Color.BLACK);
-		textArea.setForeground(Color.WHITE);
 		pannel.add(scrollText);
 
 		JScrollPane scrollPane = new JScrollPane(pan, JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(64, 330, 500, 170);
+		scrollPane.setBounds(405, 430, 520, 170);
 		pannel.add(scrollPane);
-		pan.setBackground(Color.DARK_GRAY);
-
-		JButton passerButton = new JButton("Passer");
-		passerButton.setBounds(580, 449, 180, 50);
+		pan.setBackground(new Color(0,0,0,0));
+		scrollPane.setOpaque(false);
+		scrollPane.getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener(){
+	        @Override
+	        public void adjustmentValueChanged(AdjustmentEvent e) {
+	        	scrollPane.repaint();
+	        }
+	    });
+		
+		handSize=new JPanel();
+		handSize.setLayout(null);
+		handSize.setBounds(0, 0, 400, 400);
+		handSize.setBackground(new Color(0,0,0,0));
+		handSize.setOpaque(false);
+		pannel.add(handSize);
+		
+		JButton passerButton = new JButton("PASSER");
+		passerButton.setBounds(928, 530, 202, 50);
 		pannel.add(passerButton);
 		passerButton.addActionListener(new PasserListener());
 		
-		JButton jouerButton = new JButton("jouer");
-		jouerButton.setBounds(580, 400, 180, 50);
+		JButton jouerButton = new JButton("JOUER");
+		jouerButton.setBounds(928, 480, 202, 50);
 		jouerButton.addActionListener(new jouerListener());
 		pannel.add(jouerButton);
 		frame.getContentPane().add(pannel, BorderLayout.CENTER);
@@ -125,19 +148,20 @@ public class MainGUI {
 
 	public void Init() {
 		game = Init.initGame();
-		System.out.println(Init.getNbPlayer());
 	}
 
 	public void show() {
 		this.frame.setVisible(true);
 		Init();
 		tempor();
+		PrintDiscard.printOtherHandSize(handSize, game);
 	}
 
 	class PasserListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			TurnManagement.turnManagement(game, pannel, textArea);
 			tempor2();
+			PrintDiscard.printOtherHandSize(handSize, game);
 		}
 	}
 
@@ -154,7 +178,6 @@ public class MainGUI {
 				}
 			}
 			if (test == 0) {
-			
 				cards.add(e.getActionCommand());
 			}
 
@@ -180,10 +203,10 @@ public class MainGUI {
 				int isValid = PlayerAction.verify(card, game.getTable(gameId).getDiscard());
 				// Si les cartes on passe les test et sont valident
 				if (isValid == 2) {
-					Posibility pos = new Posibility(0, card);
+					Possibility pos = new Possibility(0, card);
 					TurnManagement.turnManagement(game, pannel, textArea, pos);
 				} else if (isValid > 0) {
-					Posibility pos = new Posibility(1, card);
+					Possibility pos = new Possibility(1, card);
 					TurnManagement.turnManagement(game, pannel, textArea, pos);
 				} else {
 					JOptionPane.showMessageDialog(null, "mauvaise carte", "mauvaise carte jouée",
@@ -197,6 +220,7 @@ public class MainGUI {
 			tempor2();
 			cards.clear();
 			card.clear();
+			PrintDiscard.printOtherHandSize(handSize, game);
 		}
 	}
 }
