@@ -263,10 +263,9 @@ public class BotManager {
 			Possibility bestPossibility=Probability.bestPlay(posibility, game);
 			
 			//SI LA PROBA EST SUPERIEUR A 0 
-			//Une prova inferieur a 0 est une action "très risqué a joué on la joue alors pas
+			//Une proba inferieur a 0 est une action "très risqué" a joué on la joue alors pas
 			if(bestPossibility.getProba()>=0) {
-				TurnManagement.turnManagement(game, pan, text, bestPossibility);
-			}
+				TurnManagement.turnManagement(game, pan, text, bestPossibility);			}
 			//Sinon le joueur passe son tour
 			else {
 				TurnManagement.turnManagement(game, pan, text);

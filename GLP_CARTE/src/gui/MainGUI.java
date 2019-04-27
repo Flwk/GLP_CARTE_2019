@@ -18,7 +18,6 @@ import gui.trainingGui.PasserListener;
 import gui.trainingGui.jouerListener;
 import carte.Card;
 import carte.Game;
-import carte.Posibility;
 import carte.Possibility;
 
 /**
@@ -41,14 +40,14 @@ public class MainGUI {
 	JTextArea textArea = new JTextArea();
 	JPanel handSize;
 	/**
-	 * Create the application.
+	 * Creer l'application
 	 */
 	public MainGUI() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise le contenue de la frame
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -62,6 +61,9 @@ public class MainGUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		/*
+		 * textArea servira pour les logs de la game
+		 */
 		textArea = new JTextArea();
 		JScrollPane scrollText = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -75,6 +77,10 @@ public class MainGUI {
 		textArea.setBackground(Color.BLACK);
 		pannel.add(scrollText);
 
+		
+		/*
+		 * ScrollPane pour la main du joueur
+		 */
 		JScrollPane scrollPane = new JScrollPane(pan, JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(405, 430, 520, 170);
@@ -88,6 +94,10 @@ public class MainGUI {
 	        }
 	    });
 		
+		
+		/*
+		 * Taille des mains des autres joueurs
+		 */
 		handSize=new JPanel();
 		handSize.setLayout(null);
 		handSize.setBounds(0, 0, 400, 400);
@@ -95,11 +105,14 @@ public class MainGUI {
 		handSize.setOpaque(false);
 		pannel.add(handSize);
 		
+		//bouton passer
 		JButton passerButton = new JButton("PASSER");
 		passerButton.setBounds(928, 530, 202, 50);
 		pannel.add(passerButton);
 		passerButton.addActionListener(new PasserListener());
 		
+		
+		//bouton jouer
 		JButton jouerButton = new JButton("JOUER");
 		jouerButton.setBounds(928, 480, 202, 50);
 		jouerButton.addActionListener(new jouerListener());
@@ -108,18 +121,10 @@ public class MainGUI {
 		
 	}
 
-	public JPanel getPanel() {
-		return pan;
-	}
-
-	public JPanel getPan() {
-		return pannel;
-	}
-
-	public JTextArea getArea() {
-		return textArea;
-	}
-
+	
+	/*
+	 * Gere l'affichage des cartes dans la main du joueur
+	 */
 	public void tempor() {
 
 		for (int k = 0; k < game.getPlayers().get(game.getPlayingPlayer()).getHand().cardCount(); k++) {
@@ -133,6 +138,10 @@ public class MainGUI {
 		}
 	}
 
+	
+	/*
+	 * Gere la suppression des cartes dans la main du joueur
+	 */
 	public void tempor2() {
 		int j = listButton.size() - 1;
 		while (j >= 0) {
@@ -146,38 +155,55 @@ public class MainGUI {
 		tempor();
 	}
 
+	/*
+	 * Initialise la game principal
+	 */
 	public void Init() {
 		game = Init.initGame();
 	}
 
+	
+	/*
+	 * Affiche la fenetre
+	 */
 	public void show() {
 		this.frame.setVisible(true);
 		Init();
 		tempor();
 		PrintDiscard.printOtherHandSize(handSize, game);
 	}
-
+	
+	/*
+	 * ActionListener quand on passe notre tour
+	 */
 	class PasserListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			//On appele turnManagement version "passer"
 			TurnManagement.turnManagement(game, pannel, textArea);
 			tempor2();
+			//on affiche la tailles des mains des autres joueurs
 			PrintDiscard.printOtherHandSize(handSize, game);
 		}
 	}
 
+	
+	/*
+	 * Gere les cartes qui seront sélectionnés par le joueurs
+	 */
 	class SelectionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-
+			
 			int i;
 			int test = 0;
 			for (i = 0; i < cards.size(); i++) {
 				if (String.valueOf(cards.get(i)) == String.valueOf(e.getActionCommand())) {
-					cards.remove(i);
+					cards.remove(i);//On la supprimer de carte si elle était déjà selectioné
 					test = 1;
 
 				}
 			}
 			if (test == 0) {
+				//on ajoute a cards la carte sélectionné
 				cards.add(e.getActionCommand());
 			}
 
@@ -213,13 +239,11 @@ public class MainGUI {
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
-
-			/*
-			 * On appele la fonction qui va gerer les tours des joueurs
-			 */
+			//on rafraichit la fenetre
 			tempor2();
 			cards.clear();
 			card.clear();
+			//on affiche la main des autres joueurs
 			PrintDiscard.printOtherHandSize(handSize, game);
 		}
 	}

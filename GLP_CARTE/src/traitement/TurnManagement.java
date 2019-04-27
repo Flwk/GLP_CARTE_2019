@@ -7,12 +7,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import carte.Card;
+
 import carte.Game;
 import carte.Player;
-import carte.Posibility;
-import gui.MainGUI;
+import carte.Possibility;
 
+/**
+ * @author cvericel
+ * 
+ * Class qui gére les tours de jeu des joueurs
+ *
+ */
 public class TurnManagement {
 
 	private static int lastPlay;
@@ -76,7 +81,7 @@ public class TurnManagement {
 		}
 	}
 
-	public static void turnManagement(Game game, JPanel pan, JTextArea text, Posibility pos) {
+	public static void turnManagement(Game game, JPanel pan, JTextArea text, Possibility pos) {
 
 		for (int index = 0; index < pos.getList().size(); index++) {
 			game.getTable(game.getId()).getDiscard().add(pos.getList().get(index));

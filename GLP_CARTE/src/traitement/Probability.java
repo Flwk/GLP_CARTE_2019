@@ -7,6 +7,10 @@ import carte.Game;
 import carte.Possibility;
 import carte.Stock;
 
+/**
+ * @author cvericel
+ * Class qui va s'occuper de recuperer la meilleur possibilité de jeu 
+ */
 public class Probability {
 	static int proba = 0;
 	static int playerId;
@@ -14,15 +18,25 @@ public class Probability {
 	static int nbrOfBombPossibility;
 	static int nbrOfTwo;
 	static int nbrOfJoker;
-	/*
-	 * J'envoie un arrayList de Posibility posibility a une arraylist de carte
-	 * pouvant être joue et un type un type =1 la partie continue si c'est un type =
-	 * 0 la partie s'arrete genre c'est une bombe ou un deux qui est posé
+
+
+	/**
+	 * Methode qui calcul la meilleure option de jeu du joueur
+	 * 
+	 * @param posibility 
+	 * ArrayList de possibilité du joueur
+	 * 
+	 * @param game
+	 * Partie actuel
+	 * 
+	 * @return Possibility
+	 * Retourne la meilleur possibilité
 	 */
-
 	public static Possibility bestPlay(ArrayList<Possibility> posibility, Game game) {
-
+		
+		//On recupere l'id de la game
 		playerId = game.getPlayingPlayer();
+		
 		/*
 		 * On prepare la liste des cartes pas encore presente dans la defausse On y
 		 * retire également les cartes comprisent dans la main du robot
@@ -32,7 +46,7 @@ public class Probability {
 		Management.fictifManagement(game.getTable(0).getDiscard().getCards(), fictif);
 
 		/*
-		 * On calcule le nombre de deux présent en jeu ainsi que le nombre de bombe
+		 * On calcule le nombre de deux présent en jeu ainsi que le nombre de bombe et de joker
 		 * possible On les initialises a 0
 		 */
 		nbrOfBombPossibility = 0;
@@ -79,14 +93,36 @@ public class Probability {
 		return posibility.get(posibilityPlace);
 	}
 
+	/**
+	 * Methode qui va calculer la meilleur option de jeu
+	 * 
+	 * @param posibility
+	 * Possibilité pour laquelle il faut calculer la proba de risque 
+	 * 
+	 * @param size
+	 * Nombre total de possibilité 
+	 * 
+	 * @param game
+	 */
 	public static void calculateRisk(Possibility posibility, int size, Game game) {
 		calculateProba(game.getTable(0).getDiscard().getType(), size, posibility, game);
 		posibility.setProba(proba);
-		proba = 0;
+		proba = 0; //reset proba
 	}
 
-	/*
-	 * @param int i | i represente le type de jeu en cours | 0 étant une fin de manche
+	/**
+	 * calculateProba calcule la meilleur option de jeu
+	 * 
+	 * @param i
+	 * Type de jeu actuel Double / Suite ...
+	 * 
+	 * @param size
+	 * Nombre total de possibilité 
+	 * 
+	 * @param posibility
+	 * Possibilité pour laquelle il faut calculer la proba de risque 
+	 * 
+	 * @param game
 	 */
 	public static void calculateProba(int i, int size, Possibility posibility, Game game) {
 
