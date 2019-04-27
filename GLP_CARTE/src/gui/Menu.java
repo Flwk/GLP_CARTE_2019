@@ -39,9 +39,9 @@ public class Menu extends JFrame{
 	JButton buttonLess2 = new JButton("-");
 	Init launchTable;
 	MainGUI main = new MainGUI();
-	int nbPlayer=1;
+	int nbPlayer=2;
 	int nbPlayerHumain=1;
-	int nbPlayerBot=0;
+	int nbPlayerBot=1;
 	int rulesTypes=0;
 	
 	public Menu() {
@@ -240,12 +240,12 @@ public class Menu extends JFrame{
 	
 	class decrementListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			if(nbPlayer>1 && nbPlayerHumain>1) {
+			if(nbPlayer>2 && nbPlayerHumain>1) {
 				nbPlayerHumain--;
 				nbPlayer--;
 			}
 			else {
-				JOptionPane.showMessageDialog( null, "MINIMUM 1 JOUEUR!! AVEC UN JOUEUR HUMAIN AU MINIMUM", "ERREUR NOMBRE DE JOUEUR", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog( null, "MINIMUM 2 JOUEUR!! AVEC UN JOUEUR HUMAIN AU MINIMUM", "ERREUR NOMBRE DE JOUEUR", JOptionPane.ERROR_MESSAGE);
 			}
 			txt.setText("Nombre d'humain: " + nbPlayerHumain);
 		}
@@ -266,12 +266,12 @@ public class Menu extends JFrame{
 	
 	class decrementListener2 implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			if(nbPlayer >1) {
+			if(nbPlayer >2) {
 				nbPlayerBot--;
 				nbPlayer--;
 			}
 			else {
-				JOptionPane.showMessageDialog( null, "MINIMUM 1 JOUEUR!!", "ERREUR NOMBRE DE JOUEUR", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog( null, "MINIMUM 2 JOUEUR!!", "ERREUR NOMBRE DE JOUEUR", JOptionPane.ERROR_MESSAGE);
 			}
 			txt2.setText("Nombre de Bot: " + nbPlayerBot);
 		}
