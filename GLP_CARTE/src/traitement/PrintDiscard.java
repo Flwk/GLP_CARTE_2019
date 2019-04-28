@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 
 import carte.Discard;
 import carte.Game;
-import carte.picturePath;
+import carte.PicturePath;
 import gui.PanelImage;
 
 public class PrintDiscard {
@@ -26,7 +26,7 @@ public class PrintDiscard {
 
 		switch (discard.getType()) {
 		case 1:
-			discardButton_a.setImage(picturePath.getPicturePath(discard.getCards().get(size - 1).getKey()));
+			discardButton_a.setImage(PicturePath.getPicturePath(discard.getCards().get(size - 1).getKey()));
 			discardButton_a.setBounds(600, 220, 97, 143);
 			gui.add(discardButton_a);
 			gui.remove(discardButton_b);
@@ -35,9 +35,9 @@ public class PrintDiscard {
 			break;
 
 		case 2:
-			discardButton_a.setImage(picturePath.getPicturePath(discard.getCards().get(size - 2).getKey()));
+			discardButton_a.setImage(PicturePath.getPicturePath(discard.getCards().get(size - 2).getKey()));
 			discardButton_a.setBounds(600, 220, 97, 143);
-			discardButton_b.setImage(picturePath.getPicturePath(discard.getCards().get(size - 1).getKey()));
+			discardButton_b.setImage(PicturePath.getPicturePath(discard.getCards().get(size - 1).getKey()));
 			discardButton_b.setBounds(697, 220, 97, 143);
 			gui.add(discardButton_a);
 			gui.add(discardButton_b);
@@ -47,11 +47,11 @@ public class PrintDiscard {
 			break;
 
 		case 3:
-			discardButton_a.setImage(picturePath.getPicturePath(discard.getCards().get(size - 3).getKey()));
+			discardButton_a.setImage(PicturePath.getPicturePath(discard.getCards().get(size - 3).getKey()));
 			discardButton_a.setBounds(600, 220, 97, 143);
-			discardButton_b.setImage(picturePath.getPicturePath(discard.getCards().get(size - 2).getKey()));
+			discardButton_b.setImage(PicturePath.getPicturePath(discard.getCards().get(size - 2).getKey()));
 			discardButton_b.setBounds(697, 220, 97, 143);
-			discardButton_c.setImage(picturePath.getPicturePath(discard.getCards().get(size - 1).getKey()));
+			discardButton_c.setImage(PicturePath.getPicturePath(discard.getCards().get(size - 1).getKey()));
 			discardButton_c.setBounds(794, 220, 97, 143);
 			gui.add(discardButton_a);
 			gui.add(discardButton_b);
@@ -60,13 +60,13 @@ public class PrintDiscard {
 
 			break;
 		case 4:
-			discardButton_a.setImage(picturePath.getPicturePath(discard.getCards().get(size - 4).getKey()));
+			discardButton_a.setImage(PicturePath.getPicturePath(discard.getCards().get(size - 4).getKey()));
 			discardButton_a.setBounds(600, 220, 97, 143);
-			discardButton_b.setImage(picturePath.getPicturePath(discard.getCards().get(size - 3).getKey()));
+			discardButton_b.setImage(PicturePath.getPicturePath(discard.getCards().get(size - 3).getKey()));
 			discardButton_c.setBounds(697, 220, 97, 143);
-			discardButton_c.setImage(picturePath.getPicturePath(discard.getCards().get(size - 2).getKey()));
+			discardButton_c.setImage(PicturePath.getPicturePath(discard.getCards().get(size - 2).getKey()));
 			discardButton_c.setBounds(794, 220, 97, 143);
-			discardButton_d.setImage(picturePath.getPicturePath(discard.getCards().get(size - 1).getKey()));
+			discardButton_d.setImage(PicturePath.getPicturePath(discard.getCards().get(size - 1).getKey()));
 			discardButton_d.setBounds(891, 220, 97, 143);
 			gui.add(discardButton_a);
 			gui.add(discardButton_b);
@@ -109,7 +109,7 @@ public class PrintDiscard {
 			for (int i = 0; i < game.getPlayers().get(index).getHand().cardCount(); i++) {
 				PanelImage card = new PanelImage();
 				try {
-					card.setImage(picturePath.getPicturePath(game.getPlayers().get(index).getHand().getCardKey(i)));
+					card.setImage(PicturePath.getPicturePath(game.getPlayers().get(index).getHand().getCardKey(i)));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

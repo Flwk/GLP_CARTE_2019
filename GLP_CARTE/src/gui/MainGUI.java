@@ -13,7 +13,7 @@ import traitement.Init;
 import traitement.PlayerAction;
 import traitement.PrintDiscard;
 import traitement.TurnManagement;
-import carte.picturePath;
+import carte.PicturePath;
 import carte.Card;
 import carte.Game;
 import carte.Possibility;
@@ -127,7 +127,7 @@ public class MainGUI {
 
 		for (int k = 0; k < game.getPlayers().get(game.getPlayingPlayer()).getHand().cardCount(); k++) {
 			int key = game.getPlayers().get(game.getPlayingPlayer()).getHand().getCardKey(k);
-			JButton cartButton = new JButton(new ImageIcon(picturePath.getPicturePath(key)));
+			JButton cartButton = new JButton(new ImageIcon(PicturePath.getPicturePath(key)));
 			cartButton.setPreferredSize(new Dimension(97, 143));
 			listButton.add(cartButton);
 			cartButton.setActionCommand(String.valueOf(key));

@@ -5,13 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 import carte.Card;
 import carte.Game;
 import carte.Hand;
 import carte.Possibility;
-import carte.picturePath;
+import carte.PicturePath;
 import gui.PanelImage;
 
 public class PrintPlayerPossibility {
@@ -269,7 +268,7 @@ public class PrintPlayerPossibility {
 						
 						try {
 							//On indique au panel le chemin d'accées a l'image de la carte
-							pI.setImage(picturePath.getPicturePath(posibility.get(index).getList().get(index2).getKey()));
+							pI.setImage(PicturePath.getPicturePath(posibility.get(index).getList().get(index2).getKey()));
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

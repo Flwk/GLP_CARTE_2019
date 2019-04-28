@@ -5,7 +5,7 @@ package carte;
  *
  * Cette class va s'occuper de l'affichage des cartes 
  */
-public class picturePath {
+public class PicturePath {
 
 	/*
 	 * @param key, c'est la clef de la cartes
