@@ -9,7 +9,7 @@ import carte.Stock;
 
 /**
  * @author cvericel
- * Class qui va s'occuper de recuperer la meilleur possibilité de jeu 
+ * Classe qui va s'occuper de récuperer la meilleure possibilité de jeu 
  */
 public class Probability {
 	static int proba = 0;
@@ -21,16 +21,16 @@ public class Probability {
 
 
 	/**
-	 * Methode qui calcul la meilleure option de jeu du joueur
+	 * Méthode qui calcule la meilleure option de jeu du joueur
 	 * 
 	 * @param posibility 
 	 * ArrayList de possibilité du joueur
 	 * 
 	 * @param game
-	 * Partie actuel
+	 * Partie actuelle
 	 * 
 	 * @return Possibility
-	 * Retourne la meilleur possibilité
+	 * Retourne la meilleure possibilité
 	 */
 	public static Possibility bestPlay(ArrayList<Possibility> posibility, Game game) {
 		
@@ -38,7 +38,7 @@ public class Probability {
 		playerId = game.getPlayingPlayer();
 		
 		/*
-		 * On prepare la liste des cartes pas encore presente dans la defausse On y
+		 * On prépare la liste des cartes pas encore présente dans la défausse On y
 		 * retire également les cartes comprisent dans la main du robot
 		 */
 		fictif = Init.initStock();
@@ -53,11 +53,11 @@ public class Probability {
 		nbrOfTwo = 0;
 		nbrOfJoker = 0;
 		for (int index = 0; index < fictif.size(); index++) {
-			if (fictif.getCard(index).getKey() == 20) {
+			if (fictif.getCard(index).getKey() == 250) {
 				for (int j = 0; j < fictif.getCard(index).getList().size(); j++) {
 					nbrOfTwo++;
 				}
-			} else if (fictif.getCard(index).getKey() == 140) {
+			} else if (fictif.getCard(index).getKey() == 200) {
 				nbrOfJoker++;
 			} else {
 				if (fictif.getCard(index).getList().size() > 3) {
@@ -77,7 +77,7 @@ public class Probability {
 		int posibilityPlace = 0;
 
 		/*
-		 * Boucle pour recuperer la meilleur option possible Si deux option on la même
+		 * Boucle pour récuperer la meilleure option possible Si deux option ont la même
 		 * valeur alors on en tire une au hasard
 		 */
 		for (int index = 0; index < posibility.size(); index++) {
@@ -94,7 +94,7 @@ public class Probability {
 	}
 
 	/**
-	 * Methode qui va calculer la meilleur option de jeu
+	 * Méthode qui va calculer la meilleure option de jeu
 	 * 
 	 * @param posibility
 	 * Possibilité pour laquelle il faut calculer la proba de risque 
@@ -111,7 +111,7 @@ public class Probability {
 	}
 
 	/**
-	 * calculateProba calcule la meilleur option de jeu
+	 * calculateProba calcule la meilleure option de jeu
 	 * 
 	 * @param i
 	 * Type de jeu actuel Double / Suite ...
@@ -130,7 +130,7 @@ public class Probability {
 			if (posibility.getType() == 0) {
 				proba = 100;
 			} else {
-				// Le robot n'a qu'une seul option donc il la joue
+				// Le robot n'a qu'une seule option donc il la joue
 				if (size < 2) {
 					proba = 1;
 				} else {
@@ -142,7 +142,7 @@ public class Probability {
 						proba = 10;
 						int key = posibility.getList().get(0).getKey();
 
-						// On arrondi la clef pour obtenir un multiple de 10 pour faciliter la recherche
+						// On arrondie la clé pour obtenir un multiple de 10 pour faciliter la recherche
 
 						key = key / 10;
 						key = (int) Math.round((double) key);
@@ -169,7 +169,7 @@ public class Probability {
 					case 2:
 						proba = 5;
 						for (int index = 0; index < posibility.getList().size(); index++) {
-							if (posibility.getList().get(index).getKey() > 140) {
+							if (posibility.getList().get(index).getKey() > 250) {
 								proba = proba + 6;
 							}
 						}
@@ -177,7 +177,7 @@ public class Probability {
 					case 3:
 						proba = 2;
 						for (int index = 0; index < posibility.getList().size(); index++) {
-							if (posibility.getList().get(index).getKey() > 140) {
+							if (posibility.getList().get(index).getKey() > 250) {
 								proba++;
 							}
 						}
@@ -185,7 +185,7 @@ public class Probability {
 					case 4:
 						proba = 1;
 						for (int index = 0; index < posibility.getList().size(); index++) {
-							if (posibility.getList().get(index).getKey() > 140) {
+							if (posibility.getList().get(index).getKey() > 250) {
 								proba = proba + 2;
 							}
 						}
@@ -196,11 +196,11 @@ public class Probability {
 		} else {
 
 			/*
-			 * Ici on gere les possibilité qui font recuperer la main
+			 * Ici on gère les possibilité qui font récuperer la main
 			 */
 			if (posibility.getType() == 0) {
 				/*
-				 * On incremente la proba selon le nombre de deux present dans la partie
+				 * On incremente la proba selon le nombre de deux présent dans la partie
 				 */
 				switch (nbrOfTwo) {
 				case 1:
@@ -232,7 +232,7 @@ public class Probability {
 				}
 
 				/*
-				 * Selon le nombre de bombe encore disponible en jeu on incremente l'action
+				 * Selon le nombre de bombe encore disponible en jeu on incrémente l'action
 				 */
 				if (nbrOfBombPossibility < 5) {
 					proba = proba + 10;
@@ -240,23 +240,32 @@ public class Probability {
 
 				/*
 				 * Si c'est notre seul choix on joue que si un joueur potentiel peut avoir la
-				 * carte d'aprés celle joue le tour d'avant Pour cela on recupere la clef de la
-				 * derniere carte joué
+				 * carte d'après celle joue le tour d'avant Pour cela on récupère la clé de la
+				 * dernière carte jouée
 				 */
 				if (size == 1) {
 					int lastKeyPlay = game.getTable(0).getDiscard().getLastCardPlay();
+					
+					//on arrondit la clé
 					lastKeyPlay = lastKeyPlay / 10;
 					lastKeyPlay = (int) Math.round((double) lastKeyPlay);
 					lastKeyPlay = lastKeyPlay * 10;
-					if (fictif.keyCardExist(lastKeyPlay)) {
-						CardType nbr = fictif.searchByKey(lastKeyPlay + 10);
-						if (nbr.getList().size() > 2) {
-							proba = 0;
-						} else {
-							proba = -1;
+					if(lastKeyPlay == 140) {
+						proba = -1;
+					}
+					else {
+						if (fictif.keyCardExist(lastKeyPlay)) {
+							CardType nbr = fictif.searchByKey(lastKeyPlay + 10);
+							
+							if (nbr.getList().size() > 2) {
+								proba = 0;
+							} else {
+								proba = -1;
+							}
 						}
 					}
 				}
+				
 				/*
 				 * Si un joueur a deux carte ou moins on joue notre bombe ou deux automatiquent
 				 */
@@ -271,15 +280,15 @@ public class Probability {
 			} else {
 
 				/*
-				 * Maintenant on cherche la meilleur option parmis la liste plusieurs option
-				 * apres lesquelles le jeu continue
+				 * Maintenant on cherche la meilleure option parmi la liste plusieurs options
+				 * après lesquelles le jeu continue
 				 */
 				switch (posibility.getList().size()) {
 				case 1:
 					proba = 10;
 					int key = posibility.getList().get(0).getKey();
 
-					// On arrondi la clef pour obtenir un multiple de 10 pour faciliter la recherche
+					// On arrondie la clé pour obtenir un multiple de 10 pour faciliter la recherche
 
 					key = key / 10;
 					key = (int) Math.round((double) key);
@@ -308,7 +317,7 @@ public class Probability {
 				case 2:
 					proba = 5;
 					for (int index = 0; index < posibility.getList().size(); index++) {
-						if (posibility.getList().get(index).getKey() > 140) {
+						if (posibility.getList().get(index).getKey() > 250) {
 							proba = proba + 6;
 						}
 					}
@@ -319,7 +328,7 @@ public class Probability {
 				case 3:
 					proba = 2;
 					for (int index = 0; index < posibility.getList().size(); index++) {
-						if (posibility.getList().get(index).getKey() > 140) {
+						if (posibility.getList().get(index).getKey() > 250) {
 							proba++;
 						}
 					}
@@ -327,7 +336,7 @@ public class Probability {
 				case 4:
 					proba = 1;
 					for (int index = 0; index < posibility.getList().size(); index++) {
-						if (posibility.getList().get(index).getKey() > 140) {
+						if (posibility.getList().get(index).getKey() > 250) {
 							proba = proba + 2;
 						}
 					}

@@ -38,14 +38,14 @@ public class trainingGui {
 	JPanel possibility;
 
 	/**
-	 * Creer la fenetre.
+	 * Créer la fenêtre.
 	 */
 	public trainingGui() {
 		initialize();
 	}
 
 	/**
-	 * Initialise la fenetre
+	 * Initialise la fenêtre
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -60,7 +60,7 @@ public class trainingGui {
 			e.printStackTrace();
 		}
 		/*
-		 * textArea servira pour les logs de la game
+		 * textArea servira pour les logs de Game
 		 */
 		textArea = new JTextArea();
 		JScrollPane scrollText = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -118,7 +118,7 @@ public class trainingGui {
 		});
 
 		/*
-		 * Combinaison de carte jouable pour le joueur
+		 * Combinaison de cartes jouables pour le joueur
 		 */
 		possibility = new JPanel();
 		JScrollPane scrollPos = new JScrollPane(possibility, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -151,7 +151,7 @@ public class trainingGui {
 	}
 
 	/*
-	 * Gere l'affichage des cartes dans la main du joueur
+	 * Gère l'affichage des cartes dans la main du joueur
 	 */
 	public void tempor() {
 
@@ -167,7 +167,7 @@ public class trainingGui {
 	}
 
 	/*
-	 * Gere la suppression des cartes dans la main du joueur
+	 * Gère la suppression des cartes dans la main du joueur
 	 */
 	public void tempor2() {
 		int j = listButton.size() - 1;
@@ -183,28 +183,28 @@ public class trainingGui {
 	}
 
 	/*
-	 * Initialise la game principal
+	 * Initialise la Game principale
 	 */
 	public void Init() {
 		game = Init.initGame();
 	}
 
 	/*
-	 * Affiche la fenetre
+	 * Affiche la fenêtre
 	 */
 	public void show() {
 		this.frame.setVisible(true);
 		Init();
 		tempor();
 		/*
-		 * Affiche les mains et possibilité des joueurs
+		 * Affiche les mains et possibilités des joueurs
 		 */
 		PrintDiscard.printOtherPlayerHand(otherPlayerHand, game);
 		PrintPlayerPossibility.printHandPossibility(game, possibility);
 	}
 
 	/*
-	 * ActionListener qui du moment ou le joueur n'y peux rien
+	 * ActionListener dans le cas où ou le joueur n'y peut rien
 	 */
 	class PasserListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -218,7 +218,7 @@ public class trainingGui {
 	}
 	
 	/*
-	 * Gere les cartes qui seront sélectionnés par le joueurs
+	 * Gère les cartes qui seront sélectionnées par le joueurs
 	 */
 	class SelectionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -227,13 +227,13 @@ public class trainingGui {
 			int test = 0;
 			for (i = 0; i < cards.size(); i++) {
 				if (String.valueOf(cards.get(i)) == String.valueOf(e.getActionCommand())) {
-					cards.remove(i);//On la supprimer de carte si elle était déjà selectioné
+					cards.remove(i);//On la supprime de cards si elle était déjà selectionée
 					test = 1;
 
 				}
 			}
 			if (test == 0) {
-				//on ajoute a cards la carte sélectionné
+				//on ajoute à cards, la carte sélectionnée
 				cards.add(e.getActionCommand());
 			}
 
@@ -243,12 +243,12 @@ public class trainingGui {
 	class jouerListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			/*
-			 * Si aucune carte n'est selectioné on ne peut jouer
+			 * Si aucune carte n'est selectionée on ne peut pas jouer
 			 */
 			if (!cards.isEmpty()) {
 				/*
-				 * On va tester si les cartes jouées suivent les regles du jeu Pour cela on
-				 * recupere les cartes correspondante aux clefs jouée
+				 * On va tester si les cartes jouées suivent les règles du jeu Pour cela on
+				 * récupère les cartes correspondantes aux clés de celles jouées
 				 */
 				for (int a = 0; a < cards.size(); a++) {
 					Integer inter = Integer.valueOf(cards.get(a));
@@ -256,7 +256,7 @@ public class trainingGui {
 				}
 
 				int isValid = PlayerAction.verify(card, game.getTable(gameId).getDiscard());
-				// Si les cartes on passe les test et sont valident
+				// Si les cartes ont passés les tests et sont valides
 				if (isValid == 2) {
 					Possibility pos = new Possibility(0, card);
 					TurnManagement.turnManagement(game, pannel, textArea, pos);
@@ -271,12 +271,12 @@ public class trainingGui {
 			}
 
 			/*
-			 * On appele la fonction qui va gerer les tours des joueurs
+			 * On appele la fonction qui va gérer le tour des joueurs
 			 */
 			tempor2();
 			cards.clear(); //On clear les deux ArrayList
 			card.clear();
-			//on affiche les mains et possibilité des autres joueurs
+			//on affiche les mains et possibilités des autres joueurs
 			PrintDiscard.printOtherPlayerHand(otherPlayerHand, game);
 			PrintPlayerPossibility.printHandPossibility(game, possibility);
 		}

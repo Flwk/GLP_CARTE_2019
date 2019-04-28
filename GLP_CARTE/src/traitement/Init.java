@@ -101,13 +101,13 @@ public class Init{
 
 	/*
 	 * initialise la pioche
-	 * Methode BRUTE et SALE
+	 * Méthode BRUTE et SALE
 	 * ON CREER CHAQUE CARTE UNE PAR UNE ET ON LES MET DANS LA PIOCHE
 	 */
 	public static Stock initStock() {
 		Stock init= new Stock();
-		CardType as=new CardType("As", 10);		
-		CardType deux=new CardType("2", 20);		
+		CardType as=new CardType("As", 140);		
+		CardType deux=new CardType("2", 200);		
 		CardType trois=new CardType("3", 30);				
 		CardType quatre=new CardType("4", 40);		
 		CardType cinq=new CardType("5", 50);		
@@ -119,12 +119,12 @@ public class Init{
 		CardType valet=new CardType("Valet", 110);		
 		CardType dame=new CardType("Dame", 120);		
 		CardType roi=new CardType("Roi", 130);	
-		CardType joker=new CardType("Joker", 140);
+		CardType joker=new CardType("Joker", 250);
 		
-		Card as_trefle=new Card("as de trefle", 11);
-		Card as_coeur=new Card("as de coeur", 12);
-		Card as_pic=new Card("as de pic", 13);
-		Card as_carreaux=new Card("as de carreaux", 14);
+		Card as_trefle=new Card("as de trefle", 141);
+		Card as_coeur=new Card("as de coeur", 142);
+		Card as_pic=new Card("as de pic", 143);
+		Card as_carreaux=new Card("as de carreaux", 144);
 		ArrayList<Card> a=new ArrayList<Card>();
 		a.add(as_trefle);
 		a.add(as_coeur);
@@ -132,10 +132,10 @@ public class Init{
 		a.add(as_carreaux);
 		
 
-		Card deux_trefle=new Card("2 de trefle", 21);
-		Card deux_coeur=new Card("2 de coeur", 22);
-		Card deux_pic=new Card("2 de pic", 23);
-		Card deux_carreaux=new Card("2 de carreaux", 24);
+		Card deux_trefle=new Card("2 de trefle", 201);
+		Card deux_coeur=new Card("2 de coeur", 202);
+		Card deux_pic=new Card("2 de pic", 203);
+		Card deux_carreaux=new Card("2 de carreaux", 204);
 		ArrayList<Card> b=new ArrayList<Card>();
 		b.add(deux_trefle);
 		b.add(deux_coeur);
@@ -252,8 +252,8 @@ public class Init{
 		m.add(roi_pic);
 		m.add(roi_carreaux);
 		
-		Card joker_a=new Card("joker rouge", 141);
-		Card joker_b=new Card("joker noir", 142);
+		Card joker_a=new Card("joker rouge", 251);
+		Card joker_b=new Card("joker noir", 252);
 		ArrayList<Card> n=new ArrayList<Card>();
 		n.add(joker_a);
 		n.add(joker_b);

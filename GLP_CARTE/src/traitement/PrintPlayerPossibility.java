@@ -16,18 +16,18 @@ import gui.PanelImage;
 
 public class PrintPlayerPossibility {
 	/*
-	 * La même class que BotManager mais pour un joueur humain
+	 * La même classe que BotManager mais pour un joueur humain
 	 */
 	public static void printHandPossibility(Game game, JPanel pan) {
 		
 		/*
-		 * On creer une arrayList de possibilité ou l'on stockera toute les possibilites du joueurs
+		 * On crée une arrayList de possibilités où l'on stockera toutes les possibilites du joueurs
 		 */
 		ArrayList<Possibility> posibility = new ArrayList<Possibility>();
 		Hand hand = game.getPlayers().get(game.getPlayingPlayer()).getHand(); // On recupere sa main 
 
 		/*
-		 * Ce switch va permettre de trier les possibilité que l'on va chercher
+		 * Ce switch va permettre de trier les possibilités que l'on va chercher
 		 * Par exemple si le type de la défausse est deux 
 		 * Alors on va chercher uniquement des doubles ou bien une bombe
 		 */
@@ -35,14 +35,14 @@ public class PrintPlayerPossibility {
 		
 		case 0:
 			/*
-			 * On test toutes les cartes une par une
+			 * On teste toutes les cartes une par une
 			 */
 			for (int index = 0; index < hand.cardCount(); index++) {
 				// On recupere la valeur retourner par isLegit
 				int val = PlayerAction.isLegit(hand.getList().get(index), game.getTable(game.getId()).getDiscard());
 				/*
-				 * Si la val retourné par isLegit est 2 cela veut dire que c'est une bombe ou une combinaison de deux 
-				 * Si val == 1 c'est une action valide normal
+				 * Si la val retournée par isLegit est 2 cela veut dire que c'est une bombe ou une combinaison de deux 
+				 * Si val == 1 c'est une action valide normale
 				 * Sinon les cartes sont injouables
 				 */
 				if (val == 2) {
@@ -57,19 +57,18 @@ public class PrintPlayerPossibility {
 					posibility.add(play);
 				}
 			}
-			//S'il n'y a pas 2 carte ou plus on ne test pas les double
+			//S'il n'y a pas 2 carte ou plus on ne test pas les doubles
 			if(hand.cardCount()>=2) {
 				for (int index = 0; index < hand.cardCount(); index++) {
 					for (int index_2 = index + 1; index_2 < hand.cardCount(); index_2++) {
-						// On recupere la valeur retourner par isLegit pour deux cartes
+						// On récupère la valeur retournée par isLegit pour deux cartes
 						int val = PlayerAction.isLegit(hand.getList().get(index), hand.getList().get(index_2),
 								game.getTable(game.getId()).getDiscard());
 						if (val == 1) {
 							ArrayList<Card> card = new ArrayList<Card>();
 							card.add(hand.getList().get(index));
 							card.add(hand.getList().get(index_2));
-							Possibility play = new Possibility(1, card); //On indique que cette possibilité de jeu ne mettra pas fin a la "manche"
-							posibility.add(play);
+							Possibility play = new Possibility(1, card); //On indique que cette possibilité de jeu ne mettra pas fin à la "manche"							posibility.add(play);
 						}
 						else if (val == 2) {
 							ArrayList<Card> card = new ArrayList<Card>();
@@ -84,7 +83,7 @@ public class PrintPlayerPossibility {
 			//S'il n'y a pas 3 carte ou plus on ne test pas les suites de 3
 			if(hand.cardCount()>=3) {
 				/*
-				 * Triple boucle for qui va nous permettre de tester toutes les possibilité de suites de trois cartes
+				 * Triple boucle for qui va nous permettre de tester toutes les possibilités de suites de trois cartes
 				 * On n'y cherche pas les bombes
 				 */
 				for (int index = 0; index < hand.cardCount(); index++) {
@@ -129,7 +128,7 @@ public class PrintPlayerPossibility {
 				}
 			}
 			break;
-		//Si one joue des cartes une par une on cherche toute cartes qui suits celle précédante
+		//Si on joue des cartes une par une on cherche toute cartes qui suits celle précédante
 		case 1:
 			for (int index = 0; index < hand.cardCount(); index++) {
 				// On recupere la valeur retourner par isLegit
@@ -152,15 +151,15 @@ public class PrintPlayerPossibility {
 		//Si on joue des paires
 		case 2:
 			/*
-			 * Double boucle for qui va nous permettre de tester toutes les possibilité de doubles
+			 * Double boucle for qui va nous permettre de tester toutes les possibilités de doubles
 			 * On n'y cherche pas les bombes
 			 */
 			for (int index = 0; index < hand.cardCount(); index++) {
 				for (int index_2 = index + 1; index_2 < hand.cardCount(); index_2++) {
-					// On recupere la valeur retourner par isLegit pour deux cartes
+					// On récupère la valeur retournée par isLegit pour deux cartes
 					int val = PlayerAction.isLegit(hand.getList().get(index), hand.getList().get(index_2),
 							game.getTable(game.getId()).getDiscard());
-					//Si c'est un double deux alors on indique que la possibilité met fin a la manche
+					//Si c'est un double deux alors on indique que la possibilité met fin à la manche
 					if (val == 2) {
 						ArrayList<Card> card = new ArrayList<Card>();
 						card.add(hand.getList().get(index));
@@ -178,10 +177,10 @@ public class PrintPlayerPossibility {
 				}
 			}
 			break;
-		//Si on joue des suites de trois
+			//Si on joue des suites de trois
 		case 3:
 			/*
-			 * triple boucle for qui va nous permettre de tester toutes les possibilité de suites de trois cartes
+			 * triple boucle for qui va nous permettre de tester toutes les possibilités de suites de trois cartes
 			 * On n'y cherche pas les bombes
 			 */
 			for (int index = 0; index < hand.cardCount(); index++) {
@@ -203,7 +202,7 @@ public class PrintPlayerPossibility {
 			//Si on joue des suites de quatre	
 		case 4:
 			/*
-			 * Quadruple boucle for qui va nous permettre de tester toutes les possibilité de suites de trois cartes
+			 * Quadruple boucle for qui va nous permettre de tester toutes les possibilités de suites de trois cartes
 			 * On n'y cherche pas les bombes
 			 */
 			for (int index = 0; index < hand.cardCount(); index++) {
@@ -226,8 +225,8 @@ public class PrintPlayerPossibility {
 			}
 		}
 		/*
-		 * Désormais on cherche toute les possibilité de bombes dans la main du joueur
-		 * On cherche uniquement des bombes potentiel
+		 * Désormais on cherche toute les possibilités de bombes dans la main du joueur
+		 * On cherche uniquement des bombes potentielles
 		 */
 		for (int index = 0; index < hand.cardCount(); index++) {
 			for (int index_2 = index + 1; index_2 < hand.cardCount(); index_2++) {

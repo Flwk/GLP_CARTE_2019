@@ -3,7 +3,7 @@ package carte;
 /**
  * 
  * @author cvericel
- * Class qui gere une Table de jeu
+ * Class qui gère une Table de jeu
  */
 public class Table {
 		private Stock stock;

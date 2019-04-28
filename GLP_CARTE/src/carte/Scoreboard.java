@@ -3,7 +3,7 @@ package carte;
 /**
  * 
  * @author cvericel
- * Cette class gere le score des joueurs de la table
+ * Cette classe gère le score des joueurs de la table
  */
 public class Scoreboard {
 	private int score;

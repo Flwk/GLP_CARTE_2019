@@ -14,15 +14,13 @@ import traitement.PlayerAction;
 import traitement.PrintDiscard;
 import traitement.TurnManagement;
 import carte.picturePath;
-import gui.trainingGui.PasserListener;
-import gui.trainingGui.jouerListener;
 import carte.Card;
 import carte.Game;
 import carte.Possibility;
 
 /**
  * @author Bilal / Nadir / Clément
- * Fenetre de jeu Principal, utiliser lors du mode de jeu "normal"
+ * Fenêtre principale de jeu, utilisée lors du mode de jeu "normal"
  */
 public class MainGUI {
 	int gameId = 0;

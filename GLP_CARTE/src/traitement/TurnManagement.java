@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-
 import carte.Game;
 import carte.Player;
 import carte.Possibility;
@@ -15,7 +14,7 @@ import carte.Possibility;
 /**
  * @author cvericel
  * 
- * Class qui gére les tours de jeu des joueurs
+ *         Class qui gére les tours de jeu des joueurs
  *
  */
 public class TurnManagement {
@@ -23,7 +22,7 @@ public class TurnManagement {
 	private static int lastPlay;
 
 	/*
-	 * Methode qui va permettre de stocker l'ID du dernier joueur ayant poser une ou
+	 * Méthode qui va permettre de stocker l'ID du dernier joueur ayant posé une ou
 	 * des cartes sur le terrain
 	 */
 	public static void lastPlayerWhoPlay(int i) {
@@ -31,7 +30,7 @@ public class TurnManagement {
 	}
 
 	/*
-	 * Methode qui va recuperer l'ID du dernier joueur ayant poser une ou des cartes
+	 * Méthode qui va récuperer l'ID du dernier joueur ayant posé une ou des cartes
 	 * sur le terrain
 	 */
 	public static int getLastPlayerWhoPlay() {
@@ -50,12 +49,12 @@ public class TurnManagement {
 	/*
 	 * @param game | La partie actuel
 	 * 
-	 * @param pan | Le JPanel de la fenetre aux cas ou le prochain joueur est un
+	 * @param pan | Le JPanel de la fenêtre aux cas où le prochain joueur est un
 	 * robot pour afficher ses gestes
 	 * 
 	 * @param text | Le Champ de texte ou afficher les logs
 	 * 
-	 * Gere les joueurs Humain et Bot qui passent leur tours
+	 * Gère les joueurs Humain et Bot qui passent leur tours
 	 * 
 	 */
 	public static void turnManagement(Game game, JPanel pan, JTextArea text) {
@@ -63,7 +62,7 @@ public class TurnManagement {
 		game.getPlayers().get(game.getPlayingPlayer()).pass();
 		PrintDiscard.printLog(text, game);
 		endTurn(game, text, pan);
-		// Si la valeur du type de jeu actuel est different de 0 alors on passe au
+		// Si la valeur du type de jeu actuel est différent de 0 alors on passe au
 		// joueur suivant
 		if (game.getTable(game.getId()).getDiscard().getType() != 0) {
 			game.setPlayingPlayer(game.getNextPlayingPlayer());
@@ -90,27 +89,30 @@ public class TurnManagement {
 
 		if (endGame(game.getPlayers())) {
 			/*
-			 * On gere le score des joueurs
+			 * On gère le score des joueurs
 			 */
 			game.setPlayers(EndGame.scoreManager(game.getPlayers(), game.getPlayingPlayer()));
 			/*
-			 * On demande si le joueur veut encore joué
+			 * On demande si le joueur veut encore jouer
 			 */
 			String str = "Score : \n";
 			for (int index = 0; index < Init.getNbPlayer(); index++) {
-				str=str+game.getPlayers().get(index).getUsername() + " : " + game.getPlayers().get(index).getScore() + "\n";
+				str = str + game.getPlayers().get(index).getUsername() + " : " + game.getPlayers().get(index).getScore()
+						+ "\n";
 			}
 			String menu[] = { "Oui", "Non" };
-			int choix = JOptionPane.showOptionDialog(null,str + "Voulez vous rejouez" , "Fin de partie :", 0,
+			int choix = JOptionPane.showOptionDialog(null, str + "Voulez vous rejouez", "Fin de partie :", 0,
 					JOptionPane.QUESTION_MESSAGE, null, menu, menu[1]);
-			
-			if(choix == 0) {
-				//Si c'est un bot il joue machinalement
-				if(game.getPlayers().get(game.getPlayingPlayer()).getType() == 1) {
-					BotManager.botCanPlay(game, pan, text);
+
+			if (choix == 0) {
+				for(int index=0; index< game.getPlayers().size(); index++) {
+					game.getPlayers().get(index).reset();
 				}
-			}
-			else {
+				game.setPlayingPlayer(0);
+				game.getTable(game.getId()).getDiscard().setType(0);
+				text.setText("");
+
+			} else {
 				System.exit(0);
 			}
 			/*
@@ -146,7 +148,7 @@ public class TurnManagement {
 				e.printStackTrace();
 			}
 
-			// Si les cartes jouées sont une bombes ou un ou plusieurs deux
+			// Si les cartes jouées sont une bombes, un ou plusieurs deux
 			if (pos.getType() == 0) {
 				endTurn(game, text, pan);
 				game.getTable(game.getId()).getDiscard().setType(0);
@@ -161,7 +163,7 @@ public class TurnManagement {
 					BotManager.botCanPlay(game, pan, text);
 				}
 			} else {
-				// On renitialise les joueurs précedents ayant passés leur tour
+				// On réinitialise les joueurs précedents ayant passés leur tour
 				endTurn(game, text, pan);
 				// On passe au joueur suivant
 				game.setPlayingPlayer(game.getNextPlayingPlayer());
@@ -181,7 +183,7 @@ public class TurnManagement {
 
 	public static void endTurn(Game game, JTextArea area, JPanel pan) {
 		/*
-		 * Si le joueur actuel vient de jouer alors on tous les joueurs precédent
+		 * Si le joueur actuel vient de jouer alors on tous les joueurs précédent
 		 * peuvent rejouer
 		 */
 		if (game.getPlayers().get(game.getPlayingPlayer()).getToPass() == 0) {
@@ -200,8 +202,8 @@ public class TurnManagement {
 				}
 			}
 			/*
-			 * Sinon on test si tous les joueurs avant le joueur qui va jouer on passer leur
-			 * tour pour réenitialiser la manche Toute combinaison de cartes et alors
+			 * Sinon on teste si tous les joueurs avant le joueur qui va jouer ont passés
+			 * leur tour pour réinitialiser la manche Toute combinaison de cartes et alors
 			 * jouable par le dernier joueur ayant joué
 			 */
 		} else {
@@ -214,8 +216,8 @@ public class TurnManagement {
 					index--;
 				}
 			}
-			// Si index est égale a l'id du prochain joueur cela veut dire que tout les
-			// joueurs on passé leur tour sauf lui
+			// Si index est égal à l'id du prochain joueur cela veut dire que tout les
+			// joueurs ont passés leur tour sauf lui.
 			if (index == nextPlayerPlace) {
 				area.append("----------------- \n");
 				area.append("reset \n");

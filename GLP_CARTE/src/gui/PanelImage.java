@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 /**
  * @author internet
  * 
- * class prise d'un site internet pour nous permettre de mettre une image en fond du panel
+ * classe prise d'un site internet pour nous permettre de mettre une image en fond du panel
  *
  */
 public class PanelImage extends JPanel {

@@ -72,9 +72,8 @@ public class PrintDiscard {
 			gui.add(discardButton_b);
 			gui.add(discardButton_c);
 			gui.add(discardButton_d);
-			
-			break;
 
+			break;
 
 		}
 		gui.repaint();
@@ -97,18 +96,18 @@ public class PrintDiscard {
 			area.append(str);
 		}
 	}
-	
+
 	public static void printOtherPlayerHand(JPanel pan, Game game) {
-		
-		int j=game.getNextPlayingPlayer();
-		int x=60;
-		int y=0;
+
+		int j = game.getNextPlayingPlayer();
+		int x = 60;
+		int y = 0;
 		pan.removeAll();
-		for(int index=game.getNextPlayingPlayer(); index != game.getPlayingPlayer(); index=j) {
-		
-			x=60;
-			for(int i=0; i<game.getPlayers().get(index).getHand().cardCount(); i++) {
-				PanelImage card=new PanelImage();
+		for (int index = game.getNextPlayingPlayer(); index != game.getPlayingPlayer(); index = j) {
+
+			x = 60;
+			for (int i = 0; i < game.getPlayers().get(index).getHand().cardCount(); i++) {
+				PanelImage card = new PanelImage();
 				try {
 					card.setImage(picturePath.getPicturePath(game.getPlayers().get(index).getHand().getCardKey(i)));
 				} catch (IOException e) {
@@ -116,14 +115,13 @@ public class PrintDiscard {
 					e.printStackTrace();
 				}
 				card.setBounds(x, y, 97, 143);
-				
+
 				pan.add(card);
-				x=x+97;
-				
+				x = x + 97;
+
 			}
-			
-			
-			JTextField text=new JTextField();
+
+			JTextField text = new JTextField();
 			text.setEditable(false);
 			text.setBackground(Color.WHITE);
 			text.setText(game.getPlayers().get(index).getUsername());
@@ -131,36 +129,36 @@ public class PrintDiscard {
 			text.setFont(new Font("Arial", Font.PLAIN, 18));
 			pan.add(text);
 			pan.repaint();
-			
-			y=y+150;
-			
-			if(j+1 > Init.getNbPlayer()-1) {
-				j=0;
-			}
-			else {
+
+			y = y + 150;
+
+			if (j + 1 > Init.getNbPlayer() - 1) {
+				j = 0;
+			} else {
 				j++;
 			}
-			
-			
+
 		}
 		pan.setPreferredSize(new Dimension(x, y));
 	}
+
 	public static void printOtherHandSize(JPanel pan, Game game) {
-		int y=0;
+		int y = 0;
 		pan.removeAll();
-		
-		for(int index=0; index <game.getPlayers().size(); index++) {
-			JTextField text= new JTextField();
+
+		for (int index = 0; index < game.getPlayers().size(); index++) {
+			JTextField text = new JTextField();
 			text.setEditable(false);
 			text.setOpaque(false);
-			text.setBackground(new Color(0,0,0,0));
-			text.setText(game.getPlayers().get(index).getUsername() + " a encore "+game.getPlayers().get(index).getHand().cardCount()+ " cartes");
+			text.setBackground(new Color(0, 0, 0, 0));
+			text.setText(game.getPlayers().get(index).getUsername() + " a encore "
+					+ game.getPlayers().get(index).getHand().cardCount() + " cartes");
 			text.setBounds(0, y, 250, 25);
 			text.setFont(new Font("Arial", Font.PLAIN, 18));
 			text.setForeground(Color.WHITE);
 			text.setBorder(null);
 			pan.add(text);
-			y=y+25;
+			y = y + 25;
 		}
 	}
 }

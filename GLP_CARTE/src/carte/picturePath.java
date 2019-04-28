@@ -15,35 +15,35 @@ public class picturePath {
 		String path;
 		switch(key) {
 		
-		case 11:
+		case 141:
 			path="resources\\images\\14_3.png";
 		break;
 		
-		case 12:
+		case 142:
 			path="resources\\images\\14_0.png";
 		break;
 		
-		case 13:
+		case 143:
 			path="resources\\images\\14_1.png";
 		break;
 		
-		case 14:
+		case 144:
 			path="resources\\images\\14_2.png";
 		break;
 		
-		case 21:
+		case 201:
 			path="resources\\images\\20_3.png";
 		break;
 		
-		case 22:
+		case 202:
 			path="resources\\images\\20_0.png";
 		break;
 		
-		case 23:
+		case 203:
 			path="resources\\images\\20_1.png";
 		break;
 		
-		case 24:
+		case 204:
 			path="resources\\images\\20_2.png";
 		break;
 		

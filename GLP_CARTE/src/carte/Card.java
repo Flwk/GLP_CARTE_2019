@@ -36,40 +36,40 @@ public class Card {
 	}
 	
 	/*
-	 * Retourne une carte selon la clef rentrer
+	 * Retourne une carte selon la clé rentrée
 	 */
 	public static Card getCardWithKey(Integer searchKey){
 	
 		switch(searchKey) {
 		
-		case 11:
-			Card as_trefle=new Card("as de trefle", 11);
+		case 141:
+			Card as_trefle=new Card("as de trefle", 141);
 			return as_trefle;
-		case 12:
-			Card as_coeur=new Card("as de coeur", 12);
+		case 142:
+			Card as_coeur=new Card("as de coeur", 142);
 			return as_coeur;
-		case 13:
-			Card as_pic=new Card("as de pic", 13);
+		case 143:
+			Card as_pic=new Card("as de pic", 143);
 			return as_pic;
 
-		case 14:
-			Card as_carreaux=new Card("as de carreaux", 14);
+		case 144:
+			Card as_carreaux=new Card("as de carreaux", 144);
 			return as_carreaux;
 	
-		case 21:
-			Card deux_trefle=new Card("2 de trefle", 21);
+		case 201:
+			Card deux_trefle=new Card("2 de trefle", 201);
 			return deux_trefle;
 	
-		case 22:
-			Card deux_coeur=new Card("2 de coeur", 22);
+		case 202:
+			Card deux_coeur=new Card("2 de coeur", 202);
 			return deux_coeur;
 		
-		case 23:
-			Card deux_pic=new Card("2 de pic", 23);
+		case 203:
+			Card deux_pic=new Card("2 de pic", 203);
 			return deux_pic;
 		 		
-		case 24:
-			Card deux_carreaux=new Card("2 de carreaux", 24);
+		case 204:
+			Card deux_carreaux=new Card("2 de carreaux", 204);
 			return deux_carreaux;
 		 		
 		case 31:
@@ -249,12 +249,12 @@ public class Card {
 			Card roi_carreaux=new Card("roi de carreaux", 134);
 			return roi_carreaux;
 		 		
-		case 141:
-			Card joker_a=new Card("joker rouge", 141);
+		case 251:
+			Card joker_a=new Card("joker rouge", 251);
 			return joker_a;
 		 		
-		case 142:
-			Card joker_b=new Card("joker noir", 142);
+		case 252:
+			Card joker_b=new Card("joker noir", 252);
 			return joker_b;
 		 
 		

@@ -34,9 +34,10 @@ public class PlayerAction {
 	 * Action qui ne suit pas les règles
 	 */
 	public static int verify(ArrayList<Card> cards, Discard discard) {
+		
 		/*
-		 * Selon le nombre de carte que le joueur joue
-		 * On appele différente méthode de isLegit
+		 * Selon le nombre de cartes que le joueur joue
+		 * On appele différentes méthodes de isLegit
 		 */
 		switch (cards.size()) {
 		case 1:
@@ -91,10 +92,10 @@ public class PlayerAction {
 	 * Carte jouée
 	 * 
 	 * @param lastPlay
-	 * Defausse
+	 * Défausse
 	 * 
 	 * @return 1
-	 * Action qui suit les régles
+	 * Action qui suit les règles
 	 * 
 	 * @return 2
 	 * Cette action met fin au tour, bombe, combinaison de deux
@@ -109,7 +110,7 @@ public class PlayerAction {
 		 * Si le type est 0
 		 */
 		if (lastPlay.getType() == 0) {
-			if (Math.abs(card.getKey() - 20) < 5) {
+			if (Math.abs(card.getKey() - 200) < 5) {
 				return 2;
 			} else if(isJoker(card.getKey())){ //On refuse les jokers en ouverture
 				return 0;
@@ -122,16 +123,22 @@ public class PlayerAction {
 			int nbr = lastPlay.cardCount();
 			int lastKey = lastPlay.getCards().get(nbr - 1).getKey();
 			if (isJoker(lastKey)) {
-				if (isJoker(cardPlayKey)) { //On ne peut jouer deux joker consecutifs
+				if (isJoker(cardPlayKey)) { //On ne peut jouer deux joker consécutifs
 					return 0;
 				}
 				lastKey = lastPlay.getCards().get(nbr - 2).getKey() + 10;
 			}
 			
 			if (isJoker(cardPlayKey)) {
-				lastPlay.setType(1);
-				return 1; // Si la carte est un joker on accepte la carte
-			} else if (Math.abs(cardPlayKey-20) < 5) {
+				if(Math.abs(lastKey - 140) < 5) { // Si la carte est un joker on accepte la carte seulement si la cartes précedante n'est pas un as.
+					return 0;
+				}
+				else {
+					lastPlay.setType(1);
+					return 1;
+				}
+				
+			} else if (Math.abs(cardPlayKey-200) < 5) { //Si c'est un deux
 				return 2;
 			} else {
 				int a = cardPlayKey - lastKey;
@@ -142,7 +149,7 @@ public class PlayerAction {
 					return 1;
 				}
 			}
-		} else { //Si il faut jouer par exemple des doubles ou suites et pas une seule carte
+		} else {  //S'il faut jouer par exemple des doubles ou suites et pas une seule carte
 			return 0;
 		}
 
@@ -150,7 +157,7 @@ public class PlayerAction {
 	
 	/**
 	 * 
-	 * Cette méthode isLegit gére "les doubles"
+	 * Cette méthode isLegit gère "les doubles"
 	 * 
 	 * @param card
 	 * Carte 1 jouée
@@ -159,10 +166,10 @@ public class PlayerAction {
 	 * Carte 2 jouée
 	 * 
 	 * @param lastPlay
-	 * Defausse
+	 * Défausse
 	 * 
 	 * @return 1
-	 * Action qui suit les régles
+	 * Action qui suit les règles
 	 * 
 	 * @return 2
 	 * Cette action met fin au tour, bombe, combinaison de deux
@@ -185,11 +192,15 @@ public class PlayerAction {
 			int nbr = lastPlay.cardCount();
 			int lastKey = lastPlay.getCards().get(nbr - 1).getKey();
 			
+			if(isJoker(c1.getKey()) && isJoker(c2.getKey())) { //pas de double joker accepté
+				return 0;
+			}
+			
 			if (isJoker(lastKey)) {
 				lastKey = lastPlay.getCards().get(nbr - 2).getKey() + 10;
 			}
-
-			if (Math.abs(c1.getKey() - 20) < 5 && isDouble(c1, c2, lastKey)) {
+			
+			if (Math.abs(c1.getKey() - 200) < 5 && isDouble(c1, c2, lastKey)) {
 				return 2;
 			} else {
 				if (c1.getKey() == lastKey || c2.getKey() == lastKey || c1.getKey() < lastKey) {
@@ -207,16 +218,16 @@ public class PlayerAction {
 	
 	/**
 	 * 
-	 * Cette méthode isLegit gére "les suites de cartes"
+	 * Cette méthode isLegit gère "les suites de cartes"
 	 * 
 	 * @param list
 	 * ArrayList contenant les cartes jouées
 	 * 
 	 * @param lastPlay
-	 * Defausse
+	 * Défausse
 	 * 
 	 * @return card.size()
-	 * Action qui suit les régles
+	 * Action qui suit les règles
 	 * 
 	 * @return 2
 	 * Cette action met fin au tour, bombe, combinaison de deux
@@ -255,7 +266,7 @@ public class PlayerAction {
 	 * défausse
 	 * 
 	 * @return 1 
-	 * l'ArrayList de carte suit les regles
+	 * l'ArrayList de carte suit les règles
 	 */
 	public static Boolean isSuit(ArrayList<Card> list, Discard lastPlay) {
 		ArrayList<Integer> keyList = Management.calculate(list);
@@ -278,8 +289,10 @@ public class PlayerAction {
 					lastSuitKeyList.add(lastPlay.getCards().get(i));
 				}
 
-				// On la trie desormais par Key // On remplace les jokers par les valeurs qu'ils
-				// remplacent
+				/* On la trie désormais par Key 
+				 * On remplace les jokers par les valeurs qu'ils
+				 * remplacent
+				 */ 
 				ArrayList<Integer> lastKeyList = Management.calculate(lastSuitKeyList);
 				Collections.reverse(lastKeyList);
 
@@ -299,7 +312,7 @@ public class PlayerAction {
 		}
 	}
 
-	//isDouble pour les debuts de partie
+	//isDouble pour les débuts de partie
 	public static Boolean isDouble(Card c1, Card c2) {
 		int val = c1.getKey() - c2.getKey();
 		if (Math.abs(val) < 4 || (isJoker(c1.getKey()) || (isJoker(c2.getKey())))) {
@@ -309,7 +322,7 @@ public class PlayerAction {
 		}
 	}
 
-	//Test si les cartes sont bien des doubles
+	//Teste si les cartes sont bien des doubles
 	public static Boolean isDouble(Card c1, Card c2, int lastKey) {
 		int val = c1.getKey() - c2.getKey();
 		if (Math.abs(val) < 4 || (isJoker(c1.getKey()) && (c2.getKey() - lastKey < 14)
@@ -320,7 +333,7 @@ public class PlayerAction {
 		}
 	}
 	
-	//Test si les cartes sont une bombes
+	//Teste si les cartes sont une bombe
 	public static Boolean isBomb(Card c1, Card c2, Card c3) {
 		if (isDouble(c1, c2) && isDouble(c2, c3) && isDouble(c1, c3)) {
 			return true;
@@ -329,9 +342,9 @@ public class PlayerAction {
 		}
 	}
 	
-	//Test si une carte est un joker
+	//Teste si une carte est un joker
 	public static Boolean isJoker(int key) {
-		if (key == 141 || key == 142) {
+		if (key == 251 || key == 252) {
 			return true;
 		} else {
 			return false;

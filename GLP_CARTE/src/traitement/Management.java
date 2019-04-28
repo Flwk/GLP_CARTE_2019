@@ -9,12 +9,12 @@ import carte.Hand;
 import carte.Stock;
 
 /**
- * @author cvericel Class qui s'occupe de "gerer" la pioche
+ * @author cvericel Classe qui s'occupe de "gérer" la pioche
  */
 public class Management {
 
 	public static void stockManagement(Hand hand, Stock stock) {
-		CardType cardType = getRandomCard(stock); // La sa resort "un type de carte" Il faut maintenant recuperer une
+		CardType cardType = getRandomCard(stock); // On ressort "un type de carte" Il faut maintenant récuperer une
 													// couleur
 		Card card = getRandomCardColor(cardType);
 		hand.add(card);
@@ -40,13 +40,13 @@ public class Management {
 	}
 
 	/**
-	 * méthode pour gerer la pioche fictif des joueur robots qui sert a calculer les
+	 * méthode pour gérer la pioche fictive des joueurs robots qui sert à calculer les
 	 * probabilités
 	 * 
-	 * @param cardList Liste des cartes a y supprimé Sa peut être la défausse ou
+	 * @param cardList Liste des cartes à y supprimer. ça peut être la défausse ou
 	 *                 bien une main de joueur
 	 * 
-	 * @param fictif   La pioche fictif
+	 * @param fictif   La pioche fictive
 	 */
 	public static void fictifManagement(ArrayList<Card> cardList, Stock fictif) {
 
@@ -57,7 +57,7 @@ public class Management {
 			Card card = cardList.get(index);
 
 			/*
-			 * On arrondi la clef pour obtenir une clef multiple de 10
+			 * On arrondie la clé pour obtenir une clé multiple de 10
 			 */
 			cardKey = cardKey / 10;
 			cardKey = (int) Math.round((double) cardKey);
@@ -68,8 +68,8 @@ public class Management {
 	}
 
 	/**
-	 * Methode qui va trier une liste de carte par clef
-	 * Elle va alors appeler une autre methode qui va supprimer de la liste les jokers 
+	 * Méthode qui va trier une liste de cartes par clé
+	 * Elle va alors appeler une autre méthode qui va supprimer de la liste les jokers 
 	 * 
 	 * @param list
 	 * Liste de carte
@@ -89,17 +89,17 @@ public class Management {
 	}
 
 	/**
-	 * Methode qui supprime les jokers d'une ArrayList de Integer
+	 * Méthode qui supprime les jokers d'une ArrayList de Integer
 	 * 
 	 * @param list
-	 * Liste de carte dont il faut supprimer les jokers
+	 * Liste de cartes dont il faut supprimer les jokers
 	 * @return temp
 	 * l'arrayList trie sans joker
 	 */
 	public static ArrayList<Integer> listWithoutJoker(ArrayList<Integer> list) {
 		ArrayList<Integer> temp = new ArrayList<Integer>();
 		for (int i = 0; i < list.size(); i++) {
-			//si c'est un joker on le supprime par la clef qu'il doit remplacer
+			//si c'est un joker on le supprime par la clé qu'il doit remplacer
 			if (PlayerAction.isJoker(list.get(i))) {
 				for (int j = 0; j < list.size() - 1; j++) {
 					if (Math.abs(list.get(j) - list.get(j + 1)) > 14) {

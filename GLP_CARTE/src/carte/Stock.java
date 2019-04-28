@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * @author cvericel
  *
- * Class qui s'occupe des la pioche de la partie
+ * Class qui s'occupe de la pioche de la partie
  */
 public class Stock {
 	private ArrayList<CardType> cards;

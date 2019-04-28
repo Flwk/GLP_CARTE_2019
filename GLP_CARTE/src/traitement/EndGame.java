@@ -1,14 +1,12 @@
 package traitement;
 
 import carte.Player;
-import carte.Scoreboard;
 import carte.Stock;
-import carte.Table;
 import java.util.ArrayList;
 
 /**
  * @author cvericel
- * EndGame gere les fin de partie notament le score des joueurs ainsi que le gagnant
+ * EndGame gère les fins de partie notamment le score des joueurs ainsi que le gagnant
  */
 
 public class EndGame {
@@ -18,7 +16,7 @@ public class EndGame {
 	 * ArrayList de joueur de la partie
 	 * 
 	 * @return Player
-	 * retourne la joueur ayant gagné la partie
+	 * retourne le joueur ayant gagné la partie
 	 */
 	public static Player winner(ArrayList<Player> players) {
 		for (int i = 0; i < players.size(); i++) {
@@ -31,13 +29,13 @@ public class EndGame {
 	
 	/**
 	 * @param players 
-	 * ArrayList de joueur de la partie
+	 * ArrayList de joueurs de la partie
 	 * 
 	 * @param winnerID
 	 * Place dans l'arrayList du gagnant de la partie (Score  a incremente)
 	 * 
 	 * @return ArrayList<Player> 
-	 * retourne l'arrayList rentré en paramètre avec les Score Modifié
+	 * retourne l'arrayList rentrée en paramètre avec les scores modifiés
 	 */
 	public static ArrayList<Player> scoreManager(ArrayList<Player> players, int winnerId) {
 		int totalScore = 0;
@@ -61,7 +59,7 @@ public class EndGame {
 	}
 	
 	/*
-	 * remet a 0 les mains des joueurs
+	 * remet à 0 les mains des joueurs
 	 */
 	public static void resetHand(ArrayList<Player> players) {
 		for(int index=0; index<Init.getNbPlayer(); index++) {
@@ -70,7 +68,7 @@ public class EndGame {
 	}
 	
 	/*
-	 * Initialise de nouvelle main pour les joueurs
+	 * Initialise de nouvelles mains pour les joueurs
 	 */
 	public static void initNewHand(Stock stock, ArrayList<Player> players) {
 		for(int index=0; index<Init.getNbPlayer(); index++) {
